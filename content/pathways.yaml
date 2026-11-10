@@ -10,7 +10,7 @@ pathways:
     modules:
       - slug: foundations
         title: IT Foundations
-        summary: How software is built, how teams plan and test it, and the tools they use.
+        summary: How software is built and who builds it, how teams plan and test, requirements and user stories, how websites, databases and APIs work, and everyday tools and security.
         assessment:
           slug: foundations-assessment
           title: IT Foundations – module assessment
@@ -24,6 +24,8 @@ pathways:
     summary: >
       Learn Scrum as described in the Scrum Guide (2020) and practise helping a team work
       well together. Aligned with the Scrum Guide – this course does not award a Scrum certification.
+      Scrum Master jobs often ask for previous team or delivery experience, so we also point out
+      realistic stepping-stone roles.
     modules:
       - slug: scrum-fundamentals
         title: Scrum fundamentals
@@ -35,7 +37,7 @@ pathways:
         availability: COMING_SOON
       - slug: coaching-and-servant-leadership
         title: Coaching and servant leadership
-        summary: Helping people and teams find their own answers.
+        summary: Helping people and teams find their own answers – what the Scrum Guide calls being a true leader who serves.
         availability: COMING_SOON
       - slug: supporting-the-scrum-events
         title: Supporting the Scrum events well
@@ -51,7 +53,7 @@ pathways:
         availability: COMING_SOON
       - slug: delivery-measures
         title: Delivery measures and their limits
-        summary: What measures can and can't tell you, and why velocity must not be used to compare teams.
+        summary: What measures can and can't tell you, including velocity (a common workplace practice, not part of the Scrum Guide), and why it must not be used to compare teams or judge individuals.
         availability: COMING_SOON
       - slug: scrum-scenarios-and-interviews
         title: Workplace scenarios and interview preparation
@@ -67,7 +69,7 @@ pathways:
     modules:
       - slug: testing-foundations
         title: Testing foundations
-        summary: Why testing matters, the seven testing principles, test levels and types, and risk.
+        summary: Why testing matters, quality assurance vs testing, the seven testing principles, test levels and types, and risk.
         availability: COMING_SOON
       - slug: requirements-and-acceptance-criteria
         title: Analysing requirements and acceptance criteria
@@ -103,5 +105,5 @@ pathways:
         availability: COMING_SOON
       - slug: intro-to-automation
         title: Introduction to test automation (optional)
-        summary: What automation is good for – only after Modules 1–9.
+        summary: What automation is good for. Best taken after Modules 1–9.
         availability: COMING_SOON

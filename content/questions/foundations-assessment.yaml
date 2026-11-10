@@ -39,8 +39,8 @@ questions:
 
   - key: fa-01
     type: SINGLE
-    objective: Describe the stages from idea to release
-    lessonRef: { lesson: how-software-is-built, section: explanation }
+    objective: Explain the key terms feature, bug, release and stakeholder
+    lessonRef: { lesson: how-software-is-built, section: glossary }
     stem: What does "release" mean in a software team?
     options:
       - id: a
@@ -63,7 +63,7 @@ questions:
     stem: Which stage comes straight after the idea?
     options:
       - id: a
-        text: Understanding the need
+        text: Understand the need
         correct: true
         explanation: Correct. Before designing anything, the team finds out who has the problem and what would help.
       - id: b
@@ -97,7 +97,7 @@ questions:
   - key: fa-04
     type: SINGLE
     objective: Describe the stages from idea to release
-    lessonRef: { lesson: how-software-is-built, section: explanation }
+    lessonRef: { lesson: how-software-is-built, section: worked-example }
     stem: Why does a tester check other baskets after a rounding bug in one basket has been fixed?
     options:
       - id: a
@@ -115,8 +115,8 @@ questions:
         explanation: Baskets can and should be tested before release.
   - key: fa-05
     type: SINGLE
-    objective: Name the main roles in a software team
-    lessonRef: { lesson: how-software-is-built, section: explanation }
+    objective: Explain the key terms feature, bug, release and stakeholder
+    lessonRef: { lesson: how-software-is-built, section: workplace-example }
     stem: What is a stakeholder?
     options:
       - id: a
@@ -130,11 +130,11 @@ questions:
         text: The person who writes the code
         explanation: That's a developer. Developers are stakeholders too, but the word is much wider.
       - id: d
-        text: A tool for tracking bugs
-        explanation: A stakeholder is a person or group, not a tool.
+        text: A customer who has made a complaint
+        explanation: A customer with a complaint is a stakeholder, but so is anyone else who cares about or is affected by the product.
   - key: fa-06
     type: SINGLE
-    objective: Name the main roles in a software team
+    objective: Explain the key terms feature, bug, release and stakeholder
     lessonRef: { lesson: how-software-is-built, section: glossary }
     stem: Which is the best description of a bug?
     options:
@@ -153,7 +153,7 @@ questions:
         explanation: That's outside the software. A bug is a mistake in the software itself.
   - key: fa-07
     type: SINGLE
-    objective: Name the main roles in a software team
+    objective: Explain the key terms feature, bug, release and stakeholder
     lessonRef: { lesson: how-software-is-built, section: glossary }
     stem: Which of these is a feature?
     options:
@@ -168,13 +168,13 @@ questions:
         text: The team's weekly meeting
         explanation: That's a team activity, not something the product lets people do.
       - id: d
-        text: The server the website runs on
-        explanation: That's part of the system's set-up, not something customers can do with the product.
+        text: The ShopEasy logo at the top of the page
+        explanation: That's part of how the site looks, not something the product lets people do.
   - key: fa-08
     type: MULTI
     objective: Name the main roles in a software team
     lessonRef: { lesson: how-software-is-built, section: workplace-example }
-    stem: In the "Save for later" example, which TWO roles worked on it before any code was written?
+    stem: In the ShopEasy "Save for later" example, which TWO roles are described doing their part before the developers built it?
     options:
       - id: a
         text: Business analyst
@@ -186,7 +186,7 @@ questions:
         explanation: Correct. The designer sketched where the button goes before it was built.
       - id: c
         text: Tester
-        explanation: The tester checked the feature once it had been built.
+        explanation: In this example the tester is described checking the built feature. In many teams testers get involved earlier too, for example by reviewing the requirements.
       - id: d
         text: Operations engineer
         explanation: The operations engineer helped make the release go smoothly, after it was built.
@@ -263,11 +263,11 @@ questions:
         text: The team stops working on the product
         explanation: The work carries on. Real use gives the team new information.
       - id: c
-        text: Customers are trained to write code
-        explanation: Customers don't write the code. The team learns from how customers use the product.
+        text: The team writes down exactly what the change should do
+        explanation: That's the "understand the need" stage, before building.
       - id: d
-        text: The software is deleted and rebuilt from scratch
-        explanation: Teams improve products in small steps rather than rebuilding them.
+        text: The tester checks the change before it goes live
+        explanation: That's the test stage, which comes before release.
   - key: fa-13
     type: SINGLE
     objective: Name the main roles in a software team
@@ -302,8 +302,8 @@ questions:
         correct: true
         explanation: Correct. Small steps let the team learn and adjust quickly.
       - id: c
-        text: Nobody talks to each other until hand-over points
-        explanation: Teams talk throughout. Each role brings a different view.
+        text: Each role finishes all its work before passing it on
+        explanation: Most teams overlap the stages rather than handing over finished blocks of work.
       - id: d
         text: Everything is released once, at the very end
         explanation: Most teams release in small steps rather than all at once.
@@ -311,8 +311,8 @@ questions:
     type: SCENARIO
     objective: Name the main roles in a software team
     lessonRef: { lesson: how-software-is-built, section: guided-practice }
-    scenario: ShopEasy is thinking about letting customers choose a delivery day.
-    stem: Who would you expect to decide whether this is worth building at all?
+    scenario: ShopEasy is wondering whether to offer gift wrapping. Nobody has designed or built anything yet.
+    stem: Who weighs up whether it's worth the team's time?
     options:
       - id: a
         text: The product manager
@@ -354,9 +354,9 @@ questions:
     stem: Why does the ShopEasy team talk to each other throughout the work, not only at hand-over points?
     options:
       - id: a
-        text: Each person brings a different view, and problems are cheaper to fix when found early
+        text: Each person brings a different view and can spot problems others miss
         correct: true
-        explanation: Correct. Talking early helps the team spot problems before they're built in.
+        explanation: Correct. Talking throughout helps the team spot problems before they're built in.
       - id: b
         text: Because managers need to check everyone is busy
         explanation: The point of talking is to share knowledge and spot problems early, not to check on people.
@@ -364,27 +364,29 @@ questions:
         text: Because only one person understands the product
         explanation: The opposite – several people understand different parts, which is why they talk.
       - id: d
-        text: Because hand-overs are against the law
-        explanation: There's no such law. Hand-overs happen, but teams also talk throughout.
+        text: So that nobody needs to write anything down
+        explanation: Teams still write things down, such as requirements and bug reports. Talking throughout adds to this; it doesn't replace it.
   - key: fa-18
-    type: SINGLE
-    objective: Name the main roles in a software team
-    lessonRef: { lesson: how-software-is-built, section: explanation }
-    stem: Which role plans how screens look and how people move through them?
+    type: SCENARIO
+    objective: Explain the key terms feature, bug, release and stakeholder
+    lessonRef: { lesson: how-software-is-built, section: glossary }
+    scenario: A ShopEasy customer writes in asking for gift wrapping at checkout. Gift wrapping has never been offered.
+    stem: How would the team describe this request?
     options:
       - id: a
-        text: Designer
+        text: A request for a new feature
         correct: true
-        explanation: Correct. Designers plan screens and the path people take through them.
+        explanation: Correct. It's something the product doesn't do yet, so it's a feature request.
       - id: b
-        text: Tester
-        explanation: Testers check how the product behaves. Designers plan how it should look and flow.
+        text: A bug
+        explanation: A bug is when software behaves differently from what was expected. Nobody expected gift wrapping to exist, so this isn't a bug.
       - id: c
-        text: Operations engineer
-        explanation: Operations engineers keep the live system running.
+        text: A release
+        explanation: A release makes a new version available to users. The team might release gift wrapping later, but the request itself isn't a release.
       - id: d
-        text: Business analyst
-        explanation: Business analysts write requirements. The designer plans screens and flows.
+        text: A stakeholder
+        explanation: The customer who asked is a stakeholder, but the request itself is a feature request.
+
   - key: fa-19
     type: SINGLE
     objective: Describe the stages from idea to release

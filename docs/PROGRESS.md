@@ -21,12 +21,13 @@ Phase 1 – Core platform: **done** (10 Nov 2026). Next: Phase 2a – Foundation
   - Admin: curriculum and module editing, lesson draft → review → publish with versions and preview, question-bank drafts and publishing, retire/restore questions, assessment settings, unlock rules, user roles, audit log, admin JSON APIs.
   - Data download (JSON) and account deletion; site search (Postgres full-text) over lessons and glossary; privacy notice.
   - Sample content: Foundations lesson 1, a 4-question knowledge check, a 25-question module bank (6 generated slots) and the diagnostic.
+  - Content review (content-reviewer agent): all Must fix and Should fix items fixed – answer options are now shuffled per attempt (the right answer was always "a"), the worked example's rounding maths corrected, generated feedback grammar fixed, ambiguous role duties replaced, a third lesson objective (key terms) added and the key-term questions re-tagged to it, the Scrum Master role added to the lesson, missing glossary terms added, weak distractors replaced, fa-18 (a duplicate of a generated question) replaced, diagnostic and pathway summaries corrected.
 
 ## In progress
 - Nothing.
 
 ## Next steps
-1. Phase 2a: write Foundations lessons 2–5 with knowledge checks, extend the Foundations bank to cover all five lessons, add glossary entries; run the content-reviewer agent.
+1. Phase 2a: write Foundations lessons 2–5 with knowledge checks, extend the Foundations bank to cover all five lessons, add glossary entries; run the content-reviewer agent. Carry-overs from the Phase 1 review: point the diagnostic's `lessonRef`s at Lessons 4 and 5 (dg-01–dg-03) and make `lessonRef` optional for logic, detail and preference items; keep role-matching questions to a small share of the bank.
 2. Phase 2b: Scrum Master and QA Tester Module 1, assignments, rubrics, practical submission and assessor review.
 
 ## Acceptance criteria status (SPEC §16)
@@ -50,7 +51,7 @@ Results from `pnpm test:e2e` on 10 Nov 2026: 24 tests, all passing.
 | 14 | axe: no serious violations on key pages | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (all Phase 1 pages) |
 | 15 | 375px + keyboard-only journeys | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (see limitations) |
 
-Unit tests: 62 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
+Unit tests: 66 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
 
 ## Decisions
 - Stack as in CLAUDE.md, with **no AI provider**: questions, coach replies and feedback are rule-based from course content (PLAN §8.2).
@@ -71,4 +72,6 @@ Unit tests: 62 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm bu
 - **Admin UI gaps:** generated questions can be retired/restored but their parameters are edited in the content files; unlock rules can only add "lessons completed" rules from the UI (the data model supports all three types); retiring a question takes effect immediately rather than through publish.
 - **Search** builds the full-text index at query time (fine for this amount of content; add a stored `tsvector` index if content grows).
 - **Dashboard portfolio card** is a placeholder until Phase 4.
+- **Existing databases don't pick up edited content files** (by design, PLAN A9). After the Phase 1 content fixes, a database seeded earlier still has the old lesson text; `pnpm db:reset` reloads everything (and deletes learners).
+- If pages look unstyled or out of date in `pnpm dev` or the e2e run, delete `.next/` – Turbopack's dev cache once served a stale stylesheet during this phase.
 - Next.js may print `Error: The destination stream errored while writing data` in the e2e server log when a test navigates away mid-response; it doesn't affect results.

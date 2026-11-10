@@ -52,6 +52,7 @@ test("AC13: a learner can't see another learner's data", async ({ page }) => {
   await page.goto("/learn/how-software-is-built?section=objective");
   await page.getByLabel("Add a note").fill("Learner A's secret note");
   await page.getByRole("button", { name: "Save note" }).click();
+  await expect(page.getByText("Learner A's secret note")).toBeVisible();
   await page.goto("/assessments/foundations-assessment");
   await page.getByRole("button", { name: "Start the assessment" }).click();
   const { attemptId } = await answerAttempt(page, () => true);

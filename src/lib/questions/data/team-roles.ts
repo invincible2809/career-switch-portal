@@ -11,8 +11,8 @@ export const TEAM_ROLES: TeamRole[] = [
     role: "Product manager",
     summary: "decides what the product should do next and why, based on customer and business needs",
     duties: [
-      "decides which new feature would help ShopEasy customers most this quarter",
-      "talks to customers and the business to understand what they need from the shop",
+      "decides which new feature would help customers most this quarter",
+      "decides whether 'choose a delivery day' should be built before 'gift wrapping'",
       "explains why a new 'save for later' button is worth building",
     ],
   },
@@ -21,7 +21,7 @@ export const TEAM_ROLES: TeamRole[] = [
     summary: "plans how screens look and how people move through them",
     duties: [
       "sketches how the new checkout screen should look on a phone",
-      "watches customers try the basket page to see where they get confused",
+      "draws a simple layout of the new order-tracking page",
       "chooses where the 'Pay now' button should sit so people can find it",
     ],
   },
@@ -48,7 +48,7 @@ export const TEAM_ROLES: TeamRole[] = [
     summary: "turns needs into clear, written requirements the team can build and test",
     duties: [
       "writes down exactly what should happen when a discount code has expired",
-      "turns a manager's request into clear acceptance criteria",
+      "writes down what should happen when a customer tries to return an item after 30 days",
       "maps the current returns process to find steps that could be simpler",
     ],
   },

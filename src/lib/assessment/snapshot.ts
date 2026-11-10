@@ -1,4 +1,5 @@
 import { generateQuestion } from "../questions/generators";
+import { createRng, shuffle } from "../random";
 import type { OptionSnapshot, QuestionSnapshot, QuestionType } from "./types";
 
 export interface QuestionRow {
@@ -35,7 +36,11 @@ export function toSnapshot(q: QuestionRow, seed: number): QuestionSnapshot {
     type: q.type,
     scenario: q.scenario ?? undefined,
     stem: q.stem,
-    options: (q.options as OptionSnapshot[]).map(({ id, text, correct, explanation }) => ({ id, text, correct: !!correct, explanation })),
+    // Option order is shuffled per seed so the right answer isn't always in the same place.
+    // Ids stay the same, so marking is unaffected. ORDER questions keep their (already jumbled) order.
+    options: (q.type === "ORDER" ? (x: OptionSnapshot[]) => x : (x: OptionSnapshot[]) => shuffle(createRng(seed), x))(
+      (q.options as OptionSnapshot[]).map(({ id, text, correct, explanation }) => ({ id, text, correct: !!correct, explanation })),
+    ),
     correctOrder: q.correctOrder,
   };
 }

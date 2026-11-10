@@ -66,8 +66,10 @@ body {
   border-radius: 2px;
 }
 
-a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
-a:hover { color: var(--primary-hover); }
+/* "body a" outranks Tailwind's preflight reset whatever order the stylesheets load in;
+   utility classes (a later layer) still override it. */
+body a { color: var(--primary); text-decoration-line: underline; text-underline-offset: 3px; }
+body a:hover { color: var(--primary-hover); }
 }
 
 @media (prefers-reduced-motion: reduce) {

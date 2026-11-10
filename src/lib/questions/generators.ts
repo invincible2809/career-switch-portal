@@ -50,12 +50,12 @@ function whoDoesWhat(rng: Rng, raw: unknown): GeneratedQuestion {
       {
         text: target.role,
         correct: true,
-        explanation: `Correct. A ${target.role.toLowerCase()} ${target.summary}.`,
+        explanation: `Correct. The ${target.role.toLowerCase()} usually ${target.summary}.`,
       },
       ...others.map((r) => ({
         text: r.role,
         correct: false,
-        explanation: `Not quite. A ${r.role.toLowerCase()} ${r.summary}. This task is usually done by the ${target.role.toLowerCase()}.`,
+        explanation: `Not quite. The ${r.role.toLowerCase()} usually ${r.summary}. This task is usually done by the ${target.role.toLowerCase()}.`,
       })),
     ]),
     correctOrder: [],

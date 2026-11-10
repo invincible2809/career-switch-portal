@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { requireUser } from "@/server/guards";
 import { getDiagnosticQuestions } from "@/server/onboarding";
 import { submitDiagnosticAction } from "../actions";
+import { createRng, randomSeed, shuffle } from "@/lib/random";
 import { Alert, Card, PageHeader } from "@/components/ui/card";
 import { SubmitButton } from "@/components/forms/form-status";
 
@@ -32,7 +33,7 @@ export default async function DiagnosticPage() {
                 {q.stem}
               </legend>
               <div className="mt-3 space-y-2">
-                {q.options.map((o) => (
+                {shuffle(createRng(randomSeed()), q.options).map((o) => (
                   <label key={o.id} className="flex items-start gap-3">
                     <input type="radio" name={`q_${q.id}`} value={o.id} className="mt-1 h-5 w-5" />
                     <span>{o.text}</span>

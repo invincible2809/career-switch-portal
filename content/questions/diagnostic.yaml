@@ -35,7 +35,7 @@ questions:
         explanation: That's right. A shop's orders and customers are stored in a database.
       - id: b
         text: Making a website look attractive
-        explanation: That's design and front-end work. Databases store information.
+        explanation: That's the job of design. Databases store information.
       - id: c
         text: I'm not sure
         explanation: No problem – Foundations covers this in plain English.
@@ -49,7 +49,7 @@ questions:
       - id: a
         text: Don't click the link – go to the website yourself or contact the company another way
         correct: true
-        explanation: That's right. This is a common sign of phishing.
+        explanation: That's right. This is a common sign of phishing – a fake message that tries to trick you into giving away details.
       - id: b
         text: Click the link quickly so the account isn't closed
         explanation: Pressure to act fast is a common phishing trick. Foundations Lesson 5 covers how to spot it.
@@ -105,8 +105,8 @@ questions:
         text: Nothing – it works on the laptop, so it's fine
         explanation: Many customers shop on phones, so it's worth investigating.
       - id: c
-        text: Buy a new phone
-        explanation: It's better to narrow down the cause first.
+        text: Whether the button works on a different laptop
+        explanation: It already works on a laptop, so another laptop tells you little. The problem shows up on the phone, so that's where to look.
   - key: dg-07
     type: SINGLE
     objective: Attention to detail
@@ -163,11 +163,11 @@ questions:
       - id: a
         text: Bring everyone together to talk about what's getting in the way and agree what to try
         lean: SCRUM_MASTER
-        explanation: You enjoy helping groups work through problems together – a big part of the Scrum Master role.
+        explanation: This suggests you may enjoy helping groups work through problems together – a big part of the Scrum Master role.
       - id: b
         text: Look closely at the work to find exactly where things go wrong
         lean: QA_TESTER
-        explanation: You like investigating details to find the cause – a big part of testing.
+        explanation: This suggests you may like investigating details to find the cause – a big part of testing.
   - key: dg-11
     type: SCENARIO
     objective: Working with people
@@ -179,11 +179,11 @@ questions:
       - id: a
         text: Trying it out to find the things that don't work before customers do
         lean: QA_TESTER
-        explanation: Finding problems before customers do is what testers do every day.
+        explanation: This suggests you may enjoy finding problems before customers do – what testers do every day.
       - id: b
         text: Helping colleagues adapt and making sure their concerns are heard
         lean: SCRUM_MASTER
-        explanation: Supporting people through change is close to the coaching side of the Scrum Master role.
+        explanation: This suggests you may enjoy supporting people through change – close to the coaching side of the Scrum Master role.
   - key: dg-12
     type: SCENARIO
     objective: Working with people
@@ -195,8 +195,8 @@ questions:
       - id: a
         text: Help them talk it through until they find a way forward together
         lean: SCRUM_MASTER
-        explanation: Helping people resolve disagreement themselves is a key Scrum Master skill.
+        explanation: This suggests you may enjoy helping people resolve disagreement themselves – a key Scrum Master skill.
       - id: b
-        text: Suggest trying both ways and comparing the results
+        text: Look closely at each way to spot where it could go wrong
         lean: QA_TESTER
-        explanation: Checking ideas against evidence is how testers think.
+        explanation: This suggests you may enjoy looking for where things could go wrong – how testers think.

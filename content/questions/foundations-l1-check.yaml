@@ -66,7 +66,7 @@ questions:
         explanation: Correct. Teams usually work in small steps, and testing often starts while building is still going on.
       - id: b
         text: Each stage must be fully finished before the next one starts.
-        explanation: That's rare today. Most teams overlap the stages and repeat the cycle in small steps.
+        explanation: Some projects work this way, but most teams overlap the stages and repeat the cycle in small steps.
       - id: c
         text: Testing only happens once, just before release.
         explanation: Testing happens throughout, and again after fixes, to check nothing else broke.
