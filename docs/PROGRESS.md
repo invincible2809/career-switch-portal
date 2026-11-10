@@ -3,16 +3,17 @@
 Claude: read this at the start of every session and update it at the end of each phase or work session.
 
 ## Current phase
-Phase 0 – Plan (not started)
+Phase 0 – Plan (draft written, awaiting approval)
 
 ## Done
-- (nothing yet)
+- Phase 0: `docs/PLAN.md` written (assumptions, stack, data model, routes, content formats, phase steps, open questions)
 
 ## In progress
-- 
+- Waiting for approval of `docs/PLAN.md` and answers to its questions Q1–Q7 (section 7)
 
 ## Next steps
-1. Phase 0: write docs/PLAN.md and get approval
+1. Get approval of docs/PLAN.md (and answers to Q1–Q7)
+2. Phase 1 – Core platform, in a fresh session
 
 ## Acceptance criteria status (SPEC §16)
 | # | Criterion | Test file | Status |
@@ -34,7 +35,8 @@ Phase 0 – Plan (not started)
 | 15 | 375px + keyboard-only journeys | | Not started |
 
 ## Decisions
-- 
+- Stack confirmed as in CLAUDE.md; no changes proposed (PLAN §2)
+- Proposals pending approval: see PLAN §1 and §7
 
 ## Known limitations / mocked features
 - 
