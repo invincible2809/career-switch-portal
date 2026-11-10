@@ -1,0 +1,89 @@
+slug: foundations-l2-check
+title: How teams plan and test their work – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: how-teams-plan-and-test
+questions:
+  - key: fl2-kc-01
+    type: SINGLE
+    objective: Explain the difference between working in one big plan and working in small steps
+    lessonRef: { lesson: how-teams-plan-and-test, section: explanation }
+    stem: What is the main risk of building everything in one big plan with a single release at the end?
+    options:
+      - id: a
+        text: Problems are often found late, when they are expensive to fix
+        correct: true
+        explanation: Correct. With one release at the end, testing and feedback come late, so problems have had time to grow.
+      - id: b
+        text: Customers get new features too quickly to keep up
+        explanation: The opposite – with one big release, customers wait a long time for anything new.
+      - id: c
+        text: Customers see changes too often
+        explanation: The opposite – with one big release, customers see nothing until the end.
+  - key: fl2-kc-02
+    type: MULTI
+    objective: Name the four Agile values
+    lessonRef: { lesson: how-teams-plan-and-test, section: explanation }
+    stem: Which TWO of these are among the four values in the Manifesto for Agile Software Development?
+    options:
+      - id: a
+        text: Working software over comprehensive documentation
+        correct: true
+        explanation: Correct. This is one of the four values.
+      - id: b
+        text: Responding to change over following a plan
+        correct: true
+        explanation: Correct. This is one of the four values.
+      - id: c
+        text: Speed over quality
+        explanation: This isn't one of the values. Agile teams care a lot about quality.
+      - id: d
+        text: Tools over people
+        explanation: The Manifesto says the opposite – individuals and interactions over processes and tools.
+  - key: fl2-kc-03
+    type: SINGLE
+    objective: Name the parts of Scrum (its accountabilities, events and artifacts)
+    lessonRef: { lesson: how-teams-plan-and-test, section: guided-practice }
+    stem: Which of these is a Scrum event?
+    options:
+      - id: a
+        text: The Sprint Retrospective
+        correct: true
+        explanation: Correct. The five Scrum events are the Sprint, Sprint Planning, the Daily Scrum, the Sprint Review and the Sprint Retrospective.
+      - id: b
+        text: The Product Backlog
+        explanation: The Product Backlog is a Scrum artifact – something the team works on – not an event.
+      - id: c
+        text: The Product Owner
+        explanation: The Product Owner is one of the three accountabilities in a Scrum Team, not an event.
+  - key: fl2-kc-04
+    type: SINGLE
+    objective: Name the parts of Scrum (its accountabilities, events and artifacts)
+    lessonRef: { lesson: how-teams-plan-and-test, section: explanation }
+    stem: In a Scrum Team, which accountability does a tester belong to?
+    options:
+      - id: a
+        text: Developers
+        correct: true
+        explanation: Correct. In Scrum, "Developers" means everyone who creates the work, including testers.
+      - id: b
+        text: Product Owner
+        explanation: The Product Owner orders the work to get the most value. Testers are among the Developers.
+      - id: c
+        text: Scrum Master
+        explanation: The Scrum Master helps the team use Scrum well. Testers are among the Developers.
+  - key: fl2-kc-05
+    type: SINGLE
+    objective: Describe the software development and testing lifecycles
+    lessonRef: { lesson: how-teams-plan-and-test, section: explanation }
+    stem: When does testing happen in a team that works well?
+    options:
+      - id: a
+        text: Alongside development, from planning onwards
+        correct: true
+        explanation: Correct. Testing has its own process that runs alongside development, starting with planning.
+      - id: b
+        text: Only after everything has been built
+        explanation: Leaving testing until the end means problems are found late, when they cost more to fix.
+      - id: c
+        text: Only after release
+        explanation: Then customers find the problems. Testing runs alongside development, before release.

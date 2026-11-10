@@ -73,6 +73,7 @@ export function loadContent(root = path.join(process.cwd(), "content")): Content
           errors.push(`pathways.yaml: module "${m.slug}" assessment bank "${m.assessment.bank}" not found`);
     for (const b of banks) {
       for (const q of b.questions) {
+        if (!q.lessonRef) continue;
         const sections = lessonSections.get(q.lessonRef.lesson);
         if (!sections) errors.push(`${b.file}: ${q.key} links to unknown lesson "${q.lessonRef.lesson}"`);
         else if (!sections.has(q.lessonRef.section))

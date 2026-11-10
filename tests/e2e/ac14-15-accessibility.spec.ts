@@ -1,10 +1,10 @@
 import { expect, test, type Page } from "@playwright/test";
-import { createLearner, db, markLessonComplete } from "./helpers/db";
+import { createLearner, db, markModuleComplete } from "./helpers/db";
 import { expectNoHorizontalScroll, expectNoSeriousA11yViolations, login, loginAsAdmin, logout } from "./helpers/ui";
 
 async function learnerPages(page: Page) {
   const learner = await createLearner("a11y");
-  await markLessonComplete(learner.id, "how-software-is-built");
+  await markModuleComplete(learner.id);
   await login(page, learner.email, learner.password);
   // Create an attempt so the attempt and result pages exist.
   await page.goto("/assessments/foundations-assessment");
@@ -22,6 +22,10 @@ async function learnerPages(page: Page) {
     "/learn/how-software-is-built?section=objective",
     "/learn/how-software-is-built?section=guided-practice",
     "/learn/how-software-is-built?section=knowledge-check",
+    "/learn/how-teams-plan-and-test?section=explanation",
+    "/learn/requirements-and-user-stories?section=workplace-example",
+    "/learn/web-apps-databases-apis?section=explanation",
+    "/learn/tools-and-security?section=guided-practice",
     "/assessments/foundations-assessment",
     attemptUrl.replace(/\/result$/, ""),
     resultUrl,
@@ -40,6 +44,7 @@ async function learnerPages(page: Page) {
 const PUBLIC_PAGES = ["/", "/login", "/register", "/forgot-password", "/privacy"];
 
 test("AC14: no serious accessibility violations on key pages (axe)", async ({ page }) => {
+  test.setTimeout(240_000); // ~40 pages, each compiled on first visit by the dev server
   for (const url of PUBLIC_PAGES) {
     await page.goto(url);
     await expectNoSeriousA11yViolations(page);
@@ -88,6 +93,7 @@ test.describe("AC15: works at 375px wide", () => {
   test.use({ viewport: { width: 375, height: 800 } });
 
   test("key pages have no sideways scrolling and the menu works", async ({ page }) => {
+    test.setTimeout(180_000);
     for (const url of PUBLIC_PAGES) {
       await page.goto(url);
       await expectNoHorizontalScroll(page);
@@ -104,7 +110,7 @@ test.describe("AC15: works at 375px wide", () => {
 
 test("AC15: key journeys work with the keyboard only", async ({ page }) => {
   const learner = await createLearner("keyboard");
-  await markLessonComplete(learner.id, "how-software-is-built");
+  await markModuleComplete(learner.id);
 
   // Skip link
   await page.goto("/login");

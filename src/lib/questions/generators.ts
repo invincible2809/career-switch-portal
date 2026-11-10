@@ -6,6 +6,7 @@ import { z } from "zod";
 import { choice, createRng, sample, shuffle, type Rng } from "../random";
 import type { OptionSnapshot, QuestionType } from "../assessment/types";
 import { TEAM_ROLES } from "./data/team-roles";
+import { CRITERIA, PART_INFO, type Part } from "./data/acceptance-criteria";
 
 export interface GeneratedQuestion {
   type: QuestionType;
@@ -112,6 +113,37 @@ function bvaValues(rng: Rng, raw: unknown): GeneratedQuestion {
   };
 }
 
+// ---- given-when-then: identify the parts of a ShopEasy acceptance criterion ----
+const gwtParams = z.object({ ask: z.enum(["GIVEN", "WHEN", "THEN"]).optional() }).strict();
+
+function givenWhenThen(rng: Rng, raw: unknown): GeneratedQuestion {
+  const { ask } = gwtParams.parse(raw);
+  const c = choice(rng, CRITERIA);
+  const target: Part = ask ?? choice(rng, ["GIVEN", "WHEN", "THEN"] as const);
+  const text: Record<Part, string> = { GIVEN: c.given, WHEN: c.when, THEN: c.then };
+  const parts: Part[] = ["GIVEN", "WHEN", "THEN"];
+  return {
+    type: "SINGLE",
+    // Listed in a jumbled order so the answer can't be worked out from position alone.
+    scenario: `A ShopEasy acceptance criterion has three parts, shown here in a jumbled order and without their labels: ${shuffle(rng, parts)
+      .map((p) => `“${text[p]}”`)
+      .join(", ")}.`,
+    stem: `Which part is the "${PART_INFO[target].word}"?`,
+    options: withIds(
+      rng,
+      parts.map((p) => ({
+        text: text[p],
+        correct: p === target,
+        explanation:
+          p === target
+            ? `Correct. The ${PART_INFO[p].word} is ${PART_INFO[p].role}.`
+            : `This is the ${PART_INFO[p].word} – ${PART_INFO[p].role}. The ${PART_INFO[target].word} is ${PART_INFO[target].role}.`,
+      })),
+    ),
+    correctOrder: [],
+  };
+}
+
 interface GeneratorDef {
   description: string;
   params: z.ZodType;
@@ -123,6 +155,11 @@ export const GENERATORS: Record<string, GeneratorDef> = {
     description: "Match a ShopEasy task to the tech-team role that usually does it",
     params: whoDoesWhatParams,
     build: whoDoesWhat,
+  },
+  "given-when-then": {
+    description: "Identify the Given, When or Then in a ShopEasy acceptance criterion",
+    params: gwtParams,
+    build: givenWhenThen,
   },
   "bva-values": {
     description: "Pick the two-value boundary value analysis test values for a numeric range",

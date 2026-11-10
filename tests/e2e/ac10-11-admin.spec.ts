@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { createLearner, db, markLessonComplete, setPassMark } from "./helpers/db";
+import { createLearner, db, markModuleComplete, setPassMark } from "./helpers/db";
 import { answerAttempt, login, loginAsAdmin, logout } from "./helpers/ui";
 
 test("AC10: admin edits and publishes a lesson, and learners see the change", async ({ page }) => {
@@ -62,7 +62,7 @@ test("AC10: admin edits and publishes a question bank, and learners see the chan
 
 test("AC11: admin changes the pass mark and it applies to new attempts only", async ({ page }) => {
   const learner = await createLearner("ac11");
-  await markLessonComplete(learner.id, "how-software-is-built");
+  await markModuleComplete(learner.id);
   const assessment = await db.assessment.findUniqueOrThrow({ where: { slug: "foundations-assessment" } });
   try {
     // An attempt under the old pass mark (80%): 6/10 fails.

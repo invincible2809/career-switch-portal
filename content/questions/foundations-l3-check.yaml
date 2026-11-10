@@ -1,0 +1,69 @@
+slug: foundations-l3-check
+title: Requirements, user stories and acceptance criteria – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: requirements-and-user-stories
+questions:
+  - key: fl3-kc-01
+    type: SINGLE
+    objective: Write a user story in the "As a…, I want…, so that…" format
+    lessonRef: { lesson: requirements-and-user-stories, section: explanation }
+    stem: Why does the "so that" part of a user story matter?
+    options:
+      - id: a
+        text: It explains why the user needs it, which helps the team make sensible decisions
+        correct: true
+        explanation: Correct. Knowing the reason helps the team choose the best way to meet the need.
+      - id: b
+        text: It tells the developer which code to change
+        explanation: User stories describe needs, not code. The "so that" explains the reason behind the need.
+      - id: c
+        text: It sets the deadline for the work
+        explanation: User stories don't usually include deadlines. The "so that" explains why the need matters.
+  - key: fl3-kc-02
+    type: ORDER
+    objective: Write acceptance criteria in the Given / When / Then format
+    lessonRef: { lesson: requirements-and-user-stories, section: explanation }
+    stem: Put these parts of an acceptance criterion in the usual order.
+    options:
+      - id: a
+        text: Then – what should happen
+        explanation: The Then comes last – it's the expected result that gets checked.
+      - id: b
+        text: Given – the starting situation
+        explanation: The Given comes first – it sets the scene.
+      - id: c
+        text: When – what the user does
+        explanation: The When comes in the middle – it's the action.
+    correctOrder: [b, c, a]
+  - key: fl3-kc-03
+    type: SINGLE
+    objective: Explain what a requirement is and why vague requirements cause problems
+    lessonRef: { lesson: requirements-and-user-stories, section: guided-practice }
+    stem: Which acceptance criterion is easiest to test?
+    options:
+      - id: a
+        text: Then the basket total updates to £36.00
+        correct: true
+        explanation: Correct. It's specific, so anyone can say clearly whether it passed or failed.
+      - id: b
+        text: Then the basket works properly
+        explanation: The phrase "works properly" means different things to different people, so it can't be clearly passed or failed.
+      - id: c
+        text: Then the page is user-friendly
+        explanation: Whether something is "user-friendly" is a matter of opinion. A testable criterion says exactly what should happen.
+  - key: fl3-kc-04
+    type: SINGLE
+    objective: Write acceptance criteria in the Given / When / Then format
+    lessonRef: { lesson: requirements-and-user-stories, section: workplace-example }
+    stem: In the discount code example, why did the team also write a criterion for an expired code?
+    options:
+      - id: a
+        text: Acceptance criteria should cover what happens when things go wrong, not just the normal case
+        correct: true
+        explanation: Correct. Unhappy paths and edge cases are where many bugs hide.
+      - id: b
+        text: Because expired codes are the most common kind of code
+        explanation: That's not the reason. Good criteria cover unhappy paths as well as the normal case.
+      - id: c
+        text: Because every story must have exactly two criteria
+        explanation: There's no fixed number. Criteria should cover the important situations, including when things go wrong.

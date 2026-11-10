@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { createLearner } from "./helpers/db";
+import { createLearner, markLessonComplete } from "./helpers/db";
 import { answerAttempt, login, logout } from "./helpers/ui";
 
 test("AC3: leave a lesson part-way through and resume at the same section", async ({ page }) => {
@@ -55,6 +55,9 @@ test("AC7: log out and back in and see accurate progress and history", async ({ 
   await page.goto("/learn/how-software-is-built?section=next-step");
   await page.getByRole("button", { name: "Mark lesson as complete" }).click();
   await expect(page.getByText(/You finished "How software is built/)).toBeVisible();
+  // Finish the other four Foundations lessons so the assessment unlocks.
+  for (const slug of ["how-teams-plan-and-test", "requirements-and-user-stories", "web-apps-databases-apis", "tools-and-security"])
+    await markLessonComplete(learner.id, slug);
   // Take the assessment: 8 of 10 right = pass
   await page.goto("/assessments/foundations-assessment");
   await page.getByRole("button", { name: "Start the assessment" }).click();
@@ -65,7 +68,7 @@ test("AC7: log out and back in and see accurate progress and history", async ({ 
   await logout(page);
   await login(page, learner.email, learner.password);
   const card = page.getByTestId("module-progress-foundations");
-  await expect(card.getByText("Lessons finished: 1 of 1")).toBeVisible();
+  await expect(card.getByText("Lessons finished: 5 of 5")).toBeVisible();
   await expect(card.getByText("Passed")).toBeVisible();
   const history = page.getByTestId("assessment-history");
   await expect(history.getByRole("cell", { name: "80%" })).toBeVisible();

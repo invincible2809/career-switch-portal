@@ -35,7 +35,8 @@ export const authoredQuestionSchema = z
     key: z.string().min(1),
     type: z.enum(["SINGLE", "MULTI", "ORDER", "SCENARIO"]),
     objective: z.string().min(1),
-    lessonRef,
+    // Optional only for diagnostic questions (checked at bank level); everything else needs a remediation link.
+    lessonRef: lessonRef.optional(),
     scenario: z.string().optional(),
     stem: z.string().min(1),
     options: z.array(optionSchema).min(2).max(6),
@@ -84,6 +85,9 @@ export const questionBankSchema = z
   .superRefine((b, ctx) => {
     const keys = b.questions.map((q) => q.key);
     const dupes = keys.filter((k, i) => keys.indexOf(k) !== i);
+    if (b.purpose !== "DIAGNOSTIC")
+      for (const q of b.questions)
+        if (!q.lessonRef) ctx.addIssue({ code: "custom", message: `${q.key}: needs a lessonRef (the lesson section learners are sent back to)` });
     if (dupes.length) ctx.addIssue({ code: "custom", message: `Duplicate question keys: ${dupes.join(", ")}` });
     if (b.purpose === "MODULE" && b.questions.length < 25)
       ctx.addIssue({ code: "custom", message: `Module banks need at least 25 questions (found ${b.questions.length})` });

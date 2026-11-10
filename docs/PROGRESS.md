@@ -3,7 +3,7 @@
 Claude: read this at the start of every session and update it at the end of each phase or work session.
 
 ## Current phase
-Phase 1 – Core platform: **done** (10 Nov 2026). Next: Phase 2a – Foundations content.
+Phase 2a – Foundations content: **done** (10 Nov 2026). Next: Phase 2b – pathway Module 1s and practical assignments.
 
 ## Done
 - **Phase 0:** `docs/PLAN.md` written and approved with the recommended answers, plus the decision to build without any AI provider (PLAN §8).
@@ -23,15 +23,23 @@ Phase 1 – Core platform: **done** (10 Nov 2026). Next: Phase 2a – Foundation
   - Sample content: Foundations lesson 1, a 4-question knowledge check, a 25-question module bank (6 generated slots) and the diagnostic.
   - Content review (content-reviewer agent): all Must fix and Should fix items fixed – answer options are now shuffled per attempt (the right answer was always "a"), the worked example's rounding maths corrected, generated feedback grammar fixed, ambiguous role duties replaced, a third lesson objective (key terms) added and the key-term questions re-tagged to it, the Scrum Master role added to the lesson, missing glossary terms added, weak distractors replaced, fa-18 (a duplicate of a generated question) replaced, diagnostic and pathway summaries corrected.
 
+- **Phase 2a – Foundations content**
+  - Lessons 2–5: how teams plan and test (lifecycles, small steps, Agile values, introduction to Scrum), requirements and user stories (Given / When / Then), web apps, databases and APIs (requests, responses, status codes), work tracking, collaboration tools and security (phishing, passwords, MFA, personal data).
+  - Knowledge checks for each lesson (4–5 questions each, every lesson objective covered).
+  - Foundations module bank extended from 25 to 51 entries across all five lessons (16 objectives), including two slots from a new `given-when-then` generator.
+  - About 30 new glossary terms, linked from lesson text.
+  - Diagnostic technology questions now link to Lessons 4 and 5; reasoning, detail and preference questions have no lesson link (`lessonRef` is optional for diagnostic banks only).
+  - content-reviewer: no Must fix items; all Should fix items and most Minor items fixed (Scrum Guide precision on the Sprint Review, commitments and Definition of Done; ISTQB test process wording; "Developers" in Scrum added to the glossary; workplace-practice labels for user stories; test data definition; jumbled parts in the generated Given/When/Then questions; stronger distractors).
+  - New e2e tests (`tests/e2e/foundations-content.spec.ts`): every Foundations lesson shows all nine parts, every glossary link opens a real term, and an assessment draw covers at least four lessons.
+
 ## In progress
 - Nothing.
 
 ## Next steps
-1. Phase 2a: write Foundations lessons 2–5 with knowledge checks, extend the Foundations bank to cover all five lessons, add glossary entries; run the content-reviewer agent. Carry-overs from the Phase 1 review: point the diagnostic's `lessonRef`s at Lessons 4 and 5 (dg-01–dg-03) and make `lessonRef` optional for logic, detail and preference items; keep role-matching questions to a small share of the bank.
-2. Phase 2b: Scrum Master and QA Tester Module 1, assignments, rubrics, practical submission and assessor review.
+1. Phase 2b: Scrum Master and QA Tester Module 1, assignments, rubrics, practical submission and assessor review.
 
 ## Acceptance criteria status (SPEC §16)
-Results from `pnpm test:e2e` on 10 Nov 2026: 24 tests, all passing.
+Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 2a): 26 tests, all passing.
 
 | # | Criterion | Test file | Status |
 |---|-----------|-----------|--------|
@@ -51,7 +59,7 @@ Results from `pnpm test:e2e` on 10 Nov 2026: 24 tests, all passing.
 | 14 | axe: no serious violations on key pages | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (all Phase 1 pages) |
 | 15 | 375px + keyboard-only journeys | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (see limitations) |
 
-Unit tests: 66 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
+Unit tests: 69 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
 
 ## Decisions
 - Stack as in CLAUDE.md, with **no AI provider**: questions, coach replies and feedback are rule-based from course content (PLAN §8.2).
@@ -63,7 +71,9 @@ Unit tests: 66 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm bu
 ## Known limitations / mocked features
 - **Email** runs in demo mode in all tests (reset links shown at `/dev/mailbox`). The SMTP path is written but hasn't been tested against a real mail server.
 - **Docker:** the build environment had no Docker daemon, so everything was tested against a local PostgreSQL 16. `docker-compose.yml` follows the standard Postgres image but hasn't been run here.
-- **Sample content only:** one Foundations lesson; the 25-question bank all relates to that lesson. Lessons 2–5 and the full bank come in Phase 2a. All role-pathway modules show "Coming soon".
+- **Role pathways:** all Scrum Master and QA Tester modules still show "Coming soon" until Phase 2b.
+- **The Foundations assessment now needs all five lessons finished** (previously one). Learners in a database seeded earlier who had finished Lesson 1 will see the assessment locked until they finish Lessons 2–5.
+- Content written by the course team is aligned with the Scrum Guide 2020 and ISTQB terms and has been checked by the content-reviewer agent, but **not yet by a human subject expert**.
 - **Recommendation rules are simple heuristics** (PLAN §1.2 point 8) and only three diagnostic questions measure role preference.
 - **Keyboard-only test (AC 15)** covers the skip link, login, lesson navigation, hints and taking an assessment. Registration and onboarding by keyboard alone are covered by native form controls and axe, but not by a scripted keyboard walk-through yet (Phase 5).
 - **No manual screen-reader test yet** – planned for Phase 5.

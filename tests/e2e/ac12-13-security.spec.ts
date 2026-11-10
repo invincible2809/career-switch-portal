@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { createLearner, db, markLessonComplete } from "./helpers/db";
+import { createLearner, db, markModuleComplete } from "./helpers/db";
 import { answerAttempt, login, logout } from "./helpers/ui";
 
 const ADMIN_PAGES = ["/admin", "/admin/curriculum", "/admin/question-banks", "/admin/assessments", "/admin/users", "/admin/audit-log"];
@@ -46,7 +46,7 @@ test("AC12: a role change ends existing sessions straight away", async ({ page }
 test("AC13: a learner can't see another learner's data", async ({ page }) => {
   const a = await createLearner("ac13a");
   const b = await createLearner("ac13b");
-  await markLessonComplete(a.id, "how-software-is-built");
+  await markModuleComplete(a.id);
 
   await login(page, a.email, a.password);
   await page.goto("/learn/how-software-is-built?section=objective");

@@ -1,0 +1,89 @@
+slug: foundations-l5-check
+title: Work tracking, collaboration tools and staying secure – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: tools-and-security
+questions:
+  - key: fl5-kc-01
+    type: SINGLE
+    objective: Explain how teams track work on a board and in tickets
+    lessonRef: { lesson: tools-and-security, section: explanation }
+    stem: Is using a Jira board a rule of Scrum?
+    options:
+      - id: a
+        text: No – it's a common workplace practice, not part of the Scrum Guide
+        correct: true
+        explanation: Correct. The Scrum Guide doesn't say how to track work, though most teams use a board.
+      - id: b
+        text: Yes – every Scrum Team must use Jira
+        explanation: The Scrum Guide doesn't mention Jira or any tool. Boards are a common workplace practice.
+      - id: c
+        text: Yes – the Scrum Guide requires a board with To do, In progress and Done columns
+        explanation: The Scrum Guide doesn't require any board or tool. Boards are a common workplace practice.
+  - key: fl5-kc-02
+    type: MULTI
+    objective: Spot the signs of phishing and describe safe habits for passwords and data
+    lessonRef: { lesson: tools-and-security, section: explanation }
+    stem: Which TWO are common warning signs of a phishing email?
+    options:
+      - id: a
+        text: Pressure to act very quickly
+        correct: true
+        explanation: Correct. Urgency is a common trick to stop you thinking carefully.
+      - id: b
+        text: A sender address that doesn't quite match the real company
+        correct: true
+        explanation: Correct. Look-alike addresses are a classic sign.
+      - id: c
+        text: An email from a colleague about a meeting you already know about
+        explanation: Expected messages from people you know are usually fine – though stay alert to anything odd.
+      - id: d
+        text: A newsletter you signed up for
+        explanation: A newsletter you chose to get isn't a warning sign on its own.
+  - key: fl5-kc-03
+    type: SINGLE
+    objective: Spot the signs of phishing and describe safe habits for passwords and data
+    lessonRef: { lesson: tools-and-security, section: worked-example }
+    stem: You find a bug that shows real customer data. What should go in the team chat?
+    options:
+      - id: a
+        text: A short note pointing to the ticket, without the personal data
+        correct: true
+        explanation: Correct. Keep personal data out of chat and screenshots; the details belong in the ticket, using test data.
+      - id: b
+        text: A screenshot showing the customer's details
+        explanation: That spreads personal data further. Point to the ticket instead.
+      - id: c
+        text: Nothing – it's better not to mention it
+        explanation: A possible data leak is serious and should be reported straight away – just without spreading the data.
+  - key: fl5-kc-04
+    type: SINGLE
+    objective: Spot the signs of phishing and describe safe habits for passwords and data
+    lessonRef: { lesson: tools-and-security, section: explanation }
+    stem: What is multi-factor authentication?
+    options:
+      - id: a
+        text: Logging in with something extra as well as your password, such as a code from your phone
+        correct: true
+        explanation: Correct. Even if someone steals your password, they'd also need the second factor.
+      - id: b
+        text: Using the same password for several accounts
+        explanation: That's risky, not a security feature. Use a different password for each account.
+      - id: c
+        text: Changing your password every day
+        explanation: That isn't MFA. MFA means a second check as well as your password.
+  - key: fl5-kc-05
+    type: SINGLE
+    objective: Describe the main collaboration tools in a software team
+    lessonRef: { lesson: tools-and-security, section: explanation }
+    stem: Where should the team keep instructions for setting up test data?
+    options:
+      - id: a
+        text: In a shared wiki or document, such as Confluence
+        correct: true
+        explanation: Correct. Things the team needs to keep belong somewhere everyone can find them later.
+      - id: b
+        text: In a chat message
+        explanation: Chat messages scroll away and are hard to find later. Use a shared wiki or document.
+      - id: c
+        text: In one person's private notes
+        explanation: Then nobody else can find them. Use a shared wiki or document.

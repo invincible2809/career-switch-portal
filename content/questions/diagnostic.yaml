@@ -1,4 +1,5 @@
 # Onboarding diagnostic (SPEC §2): untimed and not a test you can fail.
+# Only the technology questions link to a lesson; the others measure reasoning, detail or preference.
 # Tags: tech, logic, detail are marked; preference questions have no right answer and
 # lean towards a role instead (PLAN §1.2 point 8).
 slug: diagnostic
@@ -8,7 +9,7 @@ questions:
   - key: dg-01
     type: SINGLE
     objective: Technology familiarity
-    lessonRef: { lesson: how-software-is-built, section: explanation }
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
     tags: [tech]
     stem: When you type a web address and press Enter, what happens?
     options:
@@ -25,7 +26,7 @@ questions:
   - key: dg-02
     type: SINGLE
     objective: Technology familiarity
-    lessonRef: { lesson: how-software-is-built, section: explanation }
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
     tags: [tech]
     stem: What is a database used for?
     options:
@@ -38,11 +39,11 @@ questions:
         explanation: That's the job of design. Databases store information.
       - id: c
         text: I'm not sure
-        explanation: No problem – Foundations covers this in plain English.
+        explanation: No problem – Foundations Lesson 4 covers this in plain English.
   - key: dg-03
     type: SINGLE
     objective: Technology familiarity
-    lessonRef: { lesson: how-software-is-built, section: explanation }
+    lessonRef: { lesson: tools-and-security, section: explanation }
     tags: [tech]
     stem: An email says your account will be closed unless you "verify your password" using a link. What's the safest thing to do?
     options:
@@ -59,7 +60,6 @@ questions:
   - key: dg-04
     type: SINGLE
     objective: Logical reasoning
-    lessonRef: { lesson: how-software-is-built, section: explanation }
     tags: [logic]
     stem: Free delivery applies to orders of £50 or more. Which order gets free delivery?
     options:
@@ -76,7 +76,6 @@ questions:
   - key: dg-05
     type: SINGLE
     objective: Logical reasoning
-    lessonRef: { lesson: how-software-is-built, section: explanation }
     tags: [logic]
     stem: Every order is either "paid" or "unpaid". Order 7 is not unpaid. What is order 7?
     options:
@@ -93,7 +92,6 @@ questions:
   - key: dg-06
     type: SINGLE
     objective: Logical reasoning
-    lessonRef: { lesson: how-software-is-built, section: explanation }
     tags: [logic]
     stem: A button works on a laptop but not on a phone. What would you check first?
     options:
@@ -110,7 +108,6 @@ questions:
   - key: dg-07
     type: SINGLE
     objective: Attention to detail
-    lessonRef: { lesson: how-software-is-built, section: explanation }
     tags: [detail]
     stem: "Spot the difference: order reference SE-40871 and order reference SE-40817. Are they the same?"
     options:
@@ -124,7 +121,6 @@ questions:
   - key: dg-08
     type: SINGLE
     objective: Attention to detail
-    lessonRef: { lesson: how-software-is-built, section: explanation }
     tags: [detail]
     stem: "A receipt shows: 2 × £4.50 = £9.50. Is the total correct?"
     options:
@@ -138,7 +134,6 @@ questions:
   - key: dg-09
     type: SINGLE
     objective: Attention to detail
-    lessonRef: { lesson: how-software-is-built, section: explanation }
     tags: [detail]
     stem: A form says "Enter your date of birth (DD/MM/YYYY)". Which entry matches?
     options:
@@ -155,7 +150,6 @@ questions:
   - key: dg-10
     type: SCENARIO
     objective: Working with people
-    lessonRef: { lesson: how-software-is-built, section: explanation }
     tags: [preference]
     scenario: Your team keeps missing deadlines and people are getting frustrated with each other.
     stem: Which would you rather do?
@@ -171,7 +165,6 @@ questions:
   - key: dg-11
     type: SCENARIO
     objective: Working with people
-    lessonRef: { lesson: how-software-is-built, section: explanation }
     tags: [preference]
     scenario: A new booking system is being introduced where you work.
     stem: Which part would you enjoy more?
@@ -187,7 +180,6 @@ questions:
   - key: dg-12
     type: SCENARIO
     objective: Working with people
-    lessonRef: { lesson: how-software-is-built, section: explanation }
     tags: [preference]
     scenario: Two colleagues disagree about the best way to do a task.
     stem: What's your natural response?

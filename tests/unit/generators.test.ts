@@ -4,6 +4,7 @@ import { TEAM_ROLES } from "@/lib/questions/data/team-roles";
 
 const params: Record<string, unknown> = {
   "who-does-what": {},
+  "given-when-then": {},
   "bva-values": { fields: [{ label: "the basket quantity box", min: 1, max: 10 }] },
 };
 
@@ -43,5 +44,15 @@ describe("bva-values", () => {
   it("validates its parameters", () => {
     expect(validateGeneratorParams("bva-values", { fields: [{ label: "x", min: 1, max: 2 }] })).toMatch(/at least 5/);
     expect(validateGeneratorParams("nope", {})).toMatch(/Unknown generator/);
+  });
+});
+
+describe("given-when-then", () => {
+  it("marks the requested part as correct", () => {
+    for (let seed = 0; seed < 50; seed++) {
+      const q = generateQuestion("given-when-then", { ask: "WHEN" }, seed);
+      expect(q.stem).toContain('"When"');
+      expect(q.options.find((o) => o.correct)!.explanation).toMatch(/action the user takes/);
+    }
   });
 });

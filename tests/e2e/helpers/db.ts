@@ -37,6 +37,12 @@ export async function markLessonComplete(userId: string, lessonSlug: string) {
   });
 }
 
+/** Marks every published lesson in a module as finished, which unlocks its assessment. */
+export async function markModuleComplete(userId: string, moduleSlug = "foundations") {
+  const lessons = await db.lesson.findMany({ where: { module: { slug: moduleSlug }, publishedVersionId: { not: null } } });
+  for (const l of lessons) await markLessonComplete(userId, l.slug);
+}
+
 export async function attemptSnapshots(attemptId: string) {
   const answers = await db.attemptAnswer.findMany({ where: { attemptId }, orderBy: { position: "asc" } });
   return answers.map((a) => ({ id: a.id, snapshot: a.snapshot as unknown as QuestionSnapshot }));

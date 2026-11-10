@@ -174,8 +174,9 @@ export async function saveQuestionDraft(bankId: string, actorId: string, raw: Re
   const parsed = parseQuestionForm(raw);
   if (!parsed.success) return { ok: false as const, error: parsed.error };
   const q = parsed.data;
-  if (!(await db.lesson.findUnique({ where: { slug: q.lessonRef.lesson } })))
-    return { ok: false as const, message: `No lesson called "${q.lessonRef.lesson}".` };
+  if (!q.lessonRef || !(await db.lesson.findUnique({ where: { slug: q.lessonRef.lesson } })))
+    return { ok: false as const, message: `No lesson called "${q.lessonRef?.lesson ?? ""}".` };
+  const lessonRef = q.lessonRef;
   const versions = await db.question.findMany({ where: { bankId, key: q.key }, orderBy: { version: "desc" } });
   const data = {
     type: q.type,
@@ -184,8 +185,8 @@ export async function saveQuestionDraft(bankId: string, actorId: string, raw: Re
     options: q.options,
     correctOrder: q.correctOrder,
     objective: q.objective,
-    lessonSlug: q.lessonRef.lesson,
-    sectionKey: q.lessonRef.section,
+    lessonSlug: lessonRef.lesson,
+    sectionKey: lessonRef.section,
     tags: q.tags,
     isKey: q.isKey,
     generator: null,

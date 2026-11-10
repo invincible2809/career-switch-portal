@@ -36,8 +36,9 @@ function questionData(q: QuestionEntry) {
     options: q.options,
     correctOrder: q.correctOrder,
     objective: q.objective,
-    lessonSlug: q.lessonRef.lesson,
-    sectionKey: q.lessonRef.section,
+    // Diagnostic questions may have no lesson link; stored as empty strings.
+    lessonSlug: q.lessonRef?.lesson ?? "",
+    sectionKey: q.lessonRef?.section ?? "",
     tags: q.tags,
     isKey: q.isKey,
   };

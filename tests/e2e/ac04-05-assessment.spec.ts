@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { attemptSnapshots, createLearner, markLessonComplete } from "./helpers/db";
+import { attemptSnapshots, createLearner, markModuleComplete } from "./helpers/db";
 import { answerAttempt, login } from "./helpers/ui";
 
 test("the assessment is locked until the module's lessons are finished", async ({ page }) => {
@@ -13,7 +13,7 @@ test("the assessment is locked until the module's lessons are finished", async (
 
 test("AC4: take a module assessment and get correct scores and explanations", async ({ page }) => {
   const learner = await createLearner("ac4");
-  await markLessonComplete(learner.id, "how-software-is-built");
+  await markModuleComplete(learner.id);
   await login(page, learner.email, learner.password);
   await page.goto("/assessments/foundations-assessment");
   await page.getByRole("button", { name: "Start the assessment" }).click();
@@ -35,7 +35,7 @@ test("AC4: take a module assessment and get correct scores and explanations", as
 
 test("AC5: fail, see remediation links, and retry with different questions", async ({ page }) => {
   const learner = await createLearner("ac5");
-  await markLessonComplete(learner.id, "how-software-is-built");
+  await markModuleComplete(learner.id);
   await login(page, learner.email, learner.password);
   await page.goto("/assessments/foundations-assessment");
   await page.getByRole("button", { name: "Start the assessment" }).click();
@@ -46,7 +46,7 @@ test("AC5: fail, see remediation links, and retry with different questions", asy
   const links = page.getByTestId("remediation-links").getByRole("link");
   expect(await links.count()).toBeGreaterThan(0);
   const href = await links.first().getAttribute("href");
-  expect(href).toMatch(/^\/learn\/how-software-is-built\?section=[a-z-]+$/);
+  expect(href).toMatch(/^\/learn\/[a-z-]+\?section=[a-z-]+$/);
   await expect(page.getByRole("main").getByRole("link", { name: "quick review", exact: true })).toBeVisible();
 
   await page.getByRole("link", { name: "Try again with different questions" }).click();
@@ -64,7 +64,7 @@ test("AC5: fail, see remediation links, and retry with different questions", asy
 
 test("missed questions come back in quick review", async ({ page }) => {
   const learner = await createLearner("review");
-  await markLessonComplete(learner.id, "how-software-is-built");
+  await markModuleComplete(learner.id);
   await login(page, learner.email, learner.password);
   await page.goto("/assessments/foundations-assessment");
   await page.getByRole("button", { name: "Start the assessment" }).click();
