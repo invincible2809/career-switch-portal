@@ -21,10 +21,11 @@ export default defineConfig({
     ...devices["Desktop Chrome"],
   },
   webServer: {
-    command: `pnpm exec next dev --port ${PORT}`,
+    // E2E_PROD=1 runs the suite against a production build (strict CSP, no dev tooling).
+    command: process.env.E2E_PROD ? `pnpm exec next build && pnpm exec next start --port ${PORT}` : `pnpm exec next dev --port ${PORT}`,
     url: `http://localhost:${PORT}/login`,
     reuseExistingServer: false,
-    timeout: 120_000,
+    timeout: process.env.E2E_PROD ? 600_000 : 120_000,
     env: {
       DATABASE_URL: testDb,
       APP_URL: `http://localhost:${PORT}`,

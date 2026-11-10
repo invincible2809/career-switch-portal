@@ -85,6 +85,8 @@ test("AC2: 'Help me choose' gives a recommendation with reasons and a side-by-si
 });
 
 test("password reset works through the demo mailbox and signs out old sessions", async ({ page }) => {
+  // The demo mailbox is deliberately switched off in production builds.
+  test.skip(!!process.env.E2E_PROD, "Demo mailbox is off in production");
   const email = uniqueEmail("reset");
   await register(page, email);
   await logout(page);

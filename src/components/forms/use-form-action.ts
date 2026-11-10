@@ -21,6 +21,9 @@ export function useFormAction<S extends { ok?: string; error?: string; fieldErro
   const formRef = useRef<HTMLFormElement>(null);
   const formProps = {
     ref: formRef,
+    // Progressive enhancement: before JavaScript has loaded, the form still posts to the server action.
+    action: dispatch,
+    // Once hydrated, submit via a transition instead, so React doesn't clear the form after an error.
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const fd = new FormData(e.currentTarget);

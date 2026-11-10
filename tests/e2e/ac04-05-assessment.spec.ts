@@ -70,6 +70,7 @@ test("missed questions come back in quick review", async ({ page }) => {
   await page.getByRole("button", { name: "Start the assessment" }).click();
   await answerAttempt(page, (i) => i !== 0);
   await page.getByRole("button", { name: "Submit answers" }).click();
+  await page.waitForURL(/\/result$/);
   await page.goto("/review");
   await expect(page.getByText(/Nothing to review right now/)).toBeVisible();
   await expect(page.getByText(/1 question is scheduled for later/)).toBeVisible();

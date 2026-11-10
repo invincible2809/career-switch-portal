@@ -3,7 +3,7 @@
 Claude: read this at the start of every session and update it at the end of each phase or work session.
 
 ## Current phase
-Phase 4 – coach, portfolio, career tools, certificate and reporting: **done** (10 Nov 2026). Next: Phase 5 – hardening and handover.
+**MVP complete** – Phase 5 (hardening and handover) done on 10 Nov 2026. See "Recommended next steps" below.
 
 ## Done
 - **Phase 0:** `docs/PLAN.md` written and approved with the recommended answers, plus the decision to build without any AI provider (PLAN §8).
@@ -71,14 +71,23 @@ Phase 4 – coach, portfolio, career tools, certificate and reporting: **done** 
   - content-reviewer: all Must fix items fixed (certificate states whether practical work was assessor-reviewed or automated; interview key-point terms tightened and curly apostrophes normalised; role-play Scrum/ISTQB accuracy; CV guidance marks examples as made up and adds stepping-stone roles) plus the Should fix items.
   - New e2e tests (`tests/e2e/phase4.spec.ts`) including acceptance criterion 8.
 
+- **Phase 5 – hardening and handover**
+  - Clean run of every check; `pnpm audit --prod` clean after upgrading nodemailer (several advisories, three high) to 10.5.
+  - Security review (`docs/SECURITY.md`): a full inventory test now fails the build if any page outside a named public list, any API route handler or any server action lacks a session/role check; `src/proxy.ts` refuses cross-site writes to `/api/*` and sets a nonce-based Content Security Policy (strict-dynamic, no inline scripts, frame-ancestors none); HSTS in production. Verified against a production build (`pnpm test:e2e:prod`).
+  - Accessibility: a sweep of every page in the app (58 routes, as visitor, onboarding learner, learner and admin) with axe, a 375px no-sideways-scroll check and heading/landmark checks; a guard fails the test if a new page isn't added. It found and fixed skipped heading levels in portfolio items.
+  - Keyboard-only journey (every control reached with Tab): register, onboard, diagnostic, choose a pathway, start a lesson; text-size and reduced-motion settings verified to change the page. Error summaries now take focus when a form has errors.
+  - Fix: forms post to the server even before JavaScript has loaded again (progressive enhancement had been lost in the Phase 3 form fix).
+  - Accessibility tree reviewed for the dashboard, a lesson's knowledge check, an assessment and an attempt (labelled question groups, named controls, landmarks, current step marked).
+  - README: admin workflows, adding content (lessons, banks, generators, assignments, rubrics, coach), and a "before going live" checklist.
+
 ## In progress
 - Nothing.
 
 ## Next steps
-1. Phase 5: full security review of route handlers and server actions, accessibility pass (manual keyboard and screen reader checks, keyboard-only registration and onboarding), README and handover, final acceptance-criteria results and known limitations.
+1. See "Recommended next steps" at the end of this file.
 
 ## Acceptance criteria status (SPEC §16)
-Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 4): 39 tests, all passing. All 15 acceptance criteria have passing tests.
+Final results on 10 Nov 2026: `pnpm test:e2e` 45 tests, all passing; `pnpm test:e2e:prod` (production build) 44 passing and 1 skipped – the password-reset test, which is skipped there because the demo mailbox is deliberately off in production. All 15 acceptance criteria have passing tests.
 
 | # | Criterion | Test file | Status |
 |---|-----------|-----------|--------|
@@ -95,10 +104,10 @@ Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 4): 39 tests, all passi
 | 11 | Admin changes pass mark | `tests/e2e/ac10-11-admin.spec.ts` | Passing |
 | 12 | Learner blocked from admin pages and APIs | `tests/e2e/ac12-13-security.spec.ts`, `tests/unit/guard-coverage.test.ts` | Passing |
 | 13 | Learner can't see other learners' data | `tests/e2e/ac12-13-security.spec.ts` | Passing |
-| 14 | axe: no serious violations on key pages | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (all Phase 1 pages) |
-| 15 | 375px + keyboard-only journeys | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (see limitations) |
+| 14 | axe: no serious violations on key pages | `tests/e2e/a11y-all-routes.spec.ts`, `tests/e2e/ac14-15-accessibility.spec.ts` | Passing – every page (58 routes); only the planted Test Lab label defect is allowed |
+| 15 | 375px + keyboard-only journeys | `tests/e2e/a11y-all-routes.spec.ts`, `tests/e2e/keyboard-journeys.spec.ts`, `tests/e2e/ac14-15-accessibility.spec.ts` | Passing – every page at 375px; keyboard-only registration, onboarding, lesson, assessment and assignment journeys |
 
-Unit tests: 136 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
+Unit tests: 141 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck`, `pnpm content:check`, `pnpm build` and `pnpm audit --prod` all pass. `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
 
 ## Decisions
 - Stack as in CLAUDE.md, with **no AI provider**: questions, coach replies and feedback are rule-based from course content (PLAN §8.2).
@@ -126,8 +135,8 @@ Unit tests: 136 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm b
 - **The Foundations assessment now needs all five lessons finished** (previously one). Learners in a database seeded earlier who had finished Lesson 1 will see the assessment locked until they finish Lessons 2–5.
 - Content written by the course team is aligned with the Scrum Guide 2020 and ISTQB terms and has been checked by the content-reviewer agent, but **not yet by a human subject expert**.
 - **Recommendation rules are simple heuristics** (PLAN §1.2 point 8) and only three diagnostic questions measure role preference.
-- **Keyboard-only test (AC 15)** covers the skip link, login, lesson navigation, hints and taking an assessment. Registration and onboarding by keyboard alone are covered by native form controls and axe, but not by a scripted keyboard walk-through yet (Phase 5).
-- **No manual screen-reader test yet** – planned for Phase 5.
+- **No real screen-reader test.** The build environment has no screen reader. The accessibility tree of key pages was reviewed and every page passes axe, but a test with NVDA/JAWS/VoiceOver by a person is still needed.
+- **Security:** see `docs/SECURITY.md` for open decisions (registration reveals existing emails, no MFA, rate limits trust `X-Forwarded-For`, demo accounts).
 - **Read aloud** uses the browser's own voices; it's hidden where unsupported and isn't tested automatically beyond appearing.
 - **Rate limits** use the first `X-Forwarded-For` address for per-connection limits. Behind no proxy, that header can be faked; per-email limits still apply. Revisit when hosting is chosen.
 - **Admin UI gaps:** generated questions can be retired/restored but their parameters are edited in the content files; unlock rules can only add "lessons completed" rules from the UI (the data model supports all three types); retiring a question takes effect immediately rather than through publish.
@@ -136,3 +145,12 @@ Unit tests: 136 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm b
 - **Existing databases don't pick up edited content files** (by design, PLAN A9). After the Phase 1 content fixes, a database seeded earlier still has the old lesson text; `pnpm db:reset` reloads everything (and deletes learners).
 - If pages look unstyled or out of date in `pnpm dev` or the e2e run, delete `.next/` – Turbopack's dev cache once served a stale stylesheet during this phase.
 - Next.js may print `Error: The destination stream errored while writing data` in the e2e server log when a test navigates away mid-response; it doesn't affect results.
+
+## Recommended next steps
+1. **Human review of the content** by a Scrum practitioner and an experienced tester (everything has passed the content-reviewer agent, which is not a substitute).
+2. **Usability testing with real career-changers**, including people who use screen readers, magnification and keyboard only.
+3. **Choose hosting** (HTTPS, managed PostgreSQL), connect real email, and work through the "Before going live" checklist in the README and the open items in `docs/SECURITY.md` (registration message, MFA for admins).
+4. **Build the remaining modules** (Scrum Master 2–8, QA Tester 2–10) using the existing content formats; consider question generators for the technique-heavy QA modules.
+5. **Add a Content Editor and an Assessor role** (the permission map is ready) so content work and marking don't need full admin rights.
+6. **Improve the coach** with more role-plays and interview questions, and track which questions get "I couldn't find that" to find gaps in the course.
+7. **Data retention:** decide how long inactive accounts, coach history and audit logs are kept, and add the operator's details to the privacy notice.

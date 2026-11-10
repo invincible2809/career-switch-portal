@@ -148,8 +148,8 @@ test("SQL sandbox runs in the browser only, checks answers and resets", async ({
   await page.getByLabel("Your SQL").fill("SELEC nonsense");
   await page.getByRole("button", { name: "Run query" }).click();
   await expect(page.getByText(/Error:/)).toBeVisible();
-  // Learner SQL never leaves the browser.
-  expect(requests).toEqual([]);
+  // Learner SQL never leaves the browser: no POSTs and no API calls (page-link prefetches are fine).
+  expect(requests.filter((r) => !r.startsWith("GET ") || r.includes("/api/"))).toEqual([]);
 });
 
 test("API sandbox calls the mock API and blocks anything else", async ({ page }) => {

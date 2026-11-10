@@ -25,6 +25,7 @@ Keep this list accurate as scripts are added.
 - `pnpm lint` / `pnpm typecheck`
 - `pnpm test` – unit tests (Vitest)
 - `pnpm test:e2e` – Playwright incl. axe; empties and reseeds the `*_test` database in `TEST_DATABASE_URL`
+- `pnpm test:e2e:prod` – the same suite against a production build (strict CSP)
 - `pnpm build` – production build
 
 ## Course content lives in files
@@ -59,5 +60,8 @@ Keep this list accurate as scripts are added.
 - Every admin page calls `requireAdmin()`, every admin API handler `adminApiGuard()`, and every server action `requireUser()`/`requireLearner()`/`requireAdmin()` as its first line; `tests/unit/guard-coverage.test.ts` enforces this
 - Prisma 7 client is generated to `src/generated/prisma` (git-ignored; `pnpm install` regenerates it)
 - Next.js 16: read `node_modules/next/dist/docs/` before using an unfamiliar API (see AGENTS.md)
+- Forms use `useFormAction` (`src/components/forms/use-form-action.ts`) so input survives validation errors and forms still work before JavaScript loads
+- New pages must be added to `tests/e2e/a11y-all-routes.spec.ts` (the test fails otherwise), and public pages to the list in `tests/unit/guard-coverage.test.ts`
+- Security notes and open decisions: `docs/SECURITY.md`
 - Server components by default; client components only when interactive
 - Running example in all content: **ShopEasy**, a fictional online shop

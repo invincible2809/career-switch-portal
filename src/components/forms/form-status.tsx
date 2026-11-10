@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { Alert } from "@/components/ui/card";
@@ -18,9 +19,15 @@ export function SubmitButton({ children, pendingText, pending: pendingProp, ...p
 /** Form-level messages. Field errors are shown next to each field and listed here as links (error summary). */
 export function FormMessages({ state, labels }: { state: FormState; labels?: Record<string, string> }) {
   const fieldEntries = Object.entries(state.fieldErrors ?? {});
+  const ref = useRef<HTMLDivElement>(null);
+  const hasErrors = !!state.error || fieldEntries.length > 0;
+  // Move focus to the error summary so keyboard and screen reader users land on it.
+  useEffect(() => {
+    if (hasErrors) ref.current?.focus();
+  }, [state, hasErrors]);
   if (!state.error && !state.ok && fieldEntries.length === 0) return null;
   return (
-    <div role="alert" aria-live="assertive" className="space-y-2">
+    <div ref={ref} tabIndex={-1} role="alert" aria-live="assertive" className="space-y-2 focus:outline-none">
       {state.ok ? <Alert tone="success">{state.ok}</Alert> : null}
       {state.error ? <Alert tone="danger">{state.error}</Alert> : null}
       {fieldEntries.length > 0 ? (

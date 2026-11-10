@@ -20,7 +20,8 @@
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset --force",
     "content:check": "tsx scripts/check-content.ts",
-    "postinstall": "prisma generate && node scripts/copy-sql-wasm.mjs"
+    "postinstall": "prisma generate && node scripts/copy-sql-wasm.mjs",
+    "test:e2e:prod": "E2E_PROD=1 playwright test"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "^5.3.0",
@@ -36,7 +37,7 @@
     "lucide-react": "^1.71.0",
     "next": "16.4.6",
     "next-auth": "5.0.0-beta.32",
-    "nodemailer": "^8.0.11",
+    "nodemailer": "^10.5.0",
     "pg": "^8.23.1",
     "prisma": "7.10.1",
     "react": "19.3.0",

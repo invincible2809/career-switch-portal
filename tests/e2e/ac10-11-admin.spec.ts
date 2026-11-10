@@ -6,7 +6,9 @@ test("AC10: admin edits and publishes a lesson, and learners see the change", as
   const lesson = await db.lesson.findUniqueOrThrow({ where: { slug: "how-software-is-built" } });
   await loginAsAdmin(page);
   await page.goto(`/admin/lessons/${lesson.id}`);
-  await page.getByRole("button", { name: "Edit lesson (start a draft)" }).click();
+  // Start a draft unless another test left one open.
+  const edit = page.getByRole("button", { name: "Edit lesson (start a draft)" });
+  if (await edit.isVisible()) await edit.click();
   const newText = `Updated by an admin at ${Date.now()}.`;
   const explanation = page.getByLabel("Content").nth(1);
   await explanation.fill(`${newText}\n\n${await explanation.inputValue()}`);

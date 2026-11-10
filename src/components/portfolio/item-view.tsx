@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/card";
 
 export function PortfolioItemView({ item, headingLevel = 2 }: { item: PortfolioView; headingLevel?: 2 | 3 }) {
   const H = `h${headingLevel}` as "h2";
+  const H2 = `h${headingLevel + 1}` as "h3";
   return (
     <article className="space-y-2" data-testid="portfolio-item">
       <H className="text-lg font-bold">{item.title}</H>
@@ -13,7 +14,7 @@ export function PortfolioItemView({ item, headingLevel = 2 }: { item: PortfolioV
       {item.competency ? <p className="text-sm text-muted">{item.competency}</p> : null}
       {item.sections.map((s, i) => (
         <section key={i}>
-          <h4 className="font-semibold">{s.heading}</h4>
+          <H2 className="font-semibold">{s.heading}</H2>
           <ul className="list-disc space-y-1 pl-5 text-sm">
             {s.lines.map((l, j) => (
               <li key={j} className="break-words">
