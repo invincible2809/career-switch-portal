@@ -3,40 +3,72 @@
 Claude: read this at the start of every session and update it at the end of each phase or work session.
 
 ## Current phase
-Phase 0 – Plan (draft written, awaiting approval)
+Phase 1 – Core platform: **done** (10 Nov 2026). Next: Phase 2a – Foundations content.
 
 ## Done
-- Phase 0: `docs/PLAN.md` written (assumptions, stack, data model, routes, content formats, phase steps, open questions)
+- **Phase 0:** `docs/PLAN.md` written and approved with the recommended answers, plus the decision to build without any AI provider (PLAN §8).
+- **Phase 1 – core platform**
+  - Scaffold: Next.js 16 + TypeScript strict + Tailwind 4, hand-written shadcn/ui-style components, ESLint, Vitest, Playwright + axe, `docker-compose.yml` (Postgres 16 with `csp_dev` and `csp_test`), `.env.example`.
+  - Prisma schema for the whole MVP (PLAN §3, plus `Question.draft`), first migrations, idempotent seed that imports `content/` and creates the demo accounts.
+  - Content pipeline: Zod-validated lesson Markdown (nine parts in order), question-bank YAML, `pathways.yaml`, `glossary.yaml`; cross-file checks; `pnpm content:check`.
+  - Seeded question generators (`who-does-what`, `bva-values`) – correct by construction, no AI.
+  - Auth: register, log in, log out, password reset with demo mailbox, argon2id, JWT sessions re-checked against the database on every request (`sessionVersion`), Postgres rate limits on login/register/reset, learner and admin roles enforced on the server.
+  - Onboarding (consent-gated optional data, skills, pathway preference, time, accessibility), 12-question diagnostic, recommendation with reasons, side-by-side comparison and transferable skills; display settings applied site-wide.
+  - Lesson player: nine parts, autosaved position (by section key, survives new versions), notes, bookmarks, glossary links, hints, read aloud, knowledge check marked on the server.
+  - Quiz engine: least-recently-seen draws spread across objectives, all four question types, all-or-nothing marking, explanation for every option, remediation links to the exact lesson section, retakes with different questions, configurable pass mark/draw count/cooldown, pass mark frozen per attempt.
+  - Spaced review (1, 3, 7, 21 days) and quick review page.
+  - Progress model with three separate states and prerequisite unlocking; dashboard with continue, progress, history, weekly plan, quick review, notes/bookmarks counts.
+  - Admin: curriculum and module editing, lesson draft → review → publish with versions and preview, question-bank drafts and publishing, retire/restore questions, assessment settings, unlock rules, user roles, audit log, admin JSON APIs.
+  - Data download (JSON) and account deletion; site search (Postgres full-text) over lessons and glossary; privacy notice.
+  - Sample content: Foundations lesson 1, a 4-question knowledge check, a 25-question module bank (6 generated slots) and the diagnostic.
 
 ## In progress
-- Waiting for approval of `docs/PLAN.md` and answers to its questions Q1–Q7 (section 7)
+- Nothing.
 
 ## Next steps
-1. Get approval of docs/PLAN.md (and answers to Q1–Q7)
-2. Phase 1 – Core platform, in a fresh session
+1. Phase 2a: write Foundations lessons 2–5 with knowledge checks, extend the Foundations bank to cover all five lessons, add glossary entries; run the content-reviewer agent.
+2. Phase 2b: Scrum Master and QA Tester Module 1, assignments, rubrics, practical submission and assessor review.
 
 ## Acceptance criteria status (SPEC §16)
+Results from `pnpm test:e2e` on 10 Nov 2026: 24 tests, all passing.
+
 | # | Criterion | Test file | Status |
 |---|-----------|-----------|--------|
-| 1 | Register + onboarding | | Not started |
-| 2 | Pathway recommendation | | Not started |
-| 3 | Lesson pause/resume | | Not started |
-| 4 | Assessment scoring + explanations | | Not started |
-| 5 | Fail → remediation → retry with new questions | | Not started |
-| 6 | Practical submission + rubric feedback | | Not started |
-| 7 | Log out / back in, progress intact | | Not started |
-| 8 | Portfolio add + PDF export | | Not started |
-| 9 | Data download + account deletion | | Not started |
-| 10 | Admin edits + publishes lesson and question bank | | Not started |
-| 11 | Admin changes pass mark | | Not started |
-| 12 | Learner blocked from admin pages and APIs | | Not started |
-| 13 | Learner can't see other learners' data | | Not started |
-| 14 | axe: no serious violations on key pages | | Not started |
-| 15 | 375px + keyboard-only journeys | | Not started |
+| 1 | Register + onboarding | `tests/e2e/ac01-02-register-onboarding.spec.ts` | Passing |
+| 2 | Pathway recommendation | `tests/e2e/ac01-02-register-onboarding.spec.ts` | Passing |
+| 3 | Lesson pause/resume | `tests/e2e/ac03-07-lesson-progress.spec.ts` | Passing |
+| 4 | Assessment scoring + explanations | `tests/e2e/ac04-05-assessment.spec.ts` | Passing |
+| 5 | Fail → remediation → retry with new questions | `tests/e2e/ac04-05-assessment.spec.ts` | Passing |
+| 6 | Practical submission + rubric feedback | | Not started (Phase 2b) |
+| 7 | Log out / back in, progress intact | `tests/e2e/ac03-07-lesson-progress.spec.ts` | Passing |
+| 8 | Portfolio add + PDF export | | Not started (Phase 4) |
+| 9 | Data download + account deletion | `tests/e2e/ac09-data.spec.ts` | Passing |
+| 10 | Admin edits + publishes lesson and question bank | `tests/e2e/ac10-11-admin.spec.ts` | Passing |
+| 11 | Admin changes pass mark | `tests/e2e/ac10-11-admin.spec.ts` | Passing |
+| 12 | Learner blocked from admin pages and APIs | `tests/e2e/ac12-13-security.spec.ts`, `tests/unit/guard-coverage.test.ts` | Passing |
+| 13 | Learner can't see other learners' data | `tests/e2e/ac12-13-security.spec.ts` | Passing |
+| 14 | axe: no serious violations on key pages | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (all Phase 1 pages) |
+| 15 | 375px + keyboard-only journeys | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (see limitations) |
+
+Unit tests: 62 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
 
 ## Decisions
-- Stack confirmed as in CLAUDE.md; no changes proposed (PLAN §2)
-- Proposals pending approval: see PLAN §1 and §7
+- Stack as in CLAUDE.md, with **no AI provider**: questions, coach replies and feedback are rule-based from course content (PLAN §8.2).
+- Exact versions and technical choices: PLAN §8.3 (Cache Components off, hand-written shadcn-style components, question drafts, attempt snapshots, CommonJS Prisma client).
+- Learners who visit `/admin/*` get a 404 (so admin pages aren't revealed); admin APIs return 401/403 JSON.
+- The demo mailbox only exists in demo mode and is off in production builds unless `ALLOW_DEMO_MAILBOX=true`.
+- E2E tests empty and reseed a dedicated `*_test` database rather than using `prisma migrate reset`.
 
 ## Known limitations / mocked features
-- 
+- **Email** runs in demo mode in all tests (reset links shown at `/dev/mailbox`). The SMTP path is written but hasn't been tested against a real mail server.
+- **Docker:** the build environment had no Docker daemon, so everything was tested against a local PostgreSQL 16. `docker-compose.yml` follows the standard Postgres image but hasn't been run here.
+- **Sample content only:** one Foundations lesson; the 25-question bank all relates to that lesson. Lessons 2–5 and the full bank come in Phase 2a. All role-pathway modules show "Coming soon".
+- **Recommendation rules are simple heuristics** (PLAN §1.2 point 8) and only three diagnostic questions measure role preference.
+- **Keyboard-only test (AC 15)** covers the skip link, login, lesson navigation, hints and taking an assessment. Registration and onboarding by keyboard alone are covered by native form controls and axe, but not by a scripted keyboard walk-through yet (Phase 5).
+- **No manual screen-reader test yet** – planned for Phase 5.
+- **Read aloud** uses the browser's own voices; it's hidden where unsupported and isn't tested automatically beyond appearing.
+- **Rate limits** use the first `X-Forwarded-For` address for per-connection limits. Behind no proxy, that header can be faked; per-email limits still apply. Revisit when hosting is chosen.
+- **Admin UI gaps:** generated questions can be retired/restored but their parameters are edited in the content files; unlock rules can only add "lessons completed" rules from the UI (the data model supports all three types); retiring a question takes effect immediately rather than through publish.
+- **Search** builds the full-text index at query time (fine for this amount of content; add a stored `tsvector` index if content grows).
+- **Dashboard portfolio card** is a placeholder until Phase 4.
+- Next.js may print `Error: The destination stream errored while writing data` in the e2e server log when a test navigates away mid-response; it doesn't affect results.

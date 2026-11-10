@@ -1,0 +1,72 @@
+slug: foundations-l1-check
+title: How software is built – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: how-software-is-built
+questions:
+  - key: fl1-kc-01
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Who usually writes and changes the code that makes software work?
+    options:
+      - id: a
+        text: A developer
+        correct: true
+        explanation: Correct. Developers write and change the code.
+      - id: b
+        text: A designer
+        explanation: Designers plan how screens look and how people move through them. They don't usually write the code.
+      - id: c
+        text: A business analyst
+        explanation: Business analysts write clear requirements. Developers then build from them.
+  - key: fl1-kc-02
+    type: ORDER
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Put these stages in the order a change usually goes through them.
+    options:
+      - id: a
+        text: Release
+        explanation: Release comes after the change has been built and tested.
+      - id: b
+        text: Understand the need
+        explanation: Understanding the need comes straight after the idea, before any design or building.
+      - id: c
+        text: Build
+        explanation: Building comes after the team understands the need and has a design.
+      - id: d
+        text: Test
+        explanation: Testing checks the built change before it's released.
+    correctOrder: [b, c, d, a]
+  - key: fl1-kc-03
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: workplace-example }
+    stem: At ShopEasy, who checks that "Save for later" still works if a customer saves the same item twice?
+    options:
+      - id: a
+        text: The tester
+        correct: true
+        explanation: Correct. Testers check awkward cases like this as well as the normal ones.
+      - id: b
+        text: The operations engineer
+        explanation: Operations engineers keep the live system running. Checking how a feature behaves is the tester's focus.
+      - id: c
+        text: The product manager
+        explanation: The product manager decides whether the feature is worth building, not how every case behaves.
+  - key: fl1-kc-04
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Which statement about the stages of building software is true in most real teams?
+    options:
+      - id: a
+        text: The stages overlap and the cycle repeats in small steps.
+        correct: true
+        explanation: Correct. Teams usually work in small steps, and testing often starts while building is still going on.
+      - id: b
+        text: Each stage must be fully finished before the next one starts.
+        explanation: That's rare today. Most teams overlap the stages and repeat the cycle in small steps.
+      - id: c
+        text: Testing only happens once, just before release.
+        explanation: Testing happens throughout, and again after fixes, to check nothing else broke.

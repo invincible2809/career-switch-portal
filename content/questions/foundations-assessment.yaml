@@ -1,0 +1,406 @@
+# Phase 1 sample bank: 25 questions on Foundations lesson 1, so the quiz engine can be tested.
+# Phase 2a extends it to cover all five Foundations lessons.
+slug: foundations-assessment
+title: IT Foundations – module assessment
+purpose: MODULE
+module: foundations
+questions:
+  # Generated questions: a fresh, correct-by-construction variant each time (src/lib/questions/generators.ts).
+  - key: fa-gen-role-pm
+    generator: who-does-what
+    params: { role: Product manager }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-designer
+    generator: who-does-what
+    params: { role: Designer }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-developer
+    generator: who-does-what
+    params: { role: Developer }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-tester
+    generator: who-does-what
+    params: { role: Tester }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-ba
+    generator: who-does-what
+    params: { role: Business analyst }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-ops
+    generator: who-does-what
+    params: { role: Operations engineer }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+
+  - key: fa-01
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: What does "release" mean in a software team?
+    options:
+      - id: a
+        text: Making a new version of the software available to real users
+        correct: true
+        explanation: Correct. A release puts the new version live for real users.
+      - id: b
+        text: Writing the code for a new feature
+        explanation: That's building. Release happens after building and testing.
+      - id: c
+        text: Deciding which feature to build next
+        explanation: That's a product decision made at the idea stage, long before release.
+      - id: d
+        text: Removing an old feature from the product
+        explanation: Removing a feature might be part of a release, but "release" means making a new version available.
+  - key: fa-02
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Which stage comes straight after the idea?
+    options:
+      - id: a
+        text: Understanding the need
+        correct: true
+        explanation: Correct. Before designing anything, the team finds out who has the problem and what would help.
+      - id: b
+        text: Build
+        explanation: Building too early risks making the wrong thing. The team first understands the need and plans a design.
+      - id: c
+        text: Release
+        explanation: Release is near the end, after building and testing.
+      - id: d
+        text: Test
+        explanation: Testing checks something that has been built, so it comes later.
+  - key: fa-03
+    type: ORDER
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Put these stages in the usual order.
+    options:
+      - id: a
+        text: Design
+        explanation: Design comes after understanding the need and before building.
+      - id: b
+        text: Idea
+        explanation: Every change starts with an idea – a problem or an opportunity.
+      - id: c
+        text: Learn and look after it
+        explanation: After release, the team learns from real use and looks after the product.
+      - id: d
+        text: Release
+        explanation: Release comes after the change is built and tested.
+    correctOrder: [b, a, d, c]
+  - key: fa-04
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Why does a tester check other baskets after a rounding bug in one basket has been fixed?
+    options:
+      - id: a
+        text: To make sure the fix didn't break something else
+        correct: true
+        explanation: Correct. A change in one place can affect other places, so testers check around the fix too.
+      - id: b
+        text: Because the developer asked them to repeat the same test
+        explanation: Repeating the same test only shows the original bug is fixed. Checking other baskets looks for new problems the fix may have caused.
+      - id: c
+        text: To find out which developer made the mistake
+        explanation: Testing is about the product's quality, not blaming people.
+      - id: d
+        text: Because baskets can only be tested once the shop is live
+        explanation: Baskets can and should be tested before release.
+  - key: fa-05
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: What is a stakeholder?
+    options:
+      - id: a
+        text: Anyone who cares about or is affected by the product
+        correct: true
+        explanation: Correct. Customers, managers and the support team are all stakeholders.
+      - id: b
+        text: Only the people who own shares in the company
+        explanation: Shareholders can be stakeholders, but the word covers anyone who cares about or is affected by the product.
+      - id: c
+        text: The person who writes the code
+        explanation: That's a developer. Developers are stakeholders too, but the word is much wider.
+      - id: d
+        text: A tool for tracking bugs
+        explanation: A stakeholder is a person or group, not a tool.
+  - key: fa-06
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: glossary }
+    stem: Which is the best description of a bug?
+    options:
+      - id: a
+        text: A mistake that makes software behave differently from what was expected
+        correct: true
+        explanation: Correct. Testers often call this a defect.
+      - id: b
+        text: Any new feature that hasn't been released yet
+        explanation: An unreleased feature isn't a mistake. A bug is behaviour that's different from what was expected.
+      - id: c
+        text: A request from a customer for something new
+        explanation: That's a feature request. It may be a good idea, but it isn't a mistake in the software.
+      - id: d
+        text: A slow internet connection on the customer's side
+        explanation: That's outside the software. A bug is a mistake in the software itself.
+  - key: fa-07
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: glossary }
+    stem: Which of these is a feature?
+    options:
+      - id: a
+        text: Being able to save an item for later
+        correct: true
+        explanation: Correct. A feature is something a product lets people do.
+      - id: b
+        text: A basket total that's 1p wrong
+        explanation: That's a bug – the software isn't doing what was expected.
+      - id: c
+        text: The team's weekly meeting
+        explanation: That's a team activity, not something the product lets people do.
+      - id: d
+        text: The server the website runs on
+        explanation: That's part of the system's set-up, not something customers can do with the product.
+  - key: fa-08
+    type: MULTI
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: workplace-example }
+    stem: In the "Save for later" example, which TWO roles worked on it before any code was written?
+    options:
+      - id: a
+        text: Business analyst
+        correct: true
+        explanation: Correct. The business analyst wrote down exactly what should happen, before building started.
+      - id: b
+        text: Designer
+        correct: true
+        explanation: Correct. The designer sketched where the button goes before it was built.
+      - id: c
+        text: Tester
+        explanation: The tester checked the feature once it had been built.
+      - id: d
+        text: Operations engineer
+        explanation: The operations engineer helped make the release go smoothly, after it was built.
+  - key: fa-09
+    type: SCENARIO
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    scenario: ShopEasy's website goes down in the middle of a big sale. Customers can't reach the shop at all.
+    stem: Whose job is it mainly to get the live system running again?
+    options:
+      - id: a
+        text: The operations engineer
+        correct: true
+        explanation: Correct. Operations engineers keep the live system running, and they're usually alerted first.
+      - id: b
+        text: The designer
+        explanation: Designers plan screens. A site that's down is an operations problem.
+      - id: c
+        text: The business analyst
+        explanation: Business analysts write requirements. Keeping the live site running is operations work.
+      - id: d
+        text: The product manager
+        explanation: The product manager will want to know, but restoring the system is operations work.
+  - key: fa-10
+    type: SCENARIO
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: worked-example }
+    scenario: A customer says their basket total was 1p more than it should have been.
+    stem: What is the most useful first step for the tester?
+    options:
+      - id: a
+        text: Try to make the problem happen again and write a clear report
+        correct: true
+        explanation: Correct. If the tester can repeat the problem, the developer can find and fix it much faster.
+      - id: b
+        text: Ignore it, because 1p doesn't matter
+        explanation: Small errors add up across thousands of orders, and they damage trust. It's worth investigating.
+      - id: c
+        text: Change the code themselves straight away
+        explanation: Testers usually report problems rather than change the code. A clear report helps the developer fix it properly.
+      - id: d
+        text: Release a new version of the website
+        explanation: Releasing without understanding or fixing the problem won't help.
+  - key: fa-11
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: worked-example }
+    stem: In the rounding example, why was the design stage very short?
+    options:
+      - id: a
+        text: No new screen or behaviour needed planning – only the calculation needed fixing
+        correct: true
+        explanation: Correct. Stages can be very short when there's little to decide.
+      - id: b
+        text: Because designers are not allowed to work on bugs
+        explanation: Designers can help with bugs. It was short because there was nothing new to design.
+      - id: c
+        text: Because the team skipped testing
+        explanation: Testing happened twice in that example. The design stage was short because nothing new needed designing.
+      - id: d
+        text: Because the bug was already released
+        explanation: The bug being live didn't change the design work. There was simply nothing new to design.
+  - key: fa-12
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: What happens in the "learn and look after it" stage?
+    options:
+      - id: a
+        text: The team watches how people use the change, fixes problems and decides what to do next
+        correct: true
+        explanation: Correct. This stage often leads to the next idea.
+      - id: b
+        text: The team stops working on the product
+        explanation: The work carries on. Real use gives the team new information.
+      - id: c
+        text: Customers are trained to write code
+        explanation: Customers don't write the code. The team learns from how customers use the product.
+      - id: d
+        text: The software is deleted and rebuilt from scratch
+        explanation: Teams improve products in small steps rather than rebuilding them.
+  - key: fa-13
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: In a small company, one person does both the business analysis and the testing. Is that unusual?
+    options:
+      - id: a
+        text: No – job titles vary and one person often covers several roles in small companies
+        correct: true
+        explanation: Correct. What matters is that the work gets done, whatever the job title.
+      - id: b
+        text: Yes – each role must always be done by a different person
+        explanation: Roles describe kinds of work. In small companies people often do several.
+      - id: c
+        text: Yes – testers are never allowed to write requirements
+        explanation: There's no such rule. Testers often help make requirements clearer.
+      - id: d
+        text: No – because business analysis isn't needed in small companies
+        explanation: Clear requirements help in companies of every size.
+  - key: fa-14
+    type: MULTI
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Which TWO statements describe how most software teams work today?
+    options:
+      - id: a
+        text: Testing often starts while building is still going on
+        correct: true
+        explanation: Correct. Testing early finds problems when they're cheaper to fix.
+      - id: b
+        text: The team repeats the cycle many times in small steps
+        correct: true
+        explanation: Correct. Small steps let the team learn and adjust quickly.
+      - id: c
+        text: Nobody talks to each other until hand-over points
+        explanation: Teams talk throughout. Each role brings a different view.
+      - id: d
+        text: Everything is released once, at the very end
+        explanation: Most teams release in small steps rather than all at once.
+  - key: fa-15
+    type: SCENARIO
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: guided-practice }
+    scenario: ShopEasy is thinking about letting customers choose a delivery day.
+    stem: Who would you expect to decide whether this is worth building at all?
+    options:
+      - id: a
+        text: The product manager
+        correct: true
+        explanation: Correct. The product manager weighs up customer needs and business value.
+      - id: b
+        text: The tester
+        explanation: Testers check things work. Deciding what to build is the product manager's call.
+      - id: c
+        text: The operations engineer
+        explanation: Operations keeps the system running. Deciding what to build is the product manager's call.
+      - id: d
+        text: The developer
+        explanation: Developers give useful input on effort, but the product manager decides what's worth building.
+  - key: fa-16
+    type: SCENARIO
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: guided-practice }
+    scenario: ShopEasy will let customers choose a delivery day. Nobody has said what happens if a customer picks a day when the warehouse is closed.
+    stem: Who would normally write down what should happen?
+    options:
+      - id: a
+        text: The business analyst
+        correct: true
+        explanation: Correct. Turning a need into clear, written requirements is the business analyst's focus.
+      - id: b
+        text: The designer
+        explanation: The designer may show the message on screen, but the rule itself is usually written by the business analyst.
+      - id: c
+        text: The operations engineer
+        explanation: Operations engineers keep the system running. This is a requirement to write down.
+      - id: d
+        text: The customer
+        explanation: Customers can tell the team what they need, but the team writes the requirement.
+  - key: fa-17
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: workplace-example }
+    stem: Why does the ShopEasy team talk to each other throughout the work, not only at hand-over points?
+    options:
+      - id: a
+        text: Each person brings a different view, and problems are cheaper to fix when found early
+        correct: true
+        explanation: Correct. Talking early helps the team spot problems before they're built in.
+      - id: b
+        text: Because managers need to check everyone is busy
+        explanation: The point of talking is to share knowledge and spot problems early, not to check on people.
+      - id: c
+        text: Because only one person understands the product
+        explanation: The opposite – several people understand different parts, which is why they talk.
+      - id: d
+        text: Because hand-overs are against the law
+        explanation: There's no such law. Hand-overs happen, but teams also talk throughout.
+  - key: fa-18
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Which role plans how screens look and how people move through them?
+    options:
+      - id: a
+        text: Designer
+        correct: true
+        explanation: Correct. Designers plan screens and the path people take through them.
+      - id: b
+        text: Tester
+        explanation: Testers check how the product behaves. Designers plan how it should look and flow.
+      - id: c
+        text: Operations engineer
+        explanation: Operations engineers keep the live system running.
+      - id: d
+        text: Business analyst
+        explanation: Business analysts write requirements. The designer plans screens and flows.
+  - key: fa-19
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: What usually happens at the "understand the need" stage?
+    options:
+      - id: a
+        text: The team finds out who has the problem and what would help, and writes it down clearly
+        correct: true
+        explanation: Correct. Understanding the need first avoids building the wrong thing.
+      - id: b
+        text: Developers start writing code straight away
+        explanation: Building comes later. First the team makes sure it understands the need.
+      - id: c
+        text: The new version goes live for customers
+        explanation: That's release, near the end of the cycle.
+      - id: d
+        text: Testers check the finished feature
+        explanation: Testing checks something that has been built, which comes later.

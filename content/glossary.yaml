@@ -1,0 +1,7 @@
+# Site-wide glossary terms that are not introduced by a single lesson.
+# Lessons add their own terms through their front matter.
+terms:
+  - term: Software
+    definition: The programs and apps that run on computers and phones, such as a shopping website.
+  - term: ShopEasy
+    definition: The fictional online shop used as the example in every lesson on this course.

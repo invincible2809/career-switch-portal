@@ -1,6 +1,6 @@
 # PLAN – Career-Switch Learning Portal
 
-Status: **Draft for approval** (Phase 0). No application code has been written.
+Status: **Approved 10 Nov 2026** with the recommendations in §7, plus one change: no AI provider (see §8).
 Sources: `CLAUDE.md`, `docs/SPEC.md` (§1–§17), `docs/PROGRESS.md`, `PHASE-PROMPTS.md`.
 
 ---
@@ -403,4 +403,35 @@ Every step ends with `pnpm lint && pnpm typecheck && pnpm test`. Playwright test
 | **Q6** | Should I **push** each phase's commit to the branch `claude/career-switch-portal-setup-vr75kd` on GitHub? CLAUDE.md says don't push unless asked | Yes, push to that branch (never `main`) |
 | **Q7** | `ANTHROPIC_API_KEY` | Not needed until Phase 4; the coach will run in demo mode without it |
 
-Once you approve (with any changes), Phase 1 starts in a fresh session using the Phase 1 prompt.
+---
+
+## 8. Decisions after approval (10 Nov 2026)
+
+### 8.1 Answers to §7
+| # | Decision |
+|---|---|
+| Q1 | Automated checks where possible + admin assessor review for the rest. Self-assessment is shown but never counts. Automated guidance (see 8.2) is added in Phase 4 instead of AI scoring |
+| Q2 | No email verification in the MVP |
+| Q3 | Extra dependencies approved |
+| Q4 | Hosting not decided; nothing vendor-specific |
+| Q5 | Certificate rule and "Coming soon" handling approved |
+| Q6 | Push each phase's commit to `claude/career-switch-portal-setup-vr75kd` (never `main`) |
+| Q7 | Not needed – see 8.2 |
+
+### 8.2 No AI provider or API key
+The portal is built **without an AI API**, like the question-bank generators in the Oakling apps. This replaces every AI feature in SPEC §7, §9 and §10:
+
+- **Questions:** authored questions plus **seeded generators** (`src/lib/questions/generators.ts`). A generator builds the question, its answer and an explanation for every option together, so answers are correct by construction and the same seed always gives the same question. Generated questions are snapshotted into each attempt.
+- **Learning coach (Phase 4):** rule-based. It finds the relevant lesson sections with Postgres full-text search and answers with quotes and links from published lessons; gives hints first using the lesson's `:::hint` blocks; offers extra practice from generators and the learner's review queue; role-play and mock interviews follow authored scripts and checklists. Output is labelled "Automated guidance from course content – not reviewed by a person", and "Flag this answer" still feeds the admin review queue.
+- **Practical work feedback:** automated checks per rubric criterion (e.g. impediment log has 3+ complete entries; test cases cover both boundaries) plus assessor review. `AssessedBy` uses `AUTOMATED`, `AUTOMATED_GUIDANCE` and `ASSESSOR`; there is no AI source.
+- `@anthropic-ai/sdk` is not a dependency and `ANTHROPIC_API_KEY` is not used. No learner data leaves the server.
+
+### 8.3 Technical decisions made in Phase 1
+- **Versions:** Next.js 16.4 (App Router, Turbopack), React 19.3, Prisma 7.10 with the `pg` driver adapter, Auth.js 5 beta, Zod 4, Tailwind 4, Vitest 4, Playwright 1.63.
+- **Cache Components are off.** Nearly every page is per-learner and reads the session cookie, so pages render on request.
+- **shadcn/ui-style components are written by hand** in `src/components/ui` (same Radix/cva/tailwind-merge approach), because the shadcn registry isn't reachable from the build environment.
+- **Question drafts:** `Question.draft` holds admin edits until the bank is published, so learners never see half-finished changes (AC 10). Retiring/restoring a question takes effect immediately; a module bank can't drop below 25 active questions.
+- **Attempt snapshots:** every attempt answer stores exactly what the learner saw (including generated questions and explanations), so later edits never change old results.
+- **Prisma client** is generated as CommonJS so the same client works in Next.js, the `tsx` seed script and Playwright.
+- **E2E database:** Playwright's global setup applies migrations, empties every table and reseeds – only for a database whose name ends in `_test`. (Prisma's `migrate reset` is blocked when run by an AI agent, and this keeps the dev database untouched.)
+

@@ -1,0 +1,792 @@
+// Career-Switch Learning Portal – data model (docs/PLAN.md §3).
+// The three progress states are kept in separate tables:
+//   content completed      -> LessonProgress.contentCompletedAt
+//   assessment passed      -> AssessmentStatus.passedAt
+//   competency demonstrated -> Competency (written only by the rubric evaluator or an admin override)
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  // CommonJS output so the same client works in Next.js, tsx scripts and Playwright tests.
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------- Enums ----------
+
+enum Role {
+  LEARNER
+  ADMIN
+}
+
+enum PublishStatus {
+  DRAFT
+  IN_REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum PathwayKind {
+  SHARED
+  ROLE
+}
+
+enum PathwayChoice {
+  SCRUM_MASTER
+  QA_TESTER
+  HELP_ME_CHOOSE
+}
+
+enum ModuleAvailability {
+  AVAILABLE
+  COMING_SOON
+}
+
+enum TextScale {
+  DEFAULT
+  LARGE
+  LARGER
+}
+
+enum BankPurpose {
+  DIAGNOSTIC
+  KNOWLEDGE_CHECK
+  MODULE
+}
+
+enum QuestionType {
+  SINGLE
+  MULTI
+  ORDER
+  SCENARIO
+}
+
+enum AssessmentKind {
+  MODULE
+  DIAGNOSTIC
+}
+
+enum PrereqTarget {
+  ASSESSMENT
+  ASSIGNMENT
+  MODULE
+}
+
+enum PrereqRequirement {
+  LESSONS_COMPLETED
+  ASSESSMENT_PASSED
+  COMPETENCY_DEMONSTRATED
+}
+
+enum AssignmentForm {
+  SCRUM_RETRO_PLAN
+  QA_CHECKOUT_TESTING
+}
+
+enum AssessmentState {
+  AWAITING_REVIEW
+  ASSESSED
+}
+
+enum AssessedBy {
+  AUTOMATED
+  AUTOMATED_GUIDANCE
+  ASSESSOR
+}
+
+enum ScoreSource {
+  SELF
+  AUTOMATED
+  GUIDANCE
+  ASSESSOR
+}
+
+enum FlagKind {
+  COACH_ANSWER
+  LESSON
+  QUESTION
+}
+
+enum FlagStatus {
+  OPEN
+  RESOLVED
+}
+
+enum TestTechnique {
+  EP
+  BVA
+  OTHER
+}
+
+enum TestRunStatus {
+  NOT_RUN
+  PASS
+  FAIL
+  BLOCKED
+}
+
+// ---------- Users, auth, onboarding ----------
+
+model User {
+  id             String    @id @default(cuid())
+  email          String    @unique
+  displayName    String
+  passwordHash   String
+  role           Role      @default(LEARNER)
+  sessionVersion Int       @default(1)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  profile            LearnerProfile?
+  accessibility      AccessibilityPrefs?
+  resetTokens        PasswordResetToken[]
+  diagnosticAttempts DiagnosticAttempt[]
+  lessonProgress     LessonProgress[]
+  attempts           AssessmentAttempt[]
+  assessmentStatuses AssessmentStatus[]
+  reviewItems        ReviewItem[]
+  submissions        Submission[]
+  competencies       Competency[]        @relation("CompetencyLearner")
+  overrides          Competency[]        @relation("CompetencyOverride")
+  scoresGiven        RubricScore[]
+  notes              Note[]
+  bookmarks          Bookmark[]
+  studyPlanWeeks     StudyPlanWeek[]
+  portfolioItems     PortfolioItem[]
+  portfolioShares    PortfolioShare[]
+  certificates       Certificate[]
+  skillsStatement    SkillsStatement?
+  coachMessages      CoachMessage[]
+  flagsRaised        FlaggedItem[]       @relation("FlagReporter")
+  flagsResolved      FlaggedItem[]       @relation("FlagResolver")
+  labSessions        LabSession[]
+  labTestCases       LabTestCase[]
+  defectReports      DefectReport[]
+  auditEntries       AuditLog[]
+  lessonVersions     LessonVersion[]
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model DevMailboxMessage {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  body      String
+  createdAt DateTime @default(now())
+}
+
+model LearnerProfile {
+  userId                String         @id
+  previousRoles         String[]
+  industry              String?
+  skills                Json?
+  techConfidence        Int?
+  preferredPathway      PathwayChoice?
+  activePathwayId       String?
+  weeklyMinutes         Int?
+  goal                  String?
+  optionalDataConsentAt DateTime?
+  onboardingCompletedAt DateTime?
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+  user                  User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activePathway         Pathway?       @relation(fields: [activePathwayId], references: [id], onDelete: SetNull)
+}
+
+model AccessibilityPrefs {
+  userId        String    @id
+  textScale     TextScale @default(DEFAULT)
+  reducedMotion Boolean   @default(false)
+  dyslexiaFont  Boolean   @default(false)
+  readAloud     Boolean   @default(false)
+  updatedAt     DateTime  @updatedAt
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DiagnosticAttempt {
+  id              String   @id @default(cuid())
+  userId          String
+  answers         Json
+  result          Json
+  chosenPathwayId String?
+  createdAt       DateTime @default(now())
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ---------- Curriculum and content versions ----------
+
+model Pathway {
+  id        String        @id @default(cuid())
+  slug      String        @unique
+  title     String
+  summary   String
+  kind      PathwayKind
+  order     Int
+  status    PublishStatus @default(PUBLISHED)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  modules      Module[]
+  profiles     LearnerProfile[]
+  certificates Certificate[]
+}
+
+model Module {
+  id           String             @id @default(cuid())
+  pathwayId    String
+  slug         String             @unique
+  title        String
+  summary      String
+  order        Int
+  availability ModuleAvailability @default(AVAILABLE)
+  status       PublishStatus      @default(PUBLISHED)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  pathway     Pathway        @relation(fields: [pathwayId], references: [id], onDelete: Cascade)
+  lessons     Lesson[]
+  assessments Assessment[]
+  assignments Assignment[]
+  banks       QuestionBank[]
+}
+
+model Lesson {
+  id                 String    @id @default(cuid())
+  moduleId           String
+  slug               String    @unique
+  order              Int
+  publishedVersionId String?   @unique
+  reviewDueAt        DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  module           Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  versions         LessonVersion[]  @relation("LessonVersions")
+  publishedVersion LessonVersion?   @relation("PublishedVersion", fields: [publishedVersionId], references: [id])
+  progress         LessonProgress[]
+  notes            Note[]
+  bookmarks        Bookmark[]
+  glossaryTerms    GlossaryTerm[]
+  banks            QuestionBank[]
+}
+
+model LessonVersion {
+  id               String        @id @default(cuid())
+  lessonId         String
+  version          Int
+  status           PublishStatus @default(DRAFT)
+  title            String
+  estimatedMinutes Int
+  objectives       String[]
+  // [{ key, part, title, markdown }] – see src/lib/content/lesson-parts.ts
+  sections         Json
+  searchText       String
+  knowledgeCheck   String?
+  authorId         String?
+  reviewNote       String?
+  publishedAt      DateTime?
+  createdAt        DateTime      @default(now())
+
+  lesson      Lesson  @relation("LessonVersions", fields: [lessonId], references: [id], onDelete: Cascade)
+  publishedOf Lesson? @relation("PublishedVersion")
+  author      User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@unique([lessonId, version])
+}
+
+model Prerequisite {
+  id          String            @id @default(cuid())
+  targetType  PrereqTarget
+  targetId    String
+  requirement PrereqRequirement
+  requiredId  String
+  createdAt   DateTime          @default(now())
+
+  @@unique([targetType, targetId, requirement, requiredId])
+  @@index([targetType, targetId])
+}
+
+model GlossaryTerm {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  term          String
+  definition    String
+  firstLessonId String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  firstLesson   Lesson?  @relation(fields: [firstLessonId], references: [id], onDelete: SetNull)
+}
+
+// ---------- Assessment ----------
+
+model QuestionBank {
+  id        String        @id @default(cuid())
+  slug      String        @unique
+  title     String
+  purpose   BankPurpose
+  status    PublishStatus @default(PUBLISHED)
+  moduleId  String?
+  lessonId  String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  module      Module?      @relation(fields: [moduleId], references: [id], onDelete: SetNull)
+  lesson      Lesson?      @relation(fields: [lessonId], references: [id], onDelete: SetNull)
+  questions   Question[]
+  assessments Assessment[]
+}
+
+// A question row is one version of a question. Editing creates a new row with the
+// same key and version + 1, and the old row is made inactive. Attempts store a full
+// snapshot of what the learner saw, so old results never change.
+// `generator` questions are templates: src/lib/questions/generators builds a fresh,
+// correct-by-construction variant from a seed each time they are drawn.
+model Question {
+  id              String       @id @default(cuid())
+  bankId          String
+  key             String
+  version         Int          @default(1)
+  active          Boolean      @default(true)
+  type            QuestionType
+  scenario        String?
+  stem            String
+  options         Json
+  correctOrder    String[]
+  objective       String
+  lessonSlug      String
+  sectionKey      String
+  tags            String[]
+  isKey           Boolean      @default(false)
+  // Admin edits are saved as a draft version and only go live when the bank is published.
+  draft           Boolean      @default(false)
+  generator       String?
+  generatorParams Json?
+  createdAt       DateTime     @default(now())
+
+  bank        QuestionBank    @relation(fields: [bankId], references: [id], onDelete: Cascade)
+  answers     AttemptAnswer[]
+  reviewItems ReviewItem[]
+
+  @@unique([bankId, key, version])
+  @@index([bankId, active])
+}
+
+model Assessment {
+  id              String         @id @default(cuid())
+  slug            String         @unique
+  title           String
+  kind            AssessmentKind
+  bankId          String
+  moduleId        String?
+  drawCount       Int            @default(10)
+  passMark        Int            @default(80)
+  cooldownMinutes Int            @default(0)
+  status          PublishStatus  @default(PUBLISHED)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  bank     QuestionBank        @relation(fields: [bankId], references: [id], onDelete: Restrict)
+  module   Module?             @relation(fields: [moduleId], references: [id], onDelete: SetNull)
+  attempts AssessmentAttempt[]
+  statuses AssessmentStatus[]
+}
+
+model AssessmentAttempt {
+  id               String    @id @default(cuid())
+  userId           String
+  assessmentId     String
+  passMarkAtStart  Int
+  drawCountAtStart Int
+  seed             Int
+  startedAt        DateTime  @default(now())
+  submittedAt      DateTime?
+  scorePercent     Int?
+  passed           Boolean?
+
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assessment Assessment      @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  answers    AttemptAnswer[]
+
+  @@index([userId, assessmentId])
+}
+
+model AttemptAnswer {
+  id         String  @id @default(cuid())
+  attemptId  String
+  questionId String
+  position   Int
+  // What the learner saw: stem, scenario, options (with correctness and explanations), lessonRef
+  snapshot   Json
+  response   Json?
+  correct    Boolean?
+
+  attempt  AssessmentAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question Question          @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, position])
+}
+
+model AssessmentStatus {
+  userId        String
+  assessmentId  String
+  bestScore     Int
+  attemptsCount Int
+  passedAt      DateTime?
+  updatedAt     DateTime  @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+
+  @@id([userId, assessmentId])
+}
+
+model ReviewItem {
+  id             String    @id @default(cuid())
+  userId         String
+  questionId     String
+  stage          Int       @default(0)
+  dueAt          DateTime
+  lastAnsweredAt DateTime?
+  retiredAt      DateTime?
+  createdAt      DateTime  @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+  @@index([userId, dueAt])
+}
+
+// ---------- Practical work ----------
+
+model Rubric {
+  id          String            @id @default(cuid())
+  slug        String
+  version     Int               @default(1)
+  title       String
+  minimumRule Json
+  status      PublishStatus     @default(PUBLISHED)
+  createdAt   DateTime          @default(now())
+  criteria    RubricCriterion[]
+  assignments Assignment[]
+
+  @@unique([slug, version])
+}
+
+model RubricCriterion {
+  id          String        @id @default(cuid())
+  rubricId    String
+  key         String
+  title       String
+  descriptors Json
+  autoCheck   String?
+  order       Int
+  rubric      Rubric        @relation(fields: [rubricId], references: [id], onDelete: Cascade)
+  scores      RubricScore[]
+
+  @@unique([rubricId, key])
+}
+
+model Assignment {
+  id            String         @id @default(cuid())
+  slug          String         @unique
+  moduleId      String
+  title         String
+  briefMarkdown String
+  formKind      AssignmentForm
+  rubricId      String
+  status        PublishStatus  @default(PUBLISHED)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  module       Module          @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  rubric       Rubric          @relation(fields: [rubricId], references: [id], onDelete: Restrict)
+  submissions  Submission[]
+  competencies Competency[]
+}
+
+model Submission {
+  id              String          @id @default(cuid())
+  userId          String
+  assignmentId    String
+  rubricVersion   Int
+  payload         Json
+  assessmentState AssessmentState @default(AWAITING_REVIEW)
+  assessedBy      AssessedBy?
+  submittedAt     DateTime        @default(now())
+
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignment     Assignment      @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  scores         RubricScore[]
+  competency     Competency?
+  portfolioItems PortfolioItem[]
+  defectReports  DefectReport[]
+
+  @@index([userId, assignmentId])
+}
+
+model RubricScore {
+  id           String      @id @default(cuid())
+  submissionId String
+  criterionId  String
+  score        Int
+  source       ScoreSource
+  comment      String?
+  scoredById   String?
+  createdAt    DateTime    @default(now())
+
+  submission Submission      @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  criterion  RubricCriterion @relation(fields: [criterionId], references: [id], onDelete: Cascade)
+  scoredBy   User?           @relation(fields: [scoredById], references: [id], onDelete: SetNull)
+
+  @@index([submissionId])
+}
+
+// ---------- Progress (the three separate states) ----------
+
+model LessonProgress {
+  userId             String
+  lessonId           String
+  lastSectionKey     String
+  lastVersionId      String?
+  startedAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  contentCompletedAt DateTime?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@id([userId, lessonId])
+}
+
+model Competency {
+  id             String     @id @default(cuid())
+  userId         String
+  assignmentId   String
+  submissionId   String     @unique
+  demonstratedAt DateTime   @default(now())
+  assessedBy     AssessedBy
+  overriddenById String?
+
+  user         User       @relation("CompetencyLearner", fields: [userId], references: [id], onDelete: Cascade)
+  assignment   Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  submission   Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  overriddenBy User?      @relation("CompetencyOverride", fields: [overriddenById], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+}
+
+// ---------- Learner tools, portfolio, certificates, coach ----------
+
+model Note {
+  id         String   @id @default(cuid())
+  userId     String
+  lessonId   String
+  sectionKey String?
+  body       String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@index([userId, lessonId])
+}
+
+model Bookmark {
+  id         String   @id @default(cuid())
+  userId     String
+  lessonId   String
+  sectionKey String
+  createdAt  DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId, sectionKey])
+}
+
+model StudyPlanWeek {
+  id        String   @id @default(cuid())
+  userId    String
+  weekStart DateTime
+  items     Json
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, weekStart])
+}
+
+model PortfolioItem {
+  id             String      @id @default(cuid())
+  userId         String
+  submissionId   String?
+  kind           String
+  title          String
+  content        Json
+  includeInShare Boolean     @default(true)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  submission Submission? @relation(fields: [submissionId], references: [id], onDelete: SetNull)
+}
+
+model PortfolioShare {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  enabled   Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  revokedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Certificate {
+  id             String    @id @default(cuid())
+  userId         String
+  pathwayId      String
+  verificationId String    @unique
+  snapshot       Json
+  issuedAt       DateTime  @default(now())
+  revokedAt      DateTime?
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pathway Pathway @relation(fields: [pathwayId], references: [id], onDelete: Cascade)
+}
+
+model SkillsStatement {
+  userId    String   @id
+  body      String
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// The coach is rule-based (no AI provider): replies are assembled from course content.
+model CoachMessage {
+  id         String   @id @default(cuid())
+  userId     String
+  threadId   String
+  role       String
+  content    String
+  lessonRefs Json?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, threadId])
+}
+
+model FlaggedItem {
+  id           String     @id @default(cuid())
+  reporterId   String?
+  kind         FlagKind
+  targetId     String
+  reason       String
+  status       FlagStatus @default(OPEN)
+  resolvedById String?
+  resolution   String?
+  createdAt    DateTime   @default(now())
+  resolvedAt   DateTime?
+
+  reporter   User? @relation("FlagReporter", fields: [reporterId], references: [id], onDelete: SetNull)
+  resolvedBy User? @relation("FlagResolver", fields: [resolvedById], references: [id], onDelete: SetNull)
+}
+
+// ---------- Test Lab (Phase 3) ----------
+
+model LabSession {
+  id        String   @id @default(cuid())
+  userId    String
+  state     Json
+  resetAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model LabTestCase {
+  id            String        @id @default(cuid())
+  userId        String
+  title         String
+  technique     TestTechnique
+  preconditions String
+  steps         String
+  testData      String
+  expected      String
+  status        TestRunStatus @default(NOT_RUN)
+  actual        String?
+  executedAt    DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model DefectReport {
+  id           String      @id @default(cuid())
+  userId       String
+  submissionId String?
+  title        String
+  area         String
+  environment  String
+  steps        String
+  expected     String
+  actual       String
+  severity     String
+  priority     String
+  evidence     String
+  createdAt    DateTime    @default(now())
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  submission Submission? @relation(fields: [submissionId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+}
+
+// ---------- Platform ----------
+
+model RateLimitBucket {
+  key         String   @id
+  windowStart DateTime
+  count       Int
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  action     String
+  entityType String
+  entityId   String
+  before     Json?
+  after      Json?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}

@@ -1,0 +1,107 @@
+# Pathways and modules. Lessons, question banks and rubrics live in their own folders.
+# Modules marked COMING_SOON are shown with their title and summary only (PLAN §1.2 point 4).
+pathways:
+  - slug: it-foundations
+    title: IT Foundations
+    kind: SHARED
+    summary: >
+      How software teams work, explained in plain English. Shared by both pathways and
+      recommended before Module 1.
+    modules:
+      - slug: foundations
+        title: IT Foundations
+        summary: How software is built, how teams plan and test it, and the tools they use.
+        assessment:
+          slug: foundations-assessment
+          title: IT Foundations – module assessment
+          bank: foundations-assessment
+          drawCount: 10
+          passMark: 80
+
+  - slug: scrum-master
+    title: Scrum Master
+    kind: ROLE
+    summary: >
+      Learn Scrum as described in the Scrum Guide (2020) and practise helping a team work
+      well together. Aligned with the Scrum Guide – this course does not award a Scrum certification.
+    modules:
+      - slug: scrum-fundamentals
+        title: Scrum fundamentals
+        summary: Accountabilities, events, artifacts and commitments, empiricism and the Scrum values.
+        availability: COMING_SOON
+      - slug: facilitation-and-communication
+        title: Facilitation and communication
+        summary: Running sessions where everyone can contribute.
+        availability: COMING_SOON
+      - slug: coaching-and-servant-leadership
+        title: Coaching and servant leadership
+        summary: Helping people and teams find their own answers.
+        availability: COMING_SOON
+      - slug: supporting-the-scrum-events
+        title: Supporting the Scrum events well
+        summary: Making each event useful rather than a routine.
+        availability: COMING_SOON
+      - slug: impediments-and-conflict
+        title: Impediments and conflict
+        summary: Spotting what slows a team down and dealing with disagreement.
+        availability: COMING_SOON
+      - slug: product-owner-and-stakeholders
+        title: Working with the Product Owner and stakeholders
+        summary: Supporting the Product Owner and handling pressure from outside the team.
+        availability: COMING_SOON
+      - slug: delivery-measures
+        title: Delivery measures and their limits
+        summary: What measures can and can't tell you, and why velocity must not be used to compare teams.
+        availability: COMING_SOON
+      - slug: scrum-scenarios-and-interviews
+        title: Workplace scenarios and interview preparation
+        summary: Realistic situations and how to talk about them.
+        availability: COMING_SOON
+
+  - slug: qa-tester
+    title: QA Tester
+    kind: ROLE
+    summary: >
+      Learn how to test software and report problems clearly. Terms are aligned with ISTQB
+      Foundation Level – this course is not an ISTQB qualification.
+    modules:
+      - slug: testing-foundations
+        title: Testing foundations
+        summary: Why testing matters, the seven testing principles, test levels and types, and risk.
+        availability: COMING_SOON
+      - slug: requirements-and-acceptance-criteria
+        title: Analysing requirements and acceptance criteria
+        summary: Reading requirements with a tester's eye.
+        availability: COMING_SOON
+      - slug: scenarios-cases-and-data
+        title: Test scenarios, test cases and test data
+        summary: Writing tests other people can follow.
+        availability: COMING_SOON
+      - slug: test-design-techniques
+        title: Test design techniques
+        summary: Equivalence partitioning and boundary value analysis.
+        availability: COMING_SOON
+      - slug: exploratory-testing
+        title: Exploratory testing
+        summary: Charters and session notes.
+        availability: COMING_SOON
+      - slug: defect-reports
+        title: Defect reports
+        summary: Severity and priority, retesting and regression testing.
+        availability: COMING_SOON
+      - slug: testing-in-agile-teams
+        title: Testing in Agile teams
+        summary: How testing fits into short cycles of work.
+        availability: COMING_SOON
+      - slug: sql-for-testers
+        title: Introductory SQL for testers
+        summary: Checking data with simple queries.
+        availability: COMING_SOON
+      - slug: api-testing
+        title: Introductory API testing
+        summary: Sending requests and checking responses.
+        availability: COMING_SOON
+      - slug: intro-to-automation
+        title: Introduction to test automation (optional)
+        summary: What automation is good for – only after Modules 1–9.
+        availability: COMING_SOON
