@@ -28,7 +28,7 @@ export default async function SubmissionPage({ params }: { params: Promise<{ slu
     s.scores.map((x) => ({ criterionId: x.criterionId, score: x.score, source: x.source, createdAt: x.createdAt })),
     rule,
   );
-  const latest = (cid: string, source: "SELF" | "AUTOMATED" | "ASSESSOR") =>
+  const latest = (cid: string, source: "SELF" | "AUTOMATED" | "ASSESSOR" | "GUIDANCE") =>
     s.scores.filter((x) => x.criterionId === cid && x.source === source).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())[0];
   const qa = s.assignment.formKind === "QA_CHECKOUT_TESTING" ? matchDefects(s.payload as unknown as QaCheckout, QA_KNOWN_DEFECTS, SESSION_LOG.length) : null;
   const lab = s.assignment.formKind === "QA_TEST_LAB" ? matchLabReports((s.payload as unknown as QaTestLab).defects, LAB_DEFECTS) : null;
@@ -72,6 +72,7 @@ export default async function SubmissionPage({ params }: { params: Promise<{ slu
           const auto = latest(c.id, "AUTOMATED");
           const assessor = latest(c.id, "ASSESSOR");
           const self = latest(c.id, "SELF");
+          const guidance = latest(c.id, "GUIDANCE");
           const d = c.descriptors as Record<string, string>;
           return (
             <Card key={c.id} className="space-y-2" data-testid={`criterion-${c.key}`}>
@@ -99,6 +100,16 @@ export default async function SubmissionPage({ params }: { params: Promise<{ slu
                   <p className="font-semibold">Automated check</p>
                   <ul className="list-disc pl-5 text-sm">
                     {auto.comment.split("\n").map((line, i) => (
+                      <li key={i}>{line}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              {guidance?.comment && !assessor ? (
+                <div data-testid="guidance">
+                  <p className="font-semibold">Automated guidance from course content – not reviewed by a person (doesn&apos;t count towards competency)</p>
+                  <ul className="list-disc pl-5 text-sm">
+                    {guidance.comment.split("\n").map((line, i) => (
                       <li key={i}>{line}</li>
                     ))}
                   </ul>

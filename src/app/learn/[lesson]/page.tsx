@@ -16,6 +16,7 @@ import { SubmitButton } from "@/components/forms/form-status";
 import { PositionSaver } from "@/components/lesson/position-saver";
 import { ReadAloud } from "@/components/lesson/read-aloud";
 import { PracticeQuestion } from "@/components/quiz/practice-question";
+import { ReportProblem } from "@/components/forms/report-problem";
 import {
   addNoteAction,
   checkPracticeAnswerAction,
@@ -179,6 +180,8 @@ export default async function LessonPage({ params, searchParams }: Props) {
             </form>
           )}
         </nav>
+
+        <ReportProblem kind="LESSON" targetId={lesson.id} label="Report a problem with this lesson" />
 
         <Card>
           <h2 className="text-lg font-bold">Your notes for this lesson</h2>

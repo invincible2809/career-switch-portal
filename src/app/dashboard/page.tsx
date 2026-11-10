@@ -155,11 +155,17 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
         )}
       </section>
 
-      <Card>
-        <h2 className="text-xl font-bold">Portfolio</h2>
-        <p className="text-muted">
-          Practical work you complete will be collected here so you can export it. This arrives with the practical
-          assignments.
+      <Card className="space-y-2">
+        <h2 className="text-xl font-bold">Portfolio and career</h2>
+        <p>
+          {d.portfolioCount === 0 ? "Your portfolio is empty." : `Your portfolio has ${d.portfolioCount} item${d.portfolioCount === 1 ? "" : "s"}.`} Every item
+          is labelled as a simulated learning project.
+        </p>
+        <p className="flex flex-wrap gap-x-5 gap-y-1">
+          <Link href="/portfolio">Portfolio</Link>
+          <Link href="/career">Career tools</Link>
+          <Link href="/certificate">Certificate of Completion</Link>
+          <Link href="/coach">Learning coach</Link>
         </p>
       </Card>
     </div>

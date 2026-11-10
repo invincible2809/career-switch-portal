@@ -241,3 +241,16 @@ export async function overrideCompetencyAction(formData: FormData) {
   revalidatePath("/", "layout");
   back(path, grant ? "Competency marked as demonstrated." : "Competency removed.");
 }
+
+// ---------- Review queue ----------
+
+export async function resolveFlagAction(formData: FormData) {
+  const admin = await requireAdmin("content:edit");
+  const flagId = id.parse(formData.get("flagId"));
+  const resolution = z.string().trim().min(3).max(1000).safeParse(formData.get("resolution"));
+  if (!resolution.success) back("/admin/review-queue", "Write a short note on what you did (at least 3 characters).", "error");
+  const before = await db.flaggedItem.findUniqueOrThrow({ where: { id: flagId } });
+  await db.flaggedItem.update({ where: { id: flagId }, data: { status: "RESOLVED", resolvedById: admin.id, resolution: resolution.data, resolvedAt: new Date() } });
+  await audit(admin.id, "flag.resolve", "FlaggedItem", flagId, { status: before.status }, { status: "RESOLVED", resolution: resolution.data });
+  back("/admin/review-queue", "Marked as resolved.");
+}

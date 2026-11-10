@@ -60,6 +60,7 @@ export default async function AssessSubmissionPage({ params, searchParams }: { p
             const auto = latest(c.id, "AUTOMATED");
             const assessor = latest(c.id, "ASSESSOR");
             const self = latest(c.id, "SELF");
+            const guidance = latest(c.id, "GUIDANCE");
             const d = c.descriptors as Record<string, string>;
             return (
               <fieldset key={c.id} className="space-y-2 rounded-md border border-border p-4">
@@ -74,6 +75,11 @@ export default async function AssessSubmissionPage({ params, searchParams }: { p
                 <p className="text-sm">
                   Automated: {auto ? `${auto.score}` : "–"} · Assessor: {assessor ? assessor.score : "–"} · Self: {self ? self.score : "–"}
                 </p>
+                {guidance?.comment ? (
+                  <p className="text-sm">
+                    <strong>Automated guidance (not a score):</strong> {guidance.comment.split("\n").join(" ")}
+                  </p>
+                ) : null}
                 {auto?.comment ? <pre className="whitespace-pre-wrap rounded bg-surface-muted p-2 text-sm font-sans">{auto.comment}</pre> : null}
                 <div className="grid gap-3 sm:grid-cols-[10rem_1fr]">
                   <div>

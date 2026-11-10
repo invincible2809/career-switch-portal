@@ -7,7 +7,7 @@ export async function getDashboard(userId: string, activePathwayId: string | nul
   const shared = await db.pathway.findMany({ where: { kind: "SHARED", status: "PUBLISHED" }, select: { id: true } });
   const pathwayIds = [...shared.map((p) => p.id), ...(activePathwayId ? [activePathwayId] : [])];
 
-  const [activePathway, modules, attempts, reviewDue, noteCount, bookmarkCount, competencies, lessonsNext] = await Promise.all([
+  const [activePathway, modules, attempts, reviewDue, noteCount, bookmarkCount, competencies, lessonsNext, portfolioCount] = await Promise.all([
     activePathwayId ? db.pathway.findUnique({ where: { id: activePathwayId } }) : null,
     db.module.findMany({
       where: { pathwayId: { in: pathwayIds }, status: "PUBLISHED" },
@@ -33,6 +33,7 @@ export async function getDashboard(userId: string, activePathwayId: string | nul
     db.bookmark.count({ where: { userId } }),
     db.competency.count({ where: { userId } }),
     nextLessonFor(userId, pathwayIds),
+    db.portfolioItem.count({ where: { userId } }),
   ]);
 
   const moduleProgress = modules.map((m) => {
@@ -88,6 +89,7 @@ export async function getDashboard(userId: string, activePathwayId: string | nul
     noteCount,
     bookmarkCount,
     competencies,
+    portfolioCount,
     continueItem,
     plan: buildStudyPlan(weeklyMinutes, upcoming),
   };

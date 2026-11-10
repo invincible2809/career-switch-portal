@@ -41,6 +41,12 @@ async function learnerPages(page: Page) {
     "/lab/defects",
     "/lab/sql",
     "/lab/api",
+    "/coach",
+    "/coach/interview",
+    "/coach/roleplay/pushy-stakeholder",
+    "/portfolio",
+    "/career",
+    "/certificate",
     "/review",
     "/notes",
     "/bookmarks",
@@ -100,6 +106,8 @@ test("AC14: no serious accessibility violations on key pages (axe)", async ({ pa
     "/admin/users",
     "/admin/audit-log",
     "/admin/submissions",
+    "/admin/review-queue",
+    "/admin/reports",
   ]) {
     await page.goto(url);
     await expectNoSeriousA11yViolations(page);

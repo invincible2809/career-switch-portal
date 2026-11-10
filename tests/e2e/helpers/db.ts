@@ -61,3 +61,13 @@ export async function passAssessment(userId: string, slug: string) {
     update: { passedAt: new Date() },
   });
 }
+
+/** A submitted assignment with competency recorded (as if an assessor had scored it). */
+export async function demonstrateCompetency(userId: string, assignmentSlug: string, payload: object = { testCases: [], defects: [] }) {
+  const a = await db.assignment.findUniqueOrThrow({ where: { slug: assignmentSlug }, include: { rubric: true } });
+  const sub = await db.submission.create({
+    data: { userId, assignmentId: a.id, rubricVersion: a.rubric.version, payload, assessmentState: "ASSESSED", assessedBy: "ASSESSOR" },
+  });
+  await db.competency.create({ data: { userId, assignmentId: a.id, submissionId: sub.id, assessedBy: "ASSESSOR" } });
+  return sub;
+}

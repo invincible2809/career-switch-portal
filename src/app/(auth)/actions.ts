@@ -61,7 +61,8 @@ export async function loginAction(_prev: FormState, formData: FormData): Promise
   const ip = await clientIp();
   const allowed =
     (await consumeRateLimit(`login:email:${parsed.data.email}`, 10, 15 * 60 * 1000)) &&
-    (await consumeRateLimit(`login:ip:${ip}`, 50, 15 * 60 * 1000));
+    // Per-address limit is generous (shared office networks); the per-email limit stops password guessing.
+    (await consumeRateLimit(`login:ip:${ip}`, 300, 15 * 60 * 1000));
   if (!allowed) return { error: "Too many attempts. Please wait 15 minutes and try again.", values };
   try {
     await signIn("credentials", { ...parsed.data, redirectTo: safeNext(formData.get("next")) });

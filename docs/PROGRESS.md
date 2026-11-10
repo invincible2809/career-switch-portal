@@ -3,7 +3,7 @@
 Claude: read this at the start of every session and update it at the end of each phase or work session.
 
 ## Current phase
-Phase 3 – practice sandboxes: **done** (10 Nov 2026). Next: Phase 4 – rule-based learning coach, portfolio, career tools, certificate and reporting.
+Phase 4 – coach, portfolio, career tools, certificate and reporting: **done** (10 Nov 2026). Next: Phase 5 – hardening and handover.
 
 ## Done
 - **Phase 0:** `docs/PLAN.md` written and approved with the recommended answers, plus the decision to build without any AI provider (PLAN §8).
@@ -59,14 +59,26 @@ Phase 3 – practice sandboxes: **done** (10 Nov 2026). Next: Phase 4 – rule-b
   - content-reviewer: all 7 Must fix items fixed – two products added so the £19.99/£20.00 SAVE10 boundary can be tested, an unplanned defect removed (SAVE10 now drops off if the basket falls below £20.00), the accessibility defect described accurately (no visible label – placeholder only), the API exercise's expected figure corrected, automated feedback labelled, and the assignment made achievable. Should fix items also fixed: clearer specification (tea towel prices, what the £20/£50 rules apply to, stock), visible header labels in the API sandbox, unique quantity labels, login and accessibility options for test cases, glossary entries and links for testing terms, "blocked" explained. A ninth SQL exercise (badly formatted postcodes) was added.
   - New e2e tests: `tests/e2e/lab.spec.ts`; AC6 QA test rewritten for the Lab version; axe checks cover the Lab pages, allowing only the one planted label defect.
 
+- **Phase 4 – coach, portfolio, career tools, certificate and reporting (no AI provider)**
+  - Learning coach (`/coach`): answers from published lesson sections and the glossary (TF-IDF ranking, quotes with links to the exact section), "explain more simply" and "relate it to my previous job" (consented industry only), hint-first rules for assessed questions and assignment requests, extra-practice links, labelled "Automated guidance from course content – not reviewed by a person", "Flag this answer" to the admin review queue, per-learner rate limit. Learner text is only matched against course content; nothing leaves the server.
+  - Branching role-plays (pushy stakeholder; disputed bug report) and a mock interview with key-point and STAR feedback, from `content/coach/*.yaml`.
+  - Rule-based guidance on judgement criteria in assignment feedback (stored as `GUIDANCE`, never counted towards competency).
+  - Portfolio (`/portfolio`): add assignment submissions (with live competency status), a Test Lab snapshot and reflections; fixed "Simulated learning project – not paid work experience" label on screen, in the PDF and on the share link; PDF export (`@react-pdf/renderer`); private share link (hashed token, shown once, revocable, per-item visibility, not indexed).
+  - Career tools (`/career`): transferable-skills statement builder (draft from onboarding answers, asks for real examples), CV guidance with honest before/after examples and stepping-stone roles, interview question list.
+  - Certificate of Completion (`/certificate`): eligibility = Foundations + the pathway's available modules (all lessons, assessments passed, competency in each assignment); snapshot with name, pathway, modules, assessments with dates, practical assignments with how they were assessed, verification ID and "This is not an accredited qualification."; PDF; public `/verify/[id]`.
+  - Admin: reports (progress by module, most-failed questions, common gaps – aggregate only) and a review queue for flagged coach answers, lessons and questions (resolve with a note, audited). Learners can report a problem on any lesson.
+  - Login per-address rate limit raised from 50 to 300 per 15 minutes (shared office networks); the per-email limit of 10 is unchanged.
+  - content-reviewer: all Must fix items fixed (certificate states whether practical work was assessor-reviewed or automated; interview key-point terms tightened and curly apostrophes normalised; role-play Scrum/ISTQB accuracy; CV guidance marks examples as made up and adds stepping-stone roles) plus the Should fix items.
+  - New e2e tests (`tests/e2e/phase4.spec.ts`) including acceptance criterion 8.
+
 ## In progress
 - Nothing.
 
 ## Next steps
-1. Phase 4: rule-based learning coach (no AI provider), portfolio with PDF export and share link, career tools, certificate of completion and verification page, admin reporting and review queue.
+1. Phase 5: full security review of route handlers and server actions, accessibility pass (manual keyboard and screen reader checks, keyboard-only registration and onboarding), README and handover, final acceptance-criteria results and known limitations.
 
 ## Acceptance criteria status (SPEC §16)
-Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 3): 34 tests, all passing.
+Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 4): 39 tests, all passing. All 15 acceptance criteria have passing tests.
 
 | # | Criterion | Test file | Status |
 |---|-----------|-----------|--------|
@@ -77,7 +89,7 @@ Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 3): 34 tests, all passi
 | 5 | Fail → remediation → retry with new questions | `tests/e2e/ac04-05-assessment.spec.ts` | Passing |
 | 6 | Practical submission + rubric feedback | `tests/e2e/ac06-practical.spec.ts` | Passing |
 | 7 | Log out / back in, progress intact | `tests/e2e/ac03-07-lesson-progress.spec.ts` | Passing |
-| 8 | Portfolio add + PDF export | | Not started (Phase 4) |
+| 8 | Portfolio add + PDF export | `tests/e2e/phase4.spec.ts` | Passing |
 | 9 | Data download + account deletion | `tests/e2e/ac09-data.spec.ts` | Passing |
 | 10 | Admin edits + publishes lesson and question bank | `tests/e2e/ac10-11-admin.spec.ts` | Passing |
 | 11 | Admin changes pass mark | `tests/e2e/ac10-11-admin.spec.ts` | Passing |
@@ -86,7 +98,7 @@ Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 3): 34 tests, all passi
 | 14 | axe: no serious violations on key pages | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (all Phase 1 pages) |
 | 15 | 375px + keyboard-only journeys | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (see limitations) |
 
-Unit tests: 120 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
+Unit tests: 136 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
 
 ## Decisions
 - Stack as in CLAUDE.md, with **no AI provider**: questions, coach replies and feedback are rule-based from course content (PLAN §8.2).
@@ -106,7 +118,11 @@ Unit tests: 120 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm b
 - **The API sandbox's mock API is per-learner and needs a portal session**; it doesn't need the demo shop login except for placing orders.
 - **Automated defect matching is keyword-based:** a report counts as "found" when it's linked to a defect's log entry and mentions key words for the expected and actual behaviour; otherwise "partly described". An assessor can override any automated score.
 - **Competency overrides:** an admin's grant persists; if an admin removes competency and later re-scores the submission so it meets the minimum, competency is recorded again (re-scoring is treated as a fresh decision).
-- **No automated guidance on judgement criteria yet** (diagnosis, Scrum stance, facilitation, report clarity, severity/priority) – these wait for an assessor. Rule-based guidance is planned for Phase 4.
+- **Guidance on judgement criteria is keyword-based** (diagnosis, Scrum stance, facilitation, report clarity, severity/priority). It's labelled as automated guidance and never counts; an assessor still scores these criteria.
+- **The coach is retrieval, not conversation:** it quotes the most relevant course sections and glossary entries. It can't rephrase or reason, and questions outside the course get "I couldn't find that in the course yet".
+- **Mock interview feedback only checks which key points were mentioned** and simple STAR cues; it can't judge delivery or whether an example is convincing (the page says so).
+- **PDFs use the built-in Helvetica font**; text in other scripts may not render. Portfolio PDFs were checked as valid PDFs in tests, not visually inspected.
+- **Certificates are a snapshot** at the time they're issued; if a lesson or module is added later, existing certificates don't change and learners aren't asked to re-qualify.
 - **The Foundations assessment now needs all five lessons finished** (previously one). Learners in a database seeded earlier who had finished Lesson 1 will see the assessment locked until they finish Lessons 2–5.
 - Content written by the course team is aligned with the Scrum Guide 2020 and ISTQB terms and has been checked by the content-reviewer agent, but **not yet by a human subject expert**.
 - **Recommendation rules are simple heuristics** (PLAN §1.2 point 8) and only three diagnostic questions measure role preference.

@@ -7,6 +7,8 @@ const links = [
   { href: "/admin/question-banks", label: "Question banks" },
   { href: "/admin/assessments", label: "Assessments" },
   { href: "/admin/submissions", label: "Submissions" },
+  { href: "/admin/review-queue", label: "Review queue" },
+  { href: "/admin/reports", label: "Reports" },
   { href: "/admin/users", label: "Users" },
   { href: "/admin/audit-log", label: "Audit log" },
 ];

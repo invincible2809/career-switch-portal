@@ -5,6 +5,7 @@ import { audit } from "../audit";
 import { unlockState } from "../learning";
 import { AUTO_CHECKS } from "./checks";
 import { evaluateRubric, type MinimumRule } from "@/lib/assignments/evaluate";
+import { guidanceFor } from "@/lib/assignments/guidance";
 import {
   defectReportSchema,
   impedimentSchema,
@@ -143,6 +144,12 @@ export async function submitAssignment(userId: string, slug: string, form: Recor
         create: [
           ...selfScores.map(({ c, v }) => ({ criterionId: c.id, score: v, source: "SELF" as const })),
           ...automated.map(({ c, r }) => ({ criterionId: c.id, score: r.score, source: "AUTOMATED" as const, comment: r.feedback.join("\n") })),
+          // Guidance comments on judgement criteria – shown to the learner and assessor, never counted.
+          ...criteria
+            .filter((c) => !c.autoCheck)
+            .map((c) => ({ c, g: guidanceFor(c.key, a.formKind, parsed.data) }))
+            .filter(({ g }) => g)
+            .map(({ c, g }) => ({ criterionId: c.id, score: 0, source: "GUIDANCE" as const, comment: g!.join("\n") })),
         ],
       },
     },

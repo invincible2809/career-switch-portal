@@ -11,7 +11,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  serverExternalPackages: ["@node-rs/argon2"],
+  serverExternalPackages: ["@node-rs/argon2", "@react-pdf/renderer"],
   turbopack: {
     rules: {
       "*.css": {
