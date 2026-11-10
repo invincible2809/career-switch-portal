@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireLearner } from "@/server/guards";
-import { getOwnSubmission } from "@/server/assignments/service";
+import { getOwnSubmission, rubricFor } from "@/server/assignments/service";
+import { LAB_DEFECTS } from "@/server/lab/defects";
+import { matchLabReports } from "@/lib/lab/match";
 import { QA_KNOWN_DEFECTS } from "@/server/assignments/qa-known-defects";
 import { evaluateRubric, type MinimumRule } from "@/lib/assignments/evaluate";
 import { matchDefects } from "@/lib/assignments/checks";
 import { SESSION_LOG } from "@/lib/assignments/qa-session-log";
-import type { QaCheckout } from "@/lib/assignments/forms";
+import type { QaCheckout, QaTestLab } from "@/lib/assignments/forms";
 import { Alert, Card, PageHeader } from "@/components/ui/card";
 import { SubmissionAnswers } from "@/components/assignments/submission-answers";
 
@@ -18,8 +20,9 @@ export default async function SubmissionPage({ params }: { params: Promise<{ slu
   const { slug, id } = await params;
   const s = await getOwnSubmission(user.id, id);
   if (!s || s.assignment.slug !== slug) notFound();
-  const criteria = s.assignment.rubric.criteria;
-  const rule = s.assignment.rubric.minimumRule as unknown as MinimumRule;
+  const rubric = await rubricFor(s);
+  const criteria = rubric.criteria;
+  const rule = rubric.minimumRule as unknown as MinimumRule;
   const e = evaluateRubric(
     criteria.map((c) => c.id),
     s.scores.map((x) => ({ criterionId: x.criterionId, score: x.score, source: x.source, createdAt: x.createdAt })),
@@ -28,6 +31,7 @@ export default async function SubmissionPage({ params }: { params: Promise<{ slu
   const latest = (cid: string, source: "SELF" | "AUTOMATED" | "ASSESSOR") =>
     s.scores.filter((x) => x.criterionId === cid && x.source === source).sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())[0];
   const qa = s.assignment.formKind === "QA_CHECKOUT_TESTING" ? matchDefects(s.payload as unknown as QaCheckout, QA_KNOWN_DEFECTS, SESSION_LOG.length) : null;
+  const lab = s.assignment.formKind === "QA_TEST_LAB" ? matchLabReports((s.payload as unknown as QaTestLab).defects, LAB_DEFECTS) : null;
 
   return (
     <div className="max-w-4xl space-y-6">
@@ -124,6 +128,20 @@ export default async function SubmissionPage({ params }: { params: Promise<{ slu
             ))}
           </ul>
           <p className="text-sm text-muted">Every other log entry shows the checkout working as the specification says.</p>
+        </Card>
+      ) : null}
+
+      {lab ? (
+        <Card className="space-y-2">
+          <h2 className="text-xl font-bold">The planted defects in the Test Lab</h2>
+          <p>Now that you&apos;ve submitted, here is the full list. You found {lab.found} clearly and described {lab.partly} in part.</p>
+          <ul className="list-disc space-y-1 pl-5">
+            {LAB_DEFECTS.map((d) => (
+              <li key={d.key}>
+                {d.area}: {d.title} <strong>{lab.missed.some((m) => m.key === d.key) ? "– missed" : "– reported"}</strong>
+              </li>
+            ))}
+          </ul>
         </Card>
       ) : null}
 

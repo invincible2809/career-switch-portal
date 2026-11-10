@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useFormAction } from "@/components/forms/use-form-action";
 import { submitAssignmentAction } from "@/app/assignments/[slug]/actions";
 import { Input, Select, Textarea } from "@/components/ui/field";
 import { FormMessages, SubmitButton } from "@/components/forms/form-status";
@@ -48,9 +48,9 @@ function SelfAssessment({ criteria }: { criteria: { key: string; title: string }
 }
 
 function Shell({ slug, children, criteria }: { slug: string; children: React.ReactNode; criteria: { key: string; title: string }[] }) {
-  const [state, action] = useActionState<FormState, FormData>(submitAssignmentAction, {});
+  const { state, formProps, pending } = useFormAction<FormState>(submitAssignmentAction);
   return (
-    <form action={action} className="space-y-6" noValidate>
+    <form {...formProps} className="space-y-6" noValidate>
       <FormMessages state={state} />
       <input type="hidden" name="slug" value={slug} />
       {children}
@@ -59,7 +59,7 @@ function Shell({ slug, children, criteria }: { slug: string; children: React.Rea
         Submitting doesn&apos;t mark this as mastered. Some criteria are checked automatically; the rest are scored by an
         assessor.
       </p>
-      <SubmitButton pendingText="Submitting…">Submit my work</SubmitButton>
+      <SubmitButton pending={pending} pendingText="Submitting…">Submit my work</SubmitButton>
     </form>
   );
 }
@@ -250,6 +250,88 @@ export function QaCheckoutForm({ slug, criteria }: { slug: string; criteria: { k
                 </Select>
               )}
             </Cell>
+          </div>
+        ))}
+      </fieldset>
+    </Shell>
+  );
+}
+
+export interface LabCaseOption {
+  id: string;
+  title: string;
+  technique: string;
+  testData: string;
+  status: string;
+  actual: string | null;
+}
+export interface LabDefectOption {
+  id: string;
+  title: string;
+  area: string;
+  severity: string;
+  priority: string;
+}
+
+const STATUS_TEXT: Record<string, string> = { NOT_RUN: "Not run yet", PASS: "Pass", FAIL: "Fail", BLOCKED: "Blocked" };
+
+export function QaTestLabForm({
+  slug,
+  criteria,
+  cases,
+  defects,
+}: {
+  slug: string;
+  criteria: { key: string; title: string }[];
+  cases: LabCaseOption[];
+  defects: LabDefectOption[];
+}) {
+  return (
+    <Shell slug={slug} criteria={criteria}>
+      <fieldset className="space-y-3">
+        <legend className="text-lg font-bold">Part A – Your Test Lab test cases (at least 6, all run)</legend>
+        {cases.length === 0 ? <p>You haven&apos;t written any test cases yet. Add them in the Test Lab first.</p> : null}
+        {cases.map((c, i) => (
+          <div key={c.id} className="grid gap-3 rounded-md border border-border p-3 sm:grid-cols-[auto_1fr_12rem] sm:items-center">
+            <input id={`include_tc_${c.id}`} name={`include_tc_${c.id}`} type="checkbox" defaultChecked className="h-5 w-5" />
+            <label htmlFor={`include_tc_${c.id}`}>
+              <span className="font-semibold">
+                {i + 1}. {c.title}
+              </span>
+              <span className="block text-sm text-muted">
+                {c.technique} · data: {c.testData} · result: {STATUS_TEXT[c.status] ?? c.status}
+                {c.actual ? ` – ${c.actual}` : ""}
+              </span>
+            </label>
+            <Cell id={`field_${c.id}`} label={`What test ${i + 1} tests`}>
+              {(id) => (
+                <Select id={id} name={`field_${c.id}`} defaultValue="">
+                  <option value="">Choose…</option>
+                  {TEST_FIELDS.map((f) => (
+                    <option key={f} value={f}>
+                      {f === "discount" ? "discount code" : f}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            </Cell>
+          </div>
+        ))}
+      </fieldset>
+      <fieldset className="space-y-3">
+        <legend className="text-lg font-bold">Part B – Your Test Lab defect reports (at least 3)</legend>
+        {defects.length === 0 ? <p>You haven&apos;t written any defect reports yet. Add them in the Test Lab first.</p> : null}
+        {defects.map((d, i) => (
+          <div key={d.id} className="flex items-start gap-3 rounded-md border border-border p-3">
+            <input id={`include_def_${d.id}`} name={`include_def_${d.id}`} type="checkbox" defaultChecked className="mt-1 h-5 w-5" />
+            <label htmlFor={`include_def_${d.id}`}>
+              <span className="font-semibold">
+                {i + 1}. {d.title}
+              </span>
+              <span className="block text-sm text-muted">
+                {d.area} · severity {d.severity} · priority {d.priority}
+              </span>
+            </label>
           </div>
         ))}
       </fieldset>

@@ -1,5 +1,8 @@
+# Version 2: the Test Lab version of the QA assignment. Version 1 (the written exercise)
+# stays in databases that already have it, so earlier submissions keep their rubric.
 slug: checkout-testing
-title: Checkout test cases and defect reports
+version: 2
+title: Checkout testing in the Test Lab
 minimumRule: { minEach: 2 }
 criteria:
   - key: test-case-completeness
@@ -18,9 +21,17 @@ criteria:
       1: The boundaries of one numeric rule are covered.
       2: The boundaries of two numeric rules are covered.
       3: All three numeric rules have both sides of each boundary tested.
+  - key: test-execution
+    title: Tests run and results recorded
+    autoCheck: testExecution
+    descriptors:
+      0: Fewer than three test cases run with results recorded.
+      1: Three to five test cases run with results recorded.
+      2: At least six test cases run with results recorded, but some submitted tests weren't run or lack an actual result.
+      3: Every submitted test case run in the Test Lab, with an actual result for anything that didn't pass.
   - key: defects-identified
     title: Defects identified
-    autoCheck: defectsIdentified
+    autoCheck: labDefectsIdentified
     descriptors:
       0: Fewer than two real defects reported.
       1: Two real defects reported.

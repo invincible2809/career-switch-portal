@@ -1,4 +1,4 @@
-import type { QaCheckout, ScrumRetroPlan } from "@/lib/assignments/forms";
+import type { QaCheckout, QaTestLab, ScrumRetroPlan } from "@/lib/assignments/forms";
 import { RETRO_STAGES } from "@/lib/assignments/forms";
 
 /** Read-only view of a submission, used by learners and assessors. */
@@ -30,6 +30,40 @@ export function SubmissionAnswers({ formKind, payload }: { formKind: string; pay
               <li key={i}>
                 {RETRO_STAGES.find((s) => s.key === r.stage)?.label ?? "No stage"} · {r.minutes} min · {r.activity}
                 {r.purpose ? ` – ${r.purpose}` : ""}
+              </li>
+            ))}
+          </ol>
+        </section>
+      </div>
+    );
+  }
+  if (formKind === "QA_TEST_LAB") {
+    const p = payload as QaTestLab;
+    return (
+      <div className="space-y-4">
+        <section>
+          <h3 className="font-bold">Test cases run in the Test Lab</h3>
+          <ol className="list-decimal space-y-2 pl-5">
+            {p.testCases.map((t, i) => (
+              <li key={i}>
+                <strong>{t.title}</strong> – {t.field || "?"}, {t.technique}; data: {t.testData}; expected: {t.expected}
+                <br />
+                Result: <strong>{t.status.replace("_", " ").toLowerCase()}</strong>
+                {t.actual ? ` – actual: ${t.actual}` : ""}
+              </li>
+            ))}
+          </ol>
+        </section>
+        <section>
+          <h3 className="font-bold">Defect reports</h3>
+          <ol className="list-decimal space-y-2 pl-5">
+            {p.defects.map((d, i) => (
+              <li key={i}>
+                <strong>{d.title}</strong> ({d.area}) – severity {d.severity}, priority {d.priority}
+                <br />
+                Steps: {d.steps}
+                <br />
+                Expected: {d.expected} · Actual: {d.actual} · Environment: {d.environment}
               </li>
             ))}
           </ol>

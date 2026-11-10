@@ -1,5 +1,8 @@
 import "server-only";
+import { LAB_DEFECTS } from "../lab/defects";
 import {
+  labDefectsIdentified,
+  testExecution,
   boundaryCoverage,
   defectsIdentified,
   impedimentLogComplete,
@@ -7,7 +10,7 @@ import {
   testCasesComplete,
   type CheckResult,
 } from "@/lib/assignments/checks";
-import type { QaCheckout, ScrumRetroPlan } from "@/lib/assignments/forms";
+import type { QaCheckout, QaTestLab, ScrumRetroPlan } from "@/lib/assignments/forms";
 import { SESSION_LOG } from "@/lib/assignments/qa-session-log";
 import { QA_KNOWN_DEFECTS } from "./qa-known-defects";
 
@@ -18,4 +21,6 @@ export const AUTO_CHECKS: Record<string, (payload: unknown) => CheckResult> = {
   testCasesComplete: (p) => testCasesComplete(p as QaCheckout),
   boundaryCoverage: (p) => boundaryCoverage(p as QaCheckout),
   defectsIdentified: (p) => defectsIdentified(p as QaCheckout, QA_KNOWN_DEFECTS, SESSION_LOG.length),
+  testExecution: (p) => testExecution(p as QaTestLab),
+  labDefectsIdentified: (p) => labDefectsIdentified(p as QaTestLab, LAB_DEFECTS),
 };

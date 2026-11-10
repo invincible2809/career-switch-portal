@@ -128,10 +128,11 @@ export const pathwaysFileSchema = z.object({
     .min(1),
 });
 
-export const AUTO_CHECK_NAMES = ["impedimentLogComplete", "retroPlanStructure", "testCasesComplete", "boundaryCoverage", "defectsIdentified"] as const;
+export const AUTO_CHECK_NAMES = ["impedimentLogComplete", "retroPlanStructure", "testCasesComplete", "boundaryCoverage", "defectsIdentified", "testExecution", "labDefectsIdentified"] as const;
 
 export const rubricSchema = z.object({
   slug,
+  version: z.number().int().min(1).default(1),
   title: z.string().min(1),
   minimumRule: z.object({ minEach: z.number().int().min(0).max(3) }),
   criteria: z
@@ -151,7 +152,7 @@ export const assignmentFrontMatterSchema = z.object({
   slug,
   module: slug,
   title: z.string().min(3),
-  form: z.enum(["SCRUM_RETRO_PLAN", "QA_CHECKOUT_TESTING"]),
+  form: z.enum(["SCRUM_RETRO_PLAN", "QA_CHECKOUT_TESTING", "QA_TEST_LAB"]),
   rubric: slug,
 });
 

@@ -9,6 +9,8 @@ import {
   defectReportSchema,
   impedimentSchema,
   qaCheckoutSchema,
+  qaTestLabSchema,
+  TEST_FIELDS,
   readRows,
   retroRowSchema,
   scrumRetroPlanSchema,
@@ -27,6 +29,52 @@ export async function getPublishedAssignment(slug: string) {
 }
 
 const keys = <T extends z.ZodObject>(s: T) => Object.keys(s.shape);
+
+/**
+ * Test Lab version: the payload is built from the learner's own Lab records (chosen by id),
+ * so test results really come from running the tests in the Lab.
+ */
+export async function labPayload(userId: string, form: Record<string, string>) {
+  const tcIds = Object.keys(form).filter((k) => k.startsWith("include_tc_") && form[k] === "on").map((k) => k.slice(11));
+  const defIds = Object.keys(form).filter((k) => k.startsWith("include_def_") && form[k] === "on").map((k) => k.slice(12));
+  const [cases, defects] = await Promise.all([
+    db.labTestCase.findMany({ where: { userId, id: { in: tcIds.slice(0, 20) } }, orderBy: { createdAt: "asc" } }),
+    db.defectReport.findMany({ where: { userId, id: { in: defIds.slice(0, 12) } }, orderBy: { createdAt: "asc" } }),
+  ]);
+  const field = (id: string) => ((TEST_FIELDS as readonly string[]).includes(form[`field_${id}`]) ? form[`field_${id}`] : "");
+  return qaTestLabSchema.safeParse({
+    testCases: cases.map((c) => ({
+      title: c.title,
+      field: field(c.id),
+      technique: c.technique,
+      testData: c.testData,
+      steps: c.steps,
+      expected: c.expected,
+      status: c.status,
+      actual: c.actual ?? "",
+    })),
+    defects: defects.map((d) => ({
+      area: d.area,
+      title: d.title,
+      environment: d.environment,
+      steps: d.steps,
+      expected: d.expected,
+      actual: d.actual,
+      severity: d.severity,
+      priority: d.priority,
+      evidence: d.evidence,
+    })),
+  });
+}
+
+/** The rubric a submission was made against (an assignment can move to a newer rubric version). */
+export async function rubricFor(submission: { assignmentId: string; rubricVersion: number }) {
+  const a = await db.assignment.findUniqueOrThrow({ where: { id: submission.assignmentId }, include: { rubric: true } });
+  return db.rubric.findUniqueOrThrow({
+    where: { slug_version: { slug: a.rubric.slug, version: submission.rubricVersion } },
+    include: { criteria: { orderBy: { order: "asc" } } },
+  });
+}
 
 /** Turns the raw form into a validated payload for the assignment's form kind. */
 export function parsePayload(formKind: "SCRUM_RETRO_PLAN" | "QA_CHECKOUT_TESTING", form: Record<string, string>) {
@@ -48,12 +96,13 @@ export function parsePayload(formKind: "SCRUM_RETRO_PLAN" | "QA_CHECKOUT_TESTING
 export async function reevaluate(submissionId: string) {
   const s = await db.submission.findUniqueOrThrow({
     where: { id: submissionId },
-    include: { scores: true, competency: true, assignment: { include: { rubric: { include: { criteria: true } } } } },
+    include: { scores: true, competency: true },
   });
+  const rubric = await rubricFor(s);
   const e = evaluateRubric(
-    s.assignment.rubric.criteria.map((c) => c.id),
+    rubric.criteria.map((c) => c.id),
     s.scores.map((x) => ({ criterionId: x.criterionId, score: x.score, source: x.source, createdAt: x.createdAt })),
-    s.assignment.rubric.minimumRule as unknown as MinimumRule,
+    rubric.minimumRule as unknown as MinimumRule,
   );
   await db.submission.update({
     where: { id: s.id },
@@ -73,7 +122,7 @@ export async function submitAssignment(userId: string, slug: string, form: Recor
   if (!a) throw new SubmissionError("This assignment isn't available.");
   const unlock = await unlockState("ASSIGNMENT", a.id, userId);
   if (!unlock.unlocked) throw new SubmissionError("This assignment isn't unlocked yet.");
-  const parsed = parsePayload(a.formKind, form);
+  const parsed = a.formKind === "QA_TEST_LAB" ? await labPayload(userId, form) : parsePayload(a.formKind, form);
   if (!parsed.success) return { ok: false as const, errors: parsed.error.issues.map((i) => i.message) };
 
   const criteria = a.rubric.criteria;
@@ -109,7 +158,7 @@ export async function getOwnSubmission(userId: string, id: string) {
     include: {
       scores: { orderBy: { createdAt: "asc" }, include: { scoredBy: { select: { displayName: true } } } },
       competency: true,
-      assignment: { include: { module: { include: { pathway: true } }, rubric: { include: { criteria: { orderBy: { order: "asc" } } } } } },
+      assignment: { include: { module: { include: { pathway: true } } } },
     },
   });
 }
@@ -117,12 +166,10 @@ export async function getOwnSubmission(userId: string, id: string) {
 const assessorScoreSchema = z.object({ score: z.coerce.number().int().min(0).max(3), comment: z.string().trim().max(2000) });
 
 export async function saveAssessorScores(adminId: string, submissionId: string, form: Record<string, string>) {
-  const s = await db.submission.findUniqueOrThrow({
-    where: { id: submissionId },
-    include: { scores: true, assignment: { include: { rubric: { include: { criteria: true } } } } },
-  });
+  const s = await db.submission.findUniqueOrThrow({ where: { id: submissionId }, include: { scores: true } });
+  const rubric = await rubricFor(s);
   const created: { criterion: string; score: number }[] = [];
-  for (const c of s.assignment.rubric.criteria) {
+  for (const c of rubric.criteria) {
     if (form[`score_${c.id}`] === undefined || form[`score_${c.id}`] === "") continue;
     const parsed = assessorScoreSchema.safeParse({ score: form[`score_${c.id}`], comment: form[`comment_${c.id}`] ?? "" });
     if (!parsed.success) throw new SubmissionError(`Scores must be 0–3 (${c.title}).`);

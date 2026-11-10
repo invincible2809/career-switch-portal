@@ -92,51 +92,35 @@ test("AC6: submit, see rubric feedback, and competency only once the minimum is 
 test("AC6: competency isn't shown when a criterion is below the minimum, and the defect list stays hidden until submission", async ({ page }) => {
   const learner = await createLearner("ac6qa", "qa-tester");
   await passAssessment(learner.id, "testing-foundations-assessment");
+  // Six test cases run in the Lab, but only the quantity boundaries are covered.
+  for (const [i, data] of ["0", "1", "10", "11", "sw1a 1aa", "SAVE10 on £30"].entries()) {
+    await db.labTestCase.create({
+      data: { userId: learner.id, title: `Test ${i + 1}`, technique: i < 4 ? "BVA" : "EP", preconditions: "", testData: data, steps: "Enter it in the demo shop", expected: "As the specification says", status: "PASS", executedAt: new Date() },
+    });
+  }
+  const defects = [
+    ["basket", "Quantity of 0 accepted", "Quantity 0 should be rejected with a message", "Quantity 0 was accepted"],
+    ["checkout", "Delivery charged at exactly £50", "Delivery should be free at £50.00", "£3.95 delivery was charged"],
+    ["login", "Logo looks old", "A new logo", "The old logo"],
+  ] as const;
+  for (const [area, title, expected, actual] of defects) {
+    await db.defectReport.create({ data: { userId: learner.id, area, title, environment: "Test Lab, Chrome", steps: "Follow the steps in the demo shop", expected, actual, severity: "High", priority: "High", evidence: "" } });
+  }
   await login(page, learner.email, learner.password);
   await page.goto("/assignments/checkout-testing");
   // The answer key isn't in the page before submitting.
-  expect(await page.content()).not.toContain("lower boundary not enforced");
-
-  const cases = [
-    ["quantity", "BVA", "0"],
-    ["quantity", "BVA", "1"],
-    ["quantity", "BVA", "10"],
-    ["quantity", "BVA", "11"],
-    ["postcode", "EP", "sw1a 1aa"],
-    ["discount", "EP", "SAVE10 on £30"],
-  ];
-  for (const [i, c] of cases.entries()) {
-    await page.locator(`#tc_${i}_title`).fill(`Test ${i + 1}`);
-    await page.locator(`#tc_${i}_field`).selectOption(c[0]);
-    await page.locator(`#tc_${i}_technique`).selectOption(c[1]);
-    await page.locator(`#tc_${i}_testData`).fill(c[2]);
-    await page.locator(`#tc_${i}_steps`).fill("Enter the value on the basket page and press Update");
-    await page.locator(`#tc_${i}_expected`).fill("Behaves as the specification says");
-  }
-  const defects = [
-    [1, "Quantity 0 accepted", "Quantity 0 should be rejected with a message", "Quantity 0 was accepted with a £0.00 line"],
-    [5, "Delivery charged at exactly £50", "Delivery should be free at £50.00", "£3.95 delivery was charged"],
-    [4, "Delivery charged at £49.99", "No delivery charge", "Delivery charged"],
-  ] as const;
-  for (const [i, d] of defects.entries()) {
-    await page.locator(`#def_${i}_logEntry`).selectOption(String(d[0]));
-    await page.locator(`#def_${i}_title`).fill(d[1]);
-    await page.locator(`#def_${i}_environment`).fill("Test site, Chrome");
-    await page.locator(`#def_${i}_steps`).fill("Follow the log entry steps on the checkout");
-    await page.locator(`#def_${i}_expected`).fill(d[2]);
-    await page.locator(`#def_${i}_actual`).fill(d[3]);
-    await page.locator(`#def_${i}_severity`).selectOption("High");
-    await page.locator(`#def_${i}_priority`).selectOption("High");
-  }
+  expect(await page.content()).not.toContain("never locks");
+  const fields = ["quantity", "quantity", "quantity", "quantity", "postcode", "discount"];
+  for (const [i, f] of fields.entries()) await page.getByLabel(`What test ${i + 1} tests`).selectOption(f);
   await page.getByRole("button", { name: "Submit my work" }).click();
   await page.waitForURL(/\/submissions\//);
   await expect(page.getByTestId("criterion-boundary-coverage").getByText("1 out of 3")).toBeVisible();
   await expect(page.getByTestId("criterion-boundary-coverage").getByText("Below the minimum of 2.")).toBeVisible();
   await expect(page.getByTestId("criterion-defects-identified").getByText("1 out of 3")).toBeVisible();
-  await expect(page.getByText("Report 3: not a defect")).toBeVisible();
+  await expect(page.getByText("Report 3: not matched")).toBeVisible();
   // Now the full list is revealed.
-  await expect(page.getByText("Quantity 0 is accepted (lower boundary not enforced). – reported")).toBeVisible();
-  await expect(page.getByText(/SAVE10 can be applied twice.*– missed/)).toBeVisible();
+  await expect(page.getByText(/A quantity of 0 is accepted\.\s*– reported/)).toBeVisible();
+  await expect(page.getByText(/SAVE10 can be applied more than once\.\s*– missed/)).toBeVisible();
   const url = page.url();
   await logout(page);
 

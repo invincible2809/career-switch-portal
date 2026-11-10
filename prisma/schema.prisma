@@ -84,6 +84,7 @@ enum PrereqRequirement {
 enum AssignmentForm {
   SCRUM_RETRO_PLAN
   QA_CHECKOUT_TESTING
+  QA_TEST_LAB
 }
 
 enum AssessmentState {

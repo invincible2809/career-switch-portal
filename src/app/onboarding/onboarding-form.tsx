@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useFormAction } from "@/components/forms/use-form-action";
 import { saveOnboardingAction } from "./actions";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import { FormMessages, SubmitButton } from "@/components/forms/form-status";
@@ -34,10 +34,10 @@ function ErrorText({ id, text }: { id: string; text?: string }) {
 }
 
 export function OnboardingForm() {
-  const [state, action] = useActionState<FormState, FormData>(saveOnboardingAction, {});
+  const { state, formProps, pending } = useFormAction<FormState>(saveOnboardingAction);
   const fe = state.fieldErrors ?? {};
   return (
-    <form action={action} className="space-y-6" noValidate>
+    <form {...formProps} className="space-y-6" noValidate>
       <FormMessages state={state} labels={labels} />
 
       <Card>
@@ -174,7 +174,7 @@ export function OnboardingForm() {
         </fieldset>
       </Card>
 
-      <SubmitButton pendingText="Saving…">Save and continue</SubmitButton>
+      <SubmitButton pending={pending} pendingText="Saving…">Save and continue</SubmitButton>
     </form>
   );
 }

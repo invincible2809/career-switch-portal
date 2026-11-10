@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useFormAction } from "@/components/forms/use-form-action";
 import { saveQuestionAction } from "../../actions";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import { FormMessages, SubmitButton } from "@/components/forms/form-status";
@@ -22,11 +22,11 @@ export interface QuestionFormValues {
 }
 
 export function QuestionForm({ bankId, values, lessons, idPrefix }: { bankId: string; values: QuestionFormValues; lessons: { slug: string; title: string }[]; idPrefix: string }) {
-  const [state, action] = useActionState<FormState, FormData>(saveQuestionAction, {});
+  const { state, formProps, pending } = useFormAction<FormState>(saveQuestionAction);
   const p = (s: string) => `${idPrefix}-${s}`;
   const rows = [0, 1, 2, 3, 4, 5].map((i) => values.options[i] ?? { text: "", correct: false, explanation: "" });
   return (
-    <form action={action} className="space-y-4" noValidate>
+    <form {...formProps} className="space-y-4" noValidate>
       <FormMessages state={state} />
       <input type="hidden" name="bankId" value={bankId} />
       <div className="grid gap-4 sm:grid-cols-2">
@@ -113,7 +113,7 @@ export function QuestionForm({ bankId, values, lessons, idPrefix }: { bankId: st
         <input type="checkbox" name="isKey" defaultChecked={values.isKey} className="h-5 w-5" />
         Key question (always included in spaced review)
       </label>
-      <SubmitButton variant="secondary">Save as draft</SubmitButton>
+      <SubmitButton pending={pending} variant="secondary">Save as draft</SubmitButton>
     </form>
   );
 }

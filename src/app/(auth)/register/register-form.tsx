@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useFormAction } from "@/components/forms/use-form-action";
 import { registerAction } from "../actions";
 import { Field, Input } from "@/components/ui/field";
 import { FormMessages, SubmitButton } from "@/components/forms/form-status";
@@ -15,10 +15,10 @@ const labels = {
 };
 
 export function RegisterForm() {
-  const [state, action] = useActionState<FormState, FormData>(registerAction, {});
+  const { state, formProps, pending } = useFormAction<FormState>(registerAction);
   const fe = state.fieldErrors ?? {};
   return (
-    <form action={action} className="space-y-5" noValidate>
+    <form {...formProps} className="space-y-5" noValidate>
       <FormMessages state={state} labels={labels} />
       <Field id="displayName" label={labels.displayName} hint="This is the name shown on your certificate of completion. You can change it later." error={fe.displayName}>
         {(a) => <Input {...a} name="displayName" autoComplete="name" defaultValue={state.values?.displayName} required />}
@@ -53,7 +53,7 @@ export function RegisterForm() {
           </label>
         </div>
       </div>
-      <SubmitButton pendingText="Creating your account…">Create account</SubmitButton>
+      <SubmitButton pending={pending} pendingText="Creating your account…">Create account</SubmitButton>
     </form>
   );
 }

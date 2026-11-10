@@ -35,6 +35,12 @@ async function learnerPages(page: Page) {
     "/learn/levels-types-and-risk?section=worked-example",
     "/assignments/scrum-team-diagnosis",
     "/assignments/checkout-testing",
+    "/lab",
+    "/lab/shop",
+    "/lab/test-cases",
+    "/lab/defects",
+    "/lab/sql",
+    "/lab/api",
     "/review",
     "/notes",
     "/bookmarks",
@@ -71,6 +77,10 @@ test("AC14: no serious accessibility violations on key pages (axe)", async ({ pa
     await page.goto(url);
     await expectNoSeriousA11yViolations(page);
   }
+  // The Lab checkout has one deliberate defect for learners to find: the postcode box has no label.
+  // Only that exact violation is allowed – anything else on the page still fails.
+  await page.goto("/lab/shop/checkout");
+  await expectNoSeriousA11yViolations(page, [{ id: "label", target: "#lab-postcode" }]);
   await logout(page);
 
   await loginAsAdmin(page);

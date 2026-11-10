@@ -14,3 +14,4 @@ blob-report/
 next-env.d.ts
 .DS_Store
 src/generated/
+public/sql/

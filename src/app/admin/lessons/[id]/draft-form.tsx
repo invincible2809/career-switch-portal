@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useFormAction } from "@/components/forms/use-form-action";
 import { saveDraftAction } from "../../actions";
 import { Field, Input, Textarea } from "@/components/ui/field";
 import { FormMessages, SubmitButton } from "@/components/forms/form-status";
@@ -24,10 +24,10 @@ export function DraftForm({
   sections: LessonSection[];
   partLabels: Record<string, string>;
 }) {
-  const [state, action] = useActionState<FormState, FormData>(saveDraftAction, {});
+  const { state, formProps, pending } = useFormAction<FormState>(saveDraftAction);
   const fe = state.fieldErrors ?? {};
   return (
-    <form action={action} className="space-y-5" noValidate>
+    <form {...formProps} className="space-y-5" noValidate>
       <FormMessages state={state} />
       <input type="hidden" name="versionId" value={versionId} />
       <Field id="title" label="Lesson title" error={fe.title}>
@@ -60,7 +60,7 @@ export function DraftForm({
           </Field>
         </fieldset>
       ))}
-      <SubmitButton pendingText="Saving…">Save draft</SubmitButton>
+      <SubmitButton pending={pending} pendingText="Saving…">Save draft</SubmitButton>
     </form>
   );
 }

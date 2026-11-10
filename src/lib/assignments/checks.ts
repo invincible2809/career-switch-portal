@@ -1,6 +1,7 @@
 // Automated rubric checks (PLAN §8.1 Q1). Each returns a 0–3 score and plain-English feedback.
 // They check structure and coverage only; judgement criteria are scored by an assessor.
-import type { QaCheckout, ScrumRetroPlan } from "./forms";
+import type { QaCheckout, QaTestLab, ScrumRetroPlan } from "./forms";
+import { matchLabReports, type DefectKey } from "../lab/match";
 import { RETRO_STAGES } from "./forms";
 
 export interface CheckResult {
@@ -153,4 +154,26 @@ export function defectsIdentified(p: QaCheckout, known: readonly KnownDefect[], 
     ...r.matches.map((m) => `Report ${m.reportIndex + 1}: ${m.result} – ${m.note}`),
   ];
   return { score, feedback };
+}
+
+// ---------- QA (Test Lab version): test execution ----------
+export function testExecution(p: QaTestLab): CheckResult {
+  const run = p.testCases.filter((t) => t.status !== "NOT_RUN");
+  const recorded = run.filter((t) => t.status === "PASS" || filled(t.actual));
+  const feedback = [`${run.length} of ${p.testCases.length} test cases were run in the Test Lab.`];
+  const missingActual = run.length - recorded.length;
+  if (missingActual) feedback.push(`${missingActual} failed or blocked test${missingActual === 1 ? " has" : "s have"} no actual result recorded.`);
+  if (run.length < p.testCases.length) feedback.push("Run every test case you submit, and record pass, fail or blocked.");
+  const score = recorded.length >= 6 && run.length === p.testCases.length && missingActual === 0 ? 3 : recorded.length >= 6 ? 2 : recorded.length >= 3 ? 1 : 0;
+  return { score, feedback };
+}
+
+// ---------- QA (Test Lab version): defects identified ----------
+export function labDefectsIdentified(p: QaTestLab, known: readonly DefectKey[]): CheckResult {
+  const r = matchLabReports(p.defects, known);
+  const score = r.found >= 3 ? 3 : r.found + r.partly >= 3 ? 2 : r.found + r.partly === 2 ? 1 : 0;
+  return {
+    score,
+    feedback: [`${r.found} defect${r.found === 1 ? "" : "s"} clearly reported, ${r.partly} partly described.`, ...r.matches.map((m) => `Report ${m.reportIndex + 1}: ${m.result} – ${m.note}`)],
+  };
 }

@@ -10,7 +10,8 @@ import type { MinimumRule } from "@/lib/assignments/evaluate";
 import { Alert, Badge, Card, PageHeader } from "@/components/ui/card";
 import { RubricTable } from "@/components/assignments/rubric-table";
 import { QaMaterials } from "@/components/assignments/qa-materials";
-import { QaCheckoutForm, ScrumRetroPlanForm } from "@/components/assignments/submission-forms";
+import { QaCheckoutForm, QaTestLabForm, ScrumRetroPlanForm } from "@/components/assignments/submission-forms";
+import { LabSpec } from "@/components/lab/lab-spec";
 
 export const metadata: Metadata = { title: "Practical assignment" };
 
@@ -24,6 +25,13 @@ export default async function AssignmentPage({ params }: { params: Promise<{ slu
     db.submission.findMany({ where: { userId: user.id, assignmentId: a.id }, orderBy: { submittedAt: "desc" }, include: { competency: true } }),
   ]);
   const criteria = a.rubric.criteria.map((c) => ({ key: c.key, title: c.title }));
+  const [labCases, labDefects] =
+    a.formKind === "QA_TEST_LAB"
+      ? await Promise.all([
+          db.labTestCase.findMany({ where: { userId: user.id }, orderBy: { createdAt: "asc" }, select: { id: true, title: true, technique: true, testData: true, status: true, actual: true } }),
+          db.defectReport.findMany({ where: { userId: user.id, submissionId: null }, orderBy: { createdAt: "asc" }, select: { id: true, title: true, area: true, severity: true, priority: true } }),
+        ])
+      : [[], []];
   const minEach = (a.rubric.minimumRule as unknown as MinimumRule).minEach;
 
   return (
@@ -41,6 +49,7 @@ export default async function AssignmentPage({ params }: { params: Promise<{ slu
         <h2 className="text-xl font-bold">The brief</h2>
         <div className="prose-lesson" dangerouslySetInnerHTML={{ __html: renderMarkdown(a.briefMarkdown) }} />
         {a.formKind === "QA_CHECKOUT_TESTING" ? <QaMaterials /> : null}
+        {a.formKind === "QA_TEST_LAB" ? <LabSpec headingLevel={3} /> : null}
       </Card>
 
       <Card className="space-y-3">
@@ -82,7 +91,13 @@ export default async function AssignmentPage({ params }: { params: Promise<{ slu
       ) : (
         <Card className="space-y-3">
           <h2 className="text-xl font-bold">{submissions.length ? "Submit a new version" : "Your work"}</h2>
-          {a.formKind === "SCRUM_RETRO_PLAN" ? <ScrumRetroPlanForm slug={slug} criteria={criteria} /> : <QaCheckoutForm slug={slug} criteria={criteria} />}
+          {a.formKind === "SCRUM_RETRO_PLAN" ? (
+            <ScrumRetroPlanForm slug={slug} criteria={criteria} />
+          ) : a.formKind === "QA_TEST_LAB" ? (
+            <QaTestLabForm slug={slug} criteria={criteria} cases={labCases} defects={labDefects} />
+          ) : (
+            <QaCheckoutForm slug={slug} criteria={criteria} />
+          )}
         </Card>
       )}
     </div>

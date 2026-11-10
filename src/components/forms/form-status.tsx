@@ -5,8 +5,9 @@ import { Button, type ButtonProps } from "@/components/ui/button";
 import { Alert } from "@/components/ui/card";
 import type { FormState } from "@/lib/schemas/auth";
 
-export function SubmitButton({ children, pendingText, ...props }: ButtonProps & { pendingText?: string }) {
-  const { pending } = useFormStatus();
+export function SubmitButton({ children, pendingText, pending: pendingProp, ...props }: ButtonProps & { pendingText?: string; pending?: boolean }) {
+  const { pending: formPending } = useFormStatus();
+  const pending = pendingProp ?? formPending;
   return (
     <Button type="submit" disabled={pending} aria-disabled={pending} {...props}>
       {pending ? (pendingText ?? "Please wait…") : children}

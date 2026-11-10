@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useFormAction } from "@/components/forms/use-form-action";
 import { updateProfileAction } from "./actions";
 import { Field, Input, Select, Textarea } from "@/components/ui/field";
 import { FormMessages, SubmitButton } from "@/components/forms/form-status";
@@ -19,10 +19,10 @@ export interface ProfileValues {
 }
 
 export function ProfileForm({ values }: { values: ProfileValues }) {
-  const [state, action] = useActionState<FormState, FormData>(updateProfileAction, {});
+  const { state, formProps, pending } = useFormAction<FormState>(updateProfileAction);
   const fe = state.fieldErrors ?? {};
   return (
-    <form action={action} className="space-y-5" noValidate>
+    <form {...formProps} className="space-y-5" noValidate>
       <FormMessages state={state} labels={{ displayName: "Your name", pathway: "Pathway", weeklyMinutes: "Study time" }} />
       <Field id="displayName" label="Your name" hint="Shown on your certificate of completion." error={fe.displayName}>
         {(a) => <Input {...a} name="displayName" defaultValue={values.displayName} autoComplete="name" />}
@@ -73,7 +73,7 @@ export function ProfileForm({ values }: { values: ProfileValues }) {
           )}
         </Field>
       </fieldset>
-      <SubmitButton pendingText="Saving…">Save settings</SubmitButton>
+      <SubmitButton pending={pending} pendingText="Saving…">Save settings</SubmitButton>
     </form>
   );
 }

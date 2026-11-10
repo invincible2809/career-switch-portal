@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useFormAction } from "@/components/forms/use-form-action";
 import { updateAccessibilityAction } from "../actions";
 import { Field, Select } from "@/components/ui/field";
 import { FormMessages, SubmitButton } from "@/components/forms/form-status";
@@ -11,9 +11,9 @@ export function AccessibilityForm({
 }: {
   values: { textScale: string; dyslexiaFont: boolean; reducedMotion: boolean; readAloud: boolean };
 }) {
-  const [state, action] = useActionState<FormState, FormData>(updateAccessibilityAction, {});
+  const { state, formProps, pending } = useFormAction<FormState>(updateAccessibilityAction);
   return (
-    <form action={action} className="space-y-5">
+    <form {...formProps} className="space-y-5">
       <FormMessages state={state} />
       <Field id="textScale" label="Text size">
         {(a) => (
@@ -36,7 +36,7 @@ export function AccessibilityForm({
           <label htmlFor={name}>{label}</label>
         </div>
       ))}
-      <SubmitButton pendingText="Saving…">Save display settings</SubmitButton>
+      <SubmitButton pending={pending} pendingText="Saving…">Save display settings</SubmitButton>
     </form>
   );
 }

@@ -3,7 +3,7 @@
 Claude: read this at the start of every session and update it at the end of each phase or work session.
 
 ## Current phase
-Phase 2b – pathway Module 1s and practical assignments: **done** (10 Nov 2026). Next: Phase 3 – practice sandboxes (ShopEasy Test Lab, SQL and API).
+Phase 3 – practice sandboxes: **done** (10 Nov 2026). Next: Phase 4 – rule-based learning coach, portfolio, career tools, certificate and reporting.
 
 ## Done
 - **Phase 0:** `docs/PLAN.md` written and approved with the recommended answers, plus the decision to build without any AI provider (PLAN §8).
@@ -47,14 +47,26 @@ Phase 2b – pathway Module 1s and practical assignments: **done** (10 Nov 2026)
   - content-reviewer: both Must fix items (Sprint Review transparency question; QA vs quality control wording) and all Should fix items fixed, plus most Minor items (tighter answer-key matching, timebox question, extra ordering and multiple-select questions).
   - New e2e tests (`tests/e2e/ac06-practical.spec.ts`) for acceptance criterion 6.
 
+- **Phase 3 – practice sandboxes (ShopEasy Test Lab)**
+  - Demo shop at `/lab/shop` (demo login, products, basket, checkout) on per-learner synthetic state (`LabSession`), with a reset. Shop logic is server-only (`src/server/lab/engine.ts`).
+  - 10 planted defects (login: wrong-case password accepted, unhelpful error, no lockout; basket: quantity 0 and negative accepted, rounding up so 3 for £5 costs £5.01; checkout: SAVE10 applied twice, delivery charged at exactly £50.00, lower-case postcodes rejected; accessibility: postcode box without a label). A unit test proves each one happens, and others prove the rest follows the specification (`tests/unit/lab-engine.test.ts`). The answer key (`src/server/lab/defects.ts`) is server-only.
+  - Test case writing and execution tracking (`/lab/test-cases`); defect reports with feedback – found / partly described / not matched (`/lab/defects`). The full defect list is shown only after the learner submits the QA assignment.
+  - SQL sandbox (`/lab/sql`): SQLite (sql.js) running in the browser on a fixed synthetic ShopEasy dataset, 8 guided exercises with answer checking, reset; the WebAssembly file is served from `public/sql/` (copied on install). Learner SQL never reaches the server (e2e checks no requests are made).
+  - API sandbox (`/lab/api`): mock ShopEasy API under `/api/lab/shop/*` sharing the demo shop's state and defects; request builder (method, allow-listed URL, headers, JSON body) that refuses anything outside the allow-list; 5 guided exercises.
+  - The QA practical assignment now uses the Test Lab: learners submit their own Lab test cases (with results) and defect reports. Rubric version 2 adds "Tests run and results recorded". New assignment form type `QA_TEST_LAB` (migration approved). Earlier submissions keep their rubric version.
+  - Fix: React 19 cleared forms after an action returned an error, so people lost what they'd typed (onboarding, assignments, admin lesson editing, the Lab checkout). All forms now use `useFormAction`, which keeps input on error.
+  - "Test Lab" added to the main navigation.
+  - content-reviewer: all 7 Must fix items fixed – two products added so the £19.99/£20.00 SAVE10 boundary can be tested, an unplanned defect removed (SAVE10 now drops off if the basket falls below £20.00), the accessibility defect described accurately (no visible label – placeholder only), the API exercise's expected figure corrected, automated feedback labelled, and the assignment made achievable. Should fix items also fixed: clearer specification (tea towel prices, what the £20/£50 rules apply to, stock), visible header labels in the API sandbox, unique quantity labels, login and accessibility options for test cases, glossary entries and links for testing terms, "blocked" explained. A ninth SQL exercise (badly formatted postcodes) was added.
+  - New e2e tests: `tests/e2e/lab.spec.ts`; AC6 QA test rewritten for the Lab version; axe checks cover the Lab pages, allowing only the one planted label defect.
+
 ## In progress
 - Nothing.
 
 ## Next steps
-1. Phase 3: ShopEasy Test Lab with seeded defects, test case execution and defect reports (and connect the QA assignment to it), SQL sandbox, API sandbox.
+1. Phase 4: rule-based learning coach (no AI provider), portfolio with PDF export and share link, career tools, certificate of completion and verification page, admin reporting and review queue.
 
 ## Acceptance criteria status (SPEC §16)
-Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 2b): 29 tests, all passing.
+Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 3): 34 tests, all passing.
 
 | # | Criterion | Test file | Status |
 |---|-----------|-----------|--------|
@@ -74,7 +86,7 @@ Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 2b): 29 tests, all pass
 | 14 | axe: no serious violations on key pages | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (all Phase 1 pages) |
 | 15 | 375px + keyboard-only journeys | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (see limitations) |
 
-Unit tests: 82 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
+Unit tests: 120 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
 
 ## Decisions
 - Stack as in CLAUDE.md, with **no AI provider**: questions, coach replies and feedback are rule-based from course content (PLAN §8.2).
@@ -88,7 +100,10 @@ Unit tests: 82 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm bu
 - **Docker:** the build environment had no Docker daemon, so everything was tested against a local PostgreSQL 16. `docker-compose.yml` follows the standard Postgres image but hasn't been run here.
 - **Role pathways:** only Module 1 of each pathway is built; Modules 2–8 (Scrum Master) and 2–10 (QA Tester) show "Coming soon".
 - **Existing databases don't switch on the Module 1s by themselves** (the seed never changes existing modules). Use Admin → Curriculum → the module → Availability "Available", or `pnpm db:reset`.
-- **QA assignment is a written exercise for now:** learners design test cases from a written specification and report defects from a provided session log. Running the tests in the Test Lab comes in Phase 3.
+- **QA assignment in existing databases:** the seed doesn't change existing assignments, so a database seeded before Phase 3 keeps the written version (session log). `pnpm db:reset` switches to the Test Lab version. The written version's code stays so its submissions still display.
+- **Lab defect matching is keyword-based by area** (like the written version). Reports that describe a real defect in unusual words may show as "not matched" or "partly described"; an assessor can override the automated score.
+- **SQL exercise answers ship to the browser** (the checker runs the reference query locally). It's unassessed practice, so this is acceptable, but it means answers can be found in the page's code.
+- **The API sandbox's mock API is per-learner and needs a portal session**; it doesn't need the demo shop login except for placing orders.
 - **Automated defect matching is keyword-based:** a report counts as "found" when it's linked to a defect's log entry and mentions key words for the expected and actual behaviour; otherwise "partly described". An assessor can override any automated score.
 - **Competency overrides:** an admin's grant persists; if an admin removes competency and later re-scores the submission so it meets the minimum, competency is recorded again (re-scoring is treated as a fresh decision).
 - **No automated guidance on judgement criteria yet** (diagnosis, Scrum stance, facilitation, report clarity, severity/priority) – these wait for an assessor. Rule-based guidance is planned for Phase 4.

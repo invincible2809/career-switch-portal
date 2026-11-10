@@ -179,12 +179,12 @@ export async function importContent(db: PrismaClient, content: ContentBundle): P
   // Rubrics (version 1) and assignments; each assignment unlocks when its module assessment is passed.
   const rubricIds = new Map<string, { id: string; version: number }>();
   for (const r of content.rubrics) {
-    let rubric = await db.rubric.findFirst({ where: { slug: r.slug }, orderBy: { version: "desc" } });
+    let rubric = await db.rubric.findUnique({ where: { slug_version: { slug: r.slug, version: r.version } } });
     if (!rubric) {
       rubric = await db.rubric.create({
         data: {
           slug: r.slug,
-          version: 1,
+          version: r.version,
           title: r.title,
           minimumRule: r.minimumRule,
           criteria: {
@@ -192,7 +192,7 @@ export async function importContent(db: PrismaClient, content: ContentBundle): P
           },
         },
       });
-      report.created.push(`rubric ${r.slug}`);
+      report.created.push(`rubric ${r.slug} v${r.version}`);
     }
     rubricIds.set(r.slug, { id: rubric.id, version: rubric.version });
   }

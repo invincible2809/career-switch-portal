@@ -5,3 +5,21 @@ terms:
     definition: The programs and apps that run on computers and phones, such as a shopping website.
   - term: ShopEasy
     definition: The fictional online shop used as the example in every lesson on this course.
+  - term: Test case
+    definition: A set of steps, test data and an expected result that checks one thing the software should do.
+  - term: Defect report
+    definition: A written record of a defect, with steps to reproduce it, the expected and actual results, and its severity and priority.
+  - term: Severity
+    definition: How bad the impact of a defect is – for example, whether it stops people paying or is a small cosmetic problem.
+  - term: Priority
+    definition: How soon a defect should be fixed. Usually decided with the Product Owner or business, and not always the same as severity.
+  - term: Expected result
+    definition: What should happen, according to the specification or acceptance criteria.
+  - term: Actual result
+    definition: What really happened when the test was run.
+  - term: Test environment
+    definition: Where a test was run – for example, which version of the system, which browser and which device.
+  - term: Equivalence partitioning
+    definition: A test design technique that splits inputs into groups the software should treat the same way, and tests one value from each group.
+  - term: Boundary value analysis
+    definition: A test design technique that tests the values at and just beyond the edges of a range, where mistakes often happen.

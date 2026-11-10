@@ -20,7 +20,7 @@
     "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset --force",
     "content:check": "tsx scripts/check-content.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate && node scripts/copy-sql-wasm.mjs"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "^5.3.0",
@@ -47,6 +47,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
     "server-only": "^0.0.1",
+    "sql.js": "^1.16.0",
     "tailwind-merge": "^3.7.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.2.0",
@@ -64,6 +65,7 @@
     "@types/pg": "^8.23.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "@types/sql.js": "^1.4.11",
     "dotenv": "^18.0.10",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.4.6",

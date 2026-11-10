@@ -435,3 +435,8 @@ The portal is built **without an AI API**, like the question-bank generators in 
 - **Prisma client** is generated as CommonJS so the same client works in Next.js, the `tsx` seed script and Playwright.
 - **E2E database:** Playwright's global setup applies migrations, empties every table and reseeds – only for a database whose name ends in `_test`. (Prisma's `migrate reset` is blocked when run by an AI agent, and this keeps the dev database untouched.)
 
+
+### 8.4 Phase 3 decisions (10 Nov 2026)
+- The QA assignment moved into the Test Lab (approved), with a new `QA_TEST_LAB` value in the `AssignmentForm` enum and rubric `checkout-testing` version 2. Submissions record the rubric version they were made against, and the feedback and assessor pages load that version.
+- The Lab's demo-shop logic and answer key live in `src/server/lab/` (server-only). The mock API and the shop pages call the same engine, so defects behave the same way in both.
+- Forms keep their input when an action returns an error (`src/components/forms/use-form-action.ts`), because React 19 otherwise resets forms after every `<form action>` call.

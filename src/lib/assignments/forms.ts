@@ -37,7 +37,7 @@ export const scrumRetroPlanSchema = z.object({
 });
 export type ScrumRetroPlan = z.infer<typeof scrumRetroPlanSchema>;
 
-export const TEST_FIELDS = ["quantity", "discount", "delivery", "postcode", "other"] as const;
+export const TEST_FIELDS = ["quantity", "discount", "delivery", "postcode", "login", "accessibility", "other"] as const;
 export const SEVERITIES = ["Critical", "High", "Medium", "Low"] as const;
 export const PRIORITIES = ["High", "Medium", "Low"] as const;
 
@@ -67,6 +67,28 @@ export const qaCheckoutSchema = z.object({
   defects: z.array(defectReportSchema).min(1, "Add at least one defect report"),
 });
 export type QaCheckout = z.infer<typeof qaCheckoutSchema>;
+
+// ---------- QA assignment, Test Lab version (PLAN §8 Phase 3) ----------
+export const labTestCaseRowSchema = testCaseSchema.extend({
+  status: z.enum(["NOT_RUN", "PASS", "FAIL", "BLOCKED"]),
+  actual: text(800),
+});
+export const labDefectRowSchema = z.object({
+  area: z.string().max(30),
+  title: text(200),
+  environment: text(200),
+  steps: text(1500),
+  expected: text(800),
+  actual: text(800),
+  severity: z.string().max(20),
+  priority: z.string().max(20),
+  evidence: text(500),
+});
+export const qaTestLabSchema = z.object({
+  testCases: z.array(labTestCaseRowSchema).min(1, "Choose at least one of your Test Lab test cases"),
+  defects: z.array(labDefectRowSchema).min(1, "Choose at least one of your Test Lab defect reports"),
+});
+export type QaTestLab = z.infer<typeof qaTestLabSchema>;
 
 /** Reads repeated rows named `${prefix}_${i}_${field}` from form data, dropping rows that are entirely empty. */
 export function readRows(form: Record<string, string>, prefix: string, fields: readonly string[], max: number) {

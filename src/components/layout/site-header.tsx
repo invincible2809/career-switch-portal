@@ -8,6 +8,7 @@ interface Props {
 const learnerLinks = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/pathways", label: "Pathways" },
+  { href: "/lab", label: "Test Lab" },
   { href: "/review", label: "Quick review" },
   { href: "/notes", label: "Notes" },
   { href: "/glossary", label: "Glossary" },

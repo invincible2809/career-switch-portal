@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/server/db";
 import { requireAdmin } from "@/server/guards";
 import { evaluateRubric, type MinimumRule } from "@/lib/assignments/evaluate";
+import { rubricFor } from "@/server/assignments/service";
 import { Alert, Card, PageHeader } from "@/components/ui/card";
 import { Select, Textarea } from "@/components/ui/field";
 import { SubmitButton } from "@/components/forms/form-status";
@@ -22,13 +23,14 @@ export default async function AssessSubmissionPage({ params, searchParams }: { p
       user: { select: { displayName: true } },
       competency: { include: { overriddenBy: { select: { displayName: true } } } },
       scores: { orderBy: { createdAt: "asc" } },
-      assignment: { include: { rubric: { include: { criteria: { orderBy: { order: "asc" } } } } } },
+      assignment: true,
     },
   });
   if (!s) notFound();
-  const rule = s.assignment.rubric.minimumRule as unknown as MinimumRule;
+  const rubric = await rubricFor(s);
+  const rule = rubric.minimumRule as unknown as MinimumRule;
   const e = evaluateRubric(
-    s.assignment.rubric.criteria.map((c) => c.id),
+    rubric.criteria.map((c) => c.id),
     s.scores.map((x) => ({ criterionId: x.criterionId, score: x.score, source: x.source, createdAt: x.createdAt })),
     rule,
   );
@@ -54,7 +56,7 @@ export default async function AssessSubmissionPage({ params, searchParams }: { p
         </p>
         <form action={assessSubmissionAction} className="mt-4 space-y-4">
           <input type="hidden" name="submissionId" value={s.id} />
-          {s.assignment.rubric.criteria.map((c) => {
+          {rubric.criteria.map((c) => {
             const auto = latest(c.id, "AUTOMATED");
             const assessor = latest(c.id, "ASSESSOR");
             const self = latest(c.id, "SELF");

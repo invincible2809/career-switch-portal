@@ -49,11 +49,14 @@ export async function answerAttempt(page: Page, correct: (i: number) => boolean)
   return { attemptId, items };
 }
 
-export async function expectNoSeriousA11yViolations(page: Page) {
+/** `allowed` lists deliberate, documented violations (e.g. the planted Test Lab label defect) by rule id and CSS target. */
+export async function expectNoSeriousA11yViolations(page: Page, allowed: { id: string; target: string }[] = []) {
   // In dev mode stylesheets can arrive after the HTML; check the page as people see it.
   await page.waitForLoadState("networkidle");
   const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
-  const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
+  const serious = results.violations
+    .map((v) => ({ ...v, nodes: v.nodes.filter((n) => !allowed.some((a) => a.id === v.id && n.target.join(" ") === a.target)) }))
+    .filter((v) => (v.impact === "serious" || v.impact === "critical") && v.nodes.length > 0);
   expect(serious.map((v) => `${v.id}: ${v.help} (${v.nodes.map((n) => n.target.join(" ")).join(", ")})`)).toEqual([]);
 }
 

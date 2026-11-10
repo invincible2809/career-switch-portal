@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useFormAction } from "@/components/forms/use-form-action";
 import { updateAssessmentAction } from "../../actions";
 import { Field, Input, Select } from "@/components/ui/field";
 import { FormMessages, SubmitButton } from "@/components/forms/form-status";
@@ -13,10 +13,10 @@ export function AssessmentSettingsForm({
   id: string;
   values: { passMark: number; drawCount: number; cooldownMinutes: number; status: string };
 }) {
-  const [state, action] = useActionState<FormState, FormData>(updateAssessmentAction, {});
+  const { state, formProps, pending } = useFormAction<FormState>(updateAssessmentAction);
   const fe = state.fieldErrors ?? {};
   return (
-    <form action={action} className="space-y-4" noValidate>
+    <form {...formProps} className="space-y-4" noValidate>
       <FormMessages state={state} labels={{ passMark: "Pass mark", drawCount: "Questions per attempt", cooldownMinutes: "Break between attempts" }} />
       <input type="hidden" name="assessmentId" value={id} />
       <div className="grid gap-4 sm:grid-cols-2">
@@ -38,7 +38,7 @@ export function AssessmentSettingsForm({
           )}
         </Field>
       </div>
-      <SubmitButton>Save settings</SubmitButton>
+      <SubmitButton pending={pending}>Save settings</SubmitButton>
     </form>
   );
 }
