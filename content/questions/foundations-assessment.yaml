@@ -1,0 +1,887 @@
+# IT Foundations module bank: questions on all five Foundations lessons.
+# Each draw of 10 is spread across the lessons' objectives (src/lib/assessment/draw.ts).
+slug: foundations-assessment
+title: IT Foundations – module assessment
+purpose: MODULE
+module: foundations
+questions:
+  # Generated questions: a fresh, correct-by-construction variant each time (src/lib/questions/generators.ts).
+  - key: fa-gen-role-pm
+    generator: who-does-what
+    params: { role: Product manager }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-designer
+    generator: who-does-what
+    params: { role: Designer }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-developer
+    generator: who-does-what
+    params: { role: Developer }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-tester
+    generator: who-does-what
+    params: { role: Tester }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-ba
+    generator: who-does-what
+    params: { role: Business analyst }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+  - key: fa-gen-role-ops
+    generator: who-does-what
+    params: { role: Operations engineer }
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+
+  - key: fa-01
+    type: SINGLE
+    objective: Explain the key terms feature, bug, release and stakeholder
+    lessonRef: { lesson: how-software-is-built, section: glossary }
+    stem: What does "release" mean in a software team?
+    options:
+      - id: a
+        text: Making a new version of the software available to real users
+        correct: true
+        explanation: Correct. A release puts the new version live for real users.
+      - id: b
+        text: Writing the code for a new feature
+        explanation: That's building. Release happens after building and testing.
+      - id: c
+        text: Deciding which feature to build next
+        explanation: That's a product decision made at the idea stage, long before release.
+      - id: d
+        text: Removing an old feature from the product
+        explanation: Removing a feature might be part of a release, but "release" means making a new version available.
+  - key: fa-02
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Which stage comes straight after the idea?
+    options:
+      - id: a
+        text: Understand the need
+        correct: true
+        explanation: Correct. Before designing anything, the team finds out who has the problem and what would help.
+      - id: b
+        text: Build
+        explanation: Building too early risks making the wrong thing. The team first understands the need and plans a design.
+      - id: c
+        text: Release
+        explanation: Release is near the end, after building and testing.
+      - id: d
+        text: Test
+        explanation: Testing checks something that has been built, so it comes later.
+  - key: fa-03
+    type: ORDER
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Put these stages in the usual order.
+    options:
+      - id: a
+        text: Design
+        explanation: Design comes after understanding the need and before building.
+      - id: b
+        text: Idea
+        explanation: Every change starts with an idea – a problem or an opportunity.
+      - id: c
+        text: Learn and look after it
+        explanation: After release, the team learns from real use and looks after the product.
+      - id: d
+        text: Release
+        explanation: Release comes after the change is built and tested.
+    correctOrder: [b, a, d, c]
+  - key: fa-04
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: worked-example }
+    stem: Why does a tester check other baskets after a rounding bug in one basket has been fixed?
+    options:
+      - id: a
+        text: To make sure the fix didn't break something else
+        correct: true
+        explanation: Correct. A change in one place can affect other places, so testers check around the fix too.
+      - id: b
+        text: Because the developer asked them to repeat the same test
+        explanation: Repeating the same test only shows the original bug is fixed. Checking other baskets looks for new problems the fix may have caused.
+      - id: c
+        text: To find out which developer made the mistake
+        explanation: Testing is about the product's quality, not blaming people.
+      - id: d
+        text: Because baskets can only be tested once the shop is live
+        explanation: Baskets can and should be tested before release.
+  - key: fa-05
+    type: SINGLE
+    objective: Explain the key terms feature, bug, release and stakeholder
+    lessonRef: { lesson: how-software-is-built, section: workplace-example }
+    stem: What is a stakeholder?
+    options:
+      - id: a
+        text: Anyone who cares about or is affected by the product
+        correct: true
+        explanation: Correct. Customers, managers and the support team are all stakeholders.
+      - id: b
+        text: Only the people who own shares in the company
+        explanation: Shareholders can be stakeholders, but the word covers anyone who cares about or is affected by the product.
+      - id: c
+        text: The person who writes the code
+        explanation: That's a developer. Developers are stakeholders too, but the word is much wider.
+      - id: d
+        text: A customer who has made a complaint
+        explanation: A customer with a complaint is a stakeholder, but so is anyone else who cares about or is affected by the product.
+  - key: fa-06
+    type: SINGLE
+    objective: Explain the key terms feature, bug, release and stakeholder
+    lessonRef: { lesson: how-software-is-built, section: glossary }
+    stem: Which is the best description of a bug?
+    options:
+      - id: a
+        text: A mistake that makes software behave differently from what was expected
+        correct: true
+        explanation: Correct. Testers often call this a defect.
+      - id: b
+        text: Any new feature that hasn't been released yet
+        explanation: An unreleased feature isn't a mistake. A bug is behaviour that's different from what was expected.
+      - id: c
+        text: A request from a customer for something new
+        explanation: That's a feature request. It may be a good idea, but it isn't a mistake in the software.
+      - id: d
+        text: A slow internet connection on the customer's side
+        explanation: That's outside the software. A bug is a mistake in the software itself.
+  - key: fa-07
+    type: SINGLE
+    objective: Explain the key terms feature, bug, release and stakeholder
+    lessonRef: { lesson: how-software-is-built, section: glossary }
+    stem: Which of these is a feature?
+    options:
+      - id: a
+        text: Being able to save an item for later
+        correct: true
+        explanation: Correct. A feature is something a product lets people do.
+      - id: b
+        text: A basket total that's 1p wrong
+        explanation: That's a bug – the software isn't doing what was expected.
+      - id: c
+        text: The team's weekly meeting
+        explanation: That's a team activity, not something the product lets people do.
+      - id: d
+        text: The ShopEasy logo at the top of the page
+        explanation: That's part of how the site looks, not something the product lets people do.
+  - key: fa-08
+    type: MULTI
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: workplace-example }
+    stem: In the ShopEasy "Save for later" example, which TWO roles are described doing their part before the developers built it?
+    options:
+      - id: a
+        text: Business analyst
+        correct: true
+        explanation: Correct. The business analyst wrote down exactly what should happen, before building started.
+      - id: b
+        text: Designer
+        correct: true
+        explanation: Correct. The designer sketched where the button goes before it was built.
+      - id: c
+        text: Tester
+        explanation: In this example the tester is described checking the built feature. In many teams testers get involved earlier too, for example by reviewing the requirements.
+      - id: d
+        text: Operations engineer
+        explanation: The operations engineer helped make the release go smoothly, after it was built.
+  - key: fa-09
+    type: SCENARIO
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    scenario: ShopEasy's website goes down in the middle of a big sale. Customers can't reach the shop at all.
+    stem: Whose job is it mainly to get the live system running again?
+    options:
+      - id: a
+        text: The operations engineer
+        correct: true
+        explanation: Correct. Operations engineers keep the live system running, and they're usually alerted first.
+      - id: b
+        text: The designer
+        explanation: Designers plan screens. A site that's down is an operations problem.
+      - id: c
+        text: The business analyst
+        explanation: Business analysts write requirements. Keeping the live site running is operations work.
+      - id: d
+        text: The product manager
+        explanation: The product manager will want to know, but restoring the system is operations work.
+  - key: fa-10
+    type: SCENARIO
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: worked-example }
+    scenario: A customer says their basket total was 1p more than it should have been.
+    stem: What is the most useful first step for the tester?
+    options:
+      - id: a
+        text: Try to make the problem happen again and write a clear report
+        correct: true
+        explanation: Correct. If the tester can repeat the problem, the developer can find and fix it much faster.
+      - id: b
+        text: Ignore it, because 1p doesn't matter
+        explanation: Small errors add up across thousands of orders, and they damage trust. It's worth investigating.
+      - id: c
+        text: Change the code themselves straight away
+        explanation: Testers usually report problems rather than change the code. A clear report helps the developer fix it properly.
+      - id: d
+        text: Release a new version of the website
+        explanation: Releasing without understanding or fixing the problem won't help.
+  - key: fa-11
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: worked-example }
+    stem: In the rounding example, why was the design stage very short?
+    options:
+      - id: a
+        text: No new screen or behaviour needed planning – only the calculation needed fixing
+        correct: true
+        explanation: Correct. Stages can be very short when there's little to decide.
+      - id: b
+        text: Because designers are not allowed to work on bugs
+        explanation: Designers can help with bugs. It was short because there was nothing new to design.
+      - id: c
+        text: Because the team skipped testing
+        explanation: Testing happened twice in that example. The design stage was short because nothing new needed designing.
+      - id: d
+        text: Because the bug was already released
+        explanation: The bug being live didn't change the design work. There was simply nothing new to design.
+  - key: fa-12
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: What happens in the "learn and look after it" stage?
+    options:
+      - id: a
+        text: The team watches how people use the change, fixes problems and decides what to do next
+        correct: true
+        explanation: Correct. This stage often leads to the next idea.
+      - id: b
+        text: The team stops working on the product
+        explanation: The work carries on. Real use gives the team new information.
+      - id: c
+        text: The team writes down exactly what the change should do
+        explanation: That's the "understand the need" stage, before building.
+      - id: d
+        text: The tester checks the change before it goes live
+        explanation: That's the test stage, which comes before release.
+  - key: fa-13
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: In a small company, one person does both the business analysis and the testing. Is that unusual?
+    options:
+      - id: a
+        text: No – job titles vary and one person often covers several roles in small companies
+        correct: true
+        explanation: Correct. What matters is that the work gets done, whatever the job title.
+      - id: b
+        text: Yes – each role must always be done by a different person
+        explanation: Roles describe kinds of work. In small companies people often do several.
+      - id: c
+        text: Yes – testers are never allowed to write requirements
+        explanation: There's no such rule. Testers often help make requirements clearer.
+      - id: d
+        text: No – because business analysis isn't needed in small companies
+        explanation: Clear requirements help in companies of every size.
+  - key: fa-14
+    type: MULTI
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: Which TWO statements describe how most software teams work today?
+    options:
+      - id: a
+        text: Testing often starts while building is still going on
+        correct: true
+        explanation: Correct. Testing early finds problems when they're cheaper to fix.
+      - id: b
+        text: The team repeats the cycle many times in small steps
+        correct: true
+        explanation: Correct. Small steps let the team learn and adjust quickly.
+      - id: c
+        text: Each role finishes all its work before passing it on
+        explanation: Most teams overlap the stages rather than handing over finished blocks of work.
+      - id: d
+        text: Everything is released once, at the very end
+        explanation: Most teams release in small steps rather than all at once.
+  - key: fa-15
+    type: SCENARIO
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: guided-practice }
+    scenario: ShopEasy is wondering whether to offer gift wrapping. Nobody has designed or built anything yet.
+    stem: Who weighs up whether it's worth the team's time?
+    options:
+      - id: a
+        text: The product manager
+        correct: true
+        explanation: Correct. The product manager weighs up customer needs and business value.
+      - id: b
+        text: The tester
+        explanation: Testers check things work. Deciding what to build is the product manager's call.
+      - id: c
+        text: The operations engineer
+        explanation: Operations keeps the system running. Deciding what to build is the product manager's call.
+      - id: d
+        text: The developer
+        explanation: Developers give useful input on effort, but the product manager decides what's worth building.
+  - key: fa-16
+    type: SCENARIO
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: guided-practice }
+    scenario: ShopEasy will let customers choose a delivery day. Nobody has said what happens if a customer picks a day when the warehouse is closed.
+    stem: Who would normally write down what should happen?
+    options:
+      - id: a
+        text: The business analyst
+        correct: true
+        explanation: Correct. Turning a need into clear, written requirements is the business analyst's focus.
+      - id: b
+        text: The designer
+        explanation: The designer may show the message on screen, but the rule itself is usually written by the business analyst.
+      - id: c
+        text: The operations engineer
+        explanation: Operations engineers keep the system running. This is a requirement to write down.
+      - id: d
+        text: The customer
+        explanation: Customers can tell the team what they need, but the team writes the requirement.
+  - key: fa-17
+    type: SINGLE
+    objective: Name the main roles in a software team
+    lessonRef: { lesson: how-software-is-built, section: workplace-example }
+    stem: Why does the ShopEasy team talk to each other throughout the work, not only at hand-over points?
+    options:
+      - id: a
+        text: Each person brings a different view and can spot problems others miss
+        correct: true
+        explanation: Correct. Talking throughout helps the team spot problems before they're built in.
+      - id: b
+        text: Because managers need to check everyone is busy
+        explanation: The point of talking is to share knowledge and spot problems early, not to check on people.
+      - id: c
+        text: Because only one person understands the product
+        explanation: The opposite – several people understand different parts, which is why they talk.
+      - id: d
+        text: So that nobody needs to write anything down
+        explanation: Teams still write things down, such as requirements and bug reports. Talking throughout adds to this; it doesn't replace it.
+  - key: fa-18
+    type: SCENARIO
+    objective: Explain the key terms feature, bug, release and stakeholder
+    lessonRef: { lesson: how-software-is-built, section: glossary }
+    scenario: A ShopEasy customer writes in asking for gift wrapping at checkout. Gift wrapping has never been offered.
+    stem: How would the team describe this request?
+    options:
+      - id: a
+        text: A request for a new feature
+        correct: true
+        explanation: Correct. It's something the product doesn't do yet, so it's a feature request.
+      - id: b
+        text: A bug
+        explanation: A bug is when software behaves differently from what was expected. Nobody expected gift wrapping to exist, so this isn't a bug.
+      - id: c
+        text: A release
+        explanation: A release makes a new version available to users. The team might release gift wrapping later, but the request itself isn't a release.
+      - id: d
+        text: A stakeholder
+        explanation: The customer who asked is a stakeholder, but the request itself is a feature request.
+
+  - key: fa-19
+    type: SINGLE
+    objective: Describe the stages from idea to release
+    lessonRef: { lesson: how-software-is-built, section: explanation }
+    stem: What usually happens at the "understand the need" stage?
+    options:
+      - id: a
+        text: The team finds out who has the problem and what would help, and writes it down clearly
+        correct: true
+        explanation: Correct. Understanding the need first avoids building the wrong thing.
+      - id: b
+        text: Developers start writing code straight away
+        explanation: Building comes later. First the team makes sure it understands the need.
+      - id: c
+        text: The new version goes live for customers
+        explanation: That's release, near the end of the cycle.
+      - id: d
+        text: Testers check the finished feature
+        explanation: Testing checks something that has been built, which comes later.
+
+  # ---------- Lesson 2: how teams plan and test ----------
+  - key: fa-l2-01
+    type: SINGLE
+    objective: Describe the software development and testing lifecycles
+    lessonRef: { lesson: how-teams-plan-and-test, section: explanation }
+    stem: When does testing happen in a well-run software team?
+    options:
+      - id: a
+        text: Alongside development, with its own planning, design and reporting
+        correct: true
+        explanation: Correct. Testing has its own lifecycle that runs alongside development, not only at the end.
+      - id: b
+        text: Only after everything has been built
+        explanation: Leaving testing to the end means problems are found late. Testing runs alongside development.
+      - id: c
+        text: Only after the software has been released
+        explanation: Testing after release means customers find the problems. Testing runs alongside development.
+      - id: d
+        text: Only when a customer complains
+        explanation: Waiting for complaints is too late. Testing is planned and runs alongside development.
+  - key: fa-l2-02
+    type: SCENARIO
+    objective: Explain the difference between working in one big plan and working in small steps
+    lessonRef: { lesson: how-teams-plan-and-test, section: worked-example }
+    scenario: ShopEasy wants gift wrapping. One option is to build gift wrapping, messages, receipts and wrapping styles over six months and release it all together.
+    stem: What would working in small steps look like instead?
+    options:
+      - id: a
+        text: Release a simple "This is a gift" option first, learn from how people use it, then decide what to add next
+        correct: true
+        explanation: Correct. Each small release brings feedback that shapes what comes next.
+      - id: b
+        text: Build all of it in six months, but test it more carefully at the end
+        explanation: That's still one big plan. Small steps means releasing parts early and learning from them.
+      - id: c
+        text: Split the six months of work between more developers
+        explanation: More people doesn't change the approach. Small steps means releasing parts early and learning from feedback.
+      - id: d
+        text: Skip testing so it's released sooner
+        explanation: Small steps still includes testing in every step – it's never skipped.
+  - key: fa-l2-03
+    type: SINGLE
+    objective: Name the four Agile values
+    lessonRef: { lesson: how-teams-plan-and-test, section: explanation }
+    stem: The Agile Manifesto values "individuals and interactions over processes and tools". What does that mean?
+    options:
+      - id: a
+        text: Processes and tools still matter, but people working well together matters more
+        correct: true
+        explanation: Correct. The Manifesto says the items on the right still have value – the items on the left are valued more.
+      - id: b
+        text: Agile teams don't use any tools or processes
+        explanation: Agile teams use plenty of tools. The Manifesto says the things on the right still matter, just less.
+      - id: c
+        text: Every person should choose their own process
+        explanation: That's not what it says. It's about valuing people and how they work together most.
+      - id: d
+        text: Meetings should replace all written work
+        explanation: Agile doesn't ban written work. It values people and their interactions most.
+  - key: fa-l2-04
+    type: SINGLE
+    objective: Name the parts of Scrum (its accountabilities, events and artifacts)
+    lessonRef: { lesson: how-teams-plan-and-test, section: explanation }
+    stem: In Scrum, how long can a Sprint be?
+    options:
+      - id: a
+        text: One month or less
+        correct: true
+        explanation: Correct. The Scrum Guide says Sprints are fixed-length events of one month or less.
+      - id: b
+        text: Exactly two weeks
+        explanation: Two weeks is common (ShopEasy uses it), but the Scrum Guide only says one month or less.
+      - id: c
+        text: Six months
+        explanation: That's far too long for Scrum. Sprints are one month or less.
+      - id: d
+        text: As long as the work takes
+        explanation: Sprints have a fixed length of one month or less, whatever the work.
+  - key: fa-l2-05
+    type: SINGLE
+    objective: Name the parts of Scrum (its accountabilities, events and artifacts)
+    lessonRef: { lesson: how-teams-plan-and-test, section: workplace-example }
+    stem: At ShopEasy, who keeps the Product Backlog in order, with the most valuable work at the top?
+    options:
+      - id: a
+        text: The Product Owner
+        correct: true
+        explanation: Correct. The Product Owner is accountable for ordering the Product Backlog.
+      - id: b
+        text: The Scrum Master
+        explanation: The Scrum Master helps the team use Scrum well, but the Product Owner orders the Product Backlog.
+      - id: c
+        text: The Developers, by voting
+        explanation: The Developers give useful input, but the Product Owner is accountable for ordering the Product Backlog.
+      - id: d
+        text: The customers
+        explanation: Customer feedback informs it, but the Product Owner is accountable for ordering it.
+  - key: fa-l2-06
+    type: SCENARIO
+    objective: Name the parts of Scrum (its accountabilities, events and artifacts)
+    lessonRef: { lesson: how-teams-plan-and-test, section: workplace-example }
+    scenario: At the end of a Sprint, the ShopEasy team shows the working "Save for later" button to the support team and some managers and asks for their feedback.
+    stem: Which Scrum event is this?
+    options:
+      - id: a
+        text: The Sprint Review
+        correct: true
+        explanation: Correct. At the Sprint Review the Scrum Team and stakeholders look at what was achieved, discuss the feedback and agree what to do next.
+      - id: b
+        text: The Sprint Retrospective
+        explanation: The Retrospective is about how the team worked and what to improve, not showing the product.
+      - id: c
+        text: The Daily Scrum
+        explanation: The Daily Scrum is a short daily check on progress for the Developers.
+      - id: d
+        text: Sprint Planning
+        explanation: Sprint Planning happens at the start of a Sprint, to agree the work.
+
+  # ---------- Lesson 3: requirements and user stories ----------
+  - key: fa-gen-gwt-1
+    generator: given-when-then
+    params: { ask: GIVEN }
+    objective: Write acceptance criteria in the Given / When / Then format
+    lessonRef: { lesson: requirements-and-user-stories, section: explanation }
+  - key: fa-gen-gwt-2
+    generator: given-when-then
+    params: { ask: THEN }
+    objective: Write acceptance criteria in the Given / When / Then format
+    lessonRef: { lesson: requirements-and-user-stories, section: explanation }
+  - key: fa-l3-01
+    type: SINGLE
+    objective: Write a user story in the "As a…, I want…, so that…" format
+    lessonRef: { lesson: requirements-and-user-stories, section: explanation }
+    stem: Which of these is a complete user story?
+    options:
+      - id: a
+        text: As a returning customer, I want my address remembered, so that I can check out faster
+        correct: true
+        explanation: Correct. It has all three parts – who, what and why.
+      - id: b
+        text: Add a remembered-address feature to checkout
+        explanation: This is a task, not a user story. It doesn't say who needs it or why.
+      - id: c
+        text: As a returning customer, I want my address remembered
+        explanation: Close, but it's missing the "so that" – the reason it matters.
+      - id: d
+        text: The checkout should be faster
+        explanation: This is a vague requirement, not a user story.
+  - key: fa-l3-02
+    type: SINGLE
+    objective: Explain what a requirement is and why vague requirements cause problems
+    lessonRef: { lesson: requirements-and-user-stories, section: explanation }
+    stem: Why is "The checkout should be fast" a poor requirement?
+    options:
+      - id: a
+        text: It's vague – people will disagree about what "fast" means, so it can't be tested clearly
+        correct: true
+        explanation: Correct. A good requirement is specific enough to be checked with a clear pass or fail.
+      - id: b
+        text: Requirements should never mention speed
+        explanation: Speed can be a good requirement if it's specific, such as "loads in under 2 seconds on a phone".
+      - id: c
+        text: It's too long
+        explanation: Length isn't the problem. It's too vague to test.
+      - id: d
+        text: Only developers can write requirements
+        explanation: Many people help write requirements. The problem is that this one is vague.
+  - key: fa-l3-03
+    type: SCENARIO
+    objective: Write acceptance criteria in the Given / When / Then format
+    lessonRef: { lesson: requirements-and-user-stories, section: worked-example }
+    scenario: "Customers can start a return online. The limit is 30 days from delivery."
+    stem: Which acceptance criterion covers an unhappy path?
+    options:
+      - id: a
+        text: Given I received my order 40 days ago, When I choose "Return an item", Then I see that returns are only possible within 30 days
+        correct: true
+        explanation: Correct. It checks what happens when the customer is outside the limit – an unhappy path.
+      - id: b
+        text: Given I received my order 10 days ago, When I choose "Return an item", Then I can pick the items to return
+        explanation: That's the normal, happy path. An unhappy path is when something goes wrong or isn't allowed.
+      - id: c
+        text: Given I received my order 29 days ago, When I choose "Return an item", Then I can pick the items to return
+        explanation: 29 days is inside the 30-day limit, so this is still a normal path.
+      - id: d
+        text: Given returns exist, When customers use them, Then returns work
+        explanation: This is too vague to test and doesn't describe a situation where something goes wrong.
+  - key: fa-l3-04
+    type: SINGLE
+    objective: Explain what a requirement is and why vague requirements cause problems
+    lessonRef: { lesson: requirements-and-user-stories, section: workplace-example }
+    stem: Why did ShopEasy's tester join the early conversation about the discount code story?
+    options:
+      - id: a
+        text: To ask questions about unusual cases early, before anything was built
+        correct: true
+        explanation: Correct. Questions like "can two codes be combined?" are cheapest to answer before building.
+      - id: b
+        text: To decide how the code should be written
+        explanation: That's for the people writing the code to decide. The tester helped by asking about cases nobody had thought of.
+      - id: c
+        text: To approve the budget
+        explanation: Testers don't usually approve budgets. They help make requirements clear and testable.
+      - id: d
+        text: Because testers write all user stories
+        explanation: Anyone can write user stories. The tester's questions made the criteria clearer.
+  - key: fa-l3-05
+    type: SINGLE
+    objective: Write acceptance criteria in the Given / When / Then format
+    lessonRef: { lesson: requirements-and-user-stories, section: glossary }
+    stem: What is an edge case?
+    options:
+      - id: a
+        text: An unusual situation at the limits of what the software should handle, such as an empty basket
+        correct: true
+        explanation: Correct. Edge cases are where many bugs hide, so good criteria include them.
+      - id: b
+        text: A bug that only affects the edge of the screen
+        explanation: An edge case is about unusual situations, not the screen layout.
+      - id: c
+        text: The most common way customers use a feature
+        explanation: That's the normal or happy path. Edge cases are the unusual ones.
+      - id: d
+        text: A user story that has been finished
+        explanation: That's a story that's done, not an edge case.
+  - key: fa-l3-06
+    type: SINGLE
+    objective: Write a user story in the "As a…, I want…, so that…" format
+    lessonRef: { lesson: requirements-and-user-stories, section: explanation }
+    stem: What is a user story best thought of as?
+    options:
+      - id: a
+        text: A starting point for a conversation about what the user needs
+        correct: true
+        explanation: Correct. The details are worked out together and written as acceptance criteria.
+      - id: b
+        text: A complete, final specification
+        explanation: A user story is too short to be a full specification. It's a starting point for a conversation.
+      - id: c
+        text: A bug report
+        explanation: Bug reports describe problems. User stories describe needs.
+      - id: d
+        text: A promise to a customer about a delivery date
+        explanation: A user story describes a need, not a delivery promise.
+
+  # ---------- Lesson 4: web apps, databases and APIs ----------
+  - key: fa-l4-01
+    type: SINGLE
+    objective: Explain the difference between the front end, the back end and the database
+    lessonRef: { lesson: web-apps-databases-apis, section: guided-practice }
+    stem: The rule that ShopEasy delivery is free on orders of £50 or more is applied in which layer?
+    options:
+      - id: a
+        text: The back end
+        correct: true
+        explanation: Correct. The back end applies the rules, such as working out delivery charges.
+      - id: b
+        text: The database
+        explanation: The database stores information. Rules like this are applied by the back end.
+      - id: c
+        text: The status code
+        explanation: Status codes only say how a request went. The rule is applied by the back end.
+      - id: d
+        text: The payment company's API
+        explanation: The payment API takes payments. ShopEasy's own delivery rule is applied by its back end.
+  - key: fa-l4-02
+    type: SINGLE
+    objective: Explain the difference between the front end, the back end and the database
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
+    stem: In the restaurant comparison, what is the front end like?
+    options:
+      - id: a
+        text: The dining room and the menu – what customers see and use
+        correct: true
+        explanation: Correct. The front end is what people see and interact with.
+      - id: b
+        text: The kitchen
+        explanation: The kitchen is like the back end, where the work happens out of sight.
+      - id: c
+        text: The store cupboard
+        explanation: The store cupboard is like the database, where things are kept.
+      - id: d
+        text: The delivery van
+        explanation: That isn't part of the comparison. The front end is the dining room and menu.
+  - key: fa-l4-03
+    type: ORDER
+    objective: Describe what happens in a request and a response
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
+    stem: A customer clicks "Show my orders". Put these steps in order.
+    options:
+      - id: a
+        text: The front end shows the orders on screen
+        explanation: This is the last step, after the response arrives.
+      - id: b
+        text: The back end asks the database for the customer's orders
+        explanation: This happens after the back end receives the request and checks the customer is logged in.
+      - id: c
+        text: The browser sends a request to the back end
+        explanation: This is the first step – the request starts everything.
+      - id: d
+        text: The back end sends a response with the list of orders
+        explanation: This comes after the database has returned the orders.
+    correctOrder: [c, b, d, a]
+  - key: fa-l4-04
+    type: SINGLE
+    objective: Explain what an API is and read a simple status code
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
+    stem: What is an API?
+    options:
+      - id: a
+        text: An agreed way for one piece of software to ask another for data or actions
+        correct: true
+        explanation: Correct. Like an order slip between a waiter and the kitchen.
+      - id: b
+        text: A type of database
+        explanation: An API isn't a database, though it might be used to get data from one.
+      - id: c
+        text: A screen in the app
+        explanation: Screens are part of the front end. An API is how software talks to other software.
+      - id: d
+        text: A kind of password
+        explanation: An API is a way for software to communicate, not a password.
+  - key: fa-l4-05
+    type: SCENARIO
+    objective: Explain what an API is and read a simple status code
+    lessonRef: { lesson: web-apps-databases-apis, section: worked-example }
+    scenario: A tester searches ShopEasy for "kettle" and sees "Sorry, something went wrong". The browser's developer tools show the search request came back with status 500. Searching for "mug" works.
+    stem: What does this tell the tester?
+    options:
+      - id: a
+        text: Something went wrong on the server when handling the "kettle" search
+        correct: true
+        explanation: Correct. A 500 code means a server error, and other searches work, so it's something about "kettle".
+      - id: b
+        text: The tester's internet connection is broken
+        explanation: The request reached the server and got a response, and "mug" works – so the connection is fine.
+      - id: c
+        text: The product doesn't exist
+        explanation: A missing product would usually show no results or a 404, not a 500 server error.
+      - id: d
+        text: The tester typed the search wrongly
+        explanation: A 500 code points to a problem on the server, not the tester's typing.
+  - key: fa-l4-06
+    type: SINGLE
+    objective: Explain what an API is and read a simple status code
+    lessonRef: { lesson: web-apps-databases-apis, section: workplace-example }
+    stem: After a customer pays, ShopEasy's back end saves the new order and replies with status 201. What does 201 mean?
+    options:
+      - id: a
+        text: Created – something new was saved
+        correct: true
+        explanation: Correct. 201 means the request worked and something new, here an order, was created.
+      - id: b
+        text: Not logged in
+        explanation: That's 401.
+      - id: c
+        text: Not found
+        explanation: That's 404.
+      - id: d
+        text: Server error
+        explanation: Server errors are 500-type codes.
+
+  # ---------- Lesson 5: tools and security ----------
+  - key: fa-l5-01
+    type: SINGLE
+    objective: Explain how teams track work on a board and in tickets
+    lessonRef: { lesson: tools-and-security, section: explanation }
+    stem: On a team board, what does a card moving from "In progress" to "Done" show?
+    options:
+      - id: a
+        text: That piece of work has been finished
+        correct: true
+        explanation: Correct. Cards move across the columns as the work progresses.
+      - id: b
+        text: The work has been deleted
+        explanation: Moving to Done means it's finished, not deleted.
+      - id: c
+        text: The work has been given to another company
+        explanation: Columns show progress, not who the work belongs to.
+      - id: d
+        text: The work is waiting to start
+        explanation: Work waiting to start is in "To do".
+  - key: fa-l5-02
+    type: SINGLE
+    objective: Describe the main collaboration tools in a software team
+    lessonRef: { lesson: tools-and-security, section: explanation }
+    stem: The team agrees a decision on a video call. What's a good habit?
+    options:
+      - id: a
+        text: Write the decision down where the whole team can find it, such as in the ticket
+        correct: true
+        explanation: Correct. Otherwise people who weren't on the call, or who forget, won't know.
+      - id: b
+        text: Rely on everyone remembering it
+        explanation: People forget, and some weren't there. Write it down where the team can find it.
+      - id: c
+        text: Keep it in a private message to one person
+        explanation: The whole team needs to find it, so put it in the ticket or a shared place.
+      - id: d
+        text: Record it only on your own laptop
+        explanation: Others can't see it there. Use the ticket or a shared document.
+  - key: fa-l5-03
+    type: SCENARIO
+    objective: Spot the signs of phishing and describe safe habits for passwords and data
+    lessonRef: { lesson: tools-and-security, section: guided-practice }
+    scenario: "An email from it-helpdesk@shopeasy-support.example says your mailbox is full and you must log in through a link within 1 hour."
+    stem: What should you do?
+    options:
+      - id: a
+        text: Don't click the link, and report the email to your IT or security team
+        correct: true
+        explanation: Correct. The look-alike address and the deadline are classic phishing signs.
+      - id: b
+        text: Click the link quickly so you don't lose your emails
+        explanation: Pressure to act fast is a common phishing trick. Don't click – report it.
+      - id: c
+        text: Reply with your password so they can fix it
+        explanation: Never send your password by email. This is very likely phishing.
+      - id: d
+        text: Forward it to colleagues to see if they got it too
+        explanation: Forwarding spreads the risk. Report it to the security team, who can warn everyone.
+  - key: fa-l5-04
+    type: SINGLE
+    objective: Spot the signs of phishing and describe safe habits for passwords and data
+    lessonRef: { lesson: tools-and-security, section: explanation }
+    stem: Which is the safest password habit?
+    options:
+      - id: a
+        text: A long, different password for every account, kept in a password manager
+        correct: true
+        explanation: Correct. If one password leaks, your other accounts stay safe.
+      - id: b
+        text: The same strong password everywhere
+        explanation: If that one password leaks, every account is at risk. Use a different one for each.
+      - id: c
+        text: A short password written on a sticky note on your screen
+        explanation: Anyone passing can read it. Use a password manager instead.
+      - id: d
+        text: Your pet's name and birth year
+        explanation: These are easy to guess from social media. Use long, random passwords.
+  - key: fa-l5-05
+    type: SINGLE
+    objective: Spot the signs of phishing and describe safe habits for passwords and data
+    lessonRef: { lesson: tools-and-security, section: explanation }
+    stem: Why do testers use test data?
+    options:
+      - id: a
+        text: So that real people's personal data isn't exposed while testing
+        correct: true
+        explanation: Correct. Made-up data lets testers work freely without risking anyone's privacy.
+      - id: b
+        text: Because real data is always wrong
+        explanation: Real data isn't wrong – but it's personal, and protected by law.
+      - id: c
+        text: Because it makes the software faster
+        explanation: Test data doesn't change speed. It protects privacy.
+      - id: d
+        text: Because made-up data is always more accurate
+        explanation: Made-up data isn't more accurate. It's used to protect real people's privacy.
+  - key: fa-l5-06
+    type: SINGLE
+    objective: Explain how teams track work on a board and in tickets
+    lessonRef: { lesson: tools-and-security, section: workplace-example }
+    stem: A tester finds that saved items disappear after logging out. What do they usually create?
+    options:
+      - id: a
+        text: A bug ticket with clear steps, linked to the story
+        correct: true
+        explanation: Correct. Bugs are tracked as tickets so they're fixed and checked.
+      - id: b
+        text: A new Sprint
+        explanation: Sprints are fixed periods of time, not a way to record a bug.
+      - id: c
+        text: A phone call to the customer
+        explanation: Bugs found in testing are recorded in a ticket for the team.
+      - id: d
+        text: Nothing, if the developer is busy
+        explanation: Every bug should be recorded so it isn't forgotten.

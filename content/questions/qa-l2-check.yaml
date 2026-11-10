@@ -1,0 +1,78 @@
+slug: qa-l2-check
+title: The seven testing principles – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: seven-testing-principles
+questions:
+- key: qa2-kc-01
+  type: SINGLE
+  objective: Explain each of the seven testing principles in plain words
+  lessonRef:
+    lesson: seven-testing-principles
+    section: explanation
+  stem: What does "tests wear out" mean?
+  options:
+  - id: a
+    text: Running the same tests again and again eventually stops finding new defects
+    correct: true
+    explanation: Correct. Tests need reviewing and new ones adding.
+  - id: b
+    text: Test documents get lost over time
+    explanation: It's about effectiveness, not lost documents.
+  - id: c
+    text: Testers get tired
+    explanation: It's about the tests, not the people.
+- key: qa2-kc-02
+  type: SINGLE
+  objective: Explain each of the seven testing principles in plain words
+  lessonRef:
+    lesson: seven-testing-principles
+    section: explanation
+  stem: Why do testers want to be involved early?
+  options:
+  - id: a
+    text: Defects found early – for example in requirements – are cheaper to fix
+    correct: true
+    explanation: Correct. Early testing saves time and money.
+  - id: b
+    text: So they can write the code
+    explanation: Testers help by finding problems early, not by writing all the code.
+  - id: c
+    text: Because testing only works at the start
+    explanation: Testing happens throughout. Starting early saves time and money.
+- key: qa2-kc-03
+  type: SINGLE
+  objective: Apply the principles to decide how to approach testing a change
+  lessonRef:
+    lesson: seven-testing-principles
+    section: worked-example
+  stem: Most of ShopEasy's past defects were in the checkout. What should Asha do when the checkout changes?
+  options:
+  - id: a
+    text: Test it more deeply, because defects tend to cluster
+    correct: true
+    explanation: Correct. Defect clustering helps decide where to focus.
+  - id: b
+    text: Test it less, because it's been tested so much already
+    explanation: Areas with many past defects usually deserve more attention, not less.
+  - id: c
+    text: Test every page equally
+    explanation: Exhaustive and equal testing isn't possible. Focus where risk is highest.
+- key: qa2-kc-04
+  type: SINGLE
+  objective: Explain each of the seven testing principles in plain words
+  lessonRef:
+    lesson: seven-testing-principles
+    section: explanation
+  stem: A feature passes every test, but customers can't find it and keep phoning support. Which principle does
+    this show?
+  options:
+  - id: a
+    text: Absence-of-defects fallacy
+    correct: true
+    explanation: Correct. Software with no defects can still fail to meet users' needs.
+  - id: b
+    text: Exhaustive testing is impossible
+    explanation: That's about not testing every input. This is about meeting user needs.
+  - id: c
+    text: Defects cluster together
+    explanation: That's about where defects are found. This is about meeting user needs.

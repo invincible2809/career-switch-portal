@@ -1,0 +1,82 @@
+slug: scrum-l3-check
+title: Empiricism in practice – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: empiricism-in-practice
+questions:
+- key: sm3-kc-01
+  type: SINGLE
+  objective: Explain transparency, inspection and adaptation, and how Scrum uses them
+  lessonRef:
+    lesson: empiricism-in-practice
+    section: explanation
+  stem: Which three pillars does empiricism rest on?
+  options:
+  - id: a
+    text: Transparency, inspection and adaptation
+    correct: true
+    explanation: Correct. They depend on each other.
+  - id: b
+    text: Planning, building and testing
+    explanation: Those are stages of work, not the pillars of empiricism.
+  - id: c
+    text: Commitment, focus and courage
+    explanation: Those are three of the five Scrum values, not the pillars of empiricism.
+- key: sm3-kc-02
+  type: SINGLE
+  objective: Recognise common problems in Scrum Teams and what they suggest
+  lessonRef:
+    lesson: empiricism-in-practice
+    section: explanation
+  stem: Work regularly rolls over into the next Sprint. What might this suggest?
+  options:
+  - id: a
+    text: The team takes on too much, items are too big, or "done" isn't clear
+    correct: true
+    explanation: Correct. It's information to inspect, not a reason to blame people.
+  - id: b
+    text: The team isn't working hard enough
+    explanation: That's a common assumption, but rarely the cause. Look at the size of items, the amount taken on
+      and the Definition of Done.
+  - id: c
+    text: Scrum doesn't work for this kind of product
+    explanation: Roll-over is a common, fixable pattern. It's information for the team to inspect.
+- key: sm3-kc-03
+  type: SCENARIO
+  objective: Choose helpful Scrum Master responses that support self-management
+  lessonRef:
+    lesson: empiricism-in-practice
+    section: worked-example
+  scenario: It's the middle of a ShopEasy Sprint.
+  stem: A senior manager asks two Developers directly to drop their work for an urgent request. What's the most
+    helpful thing the Scrum Master can do?
+  options:
+  - id: a
+    text: Connect the manager with the Product Owner, and make the effect on the Sprint Goal clear
+    correct: true
+    explanation: Correct. The Product Owner orders the work, and the trade-off becomes visible.
+  - id: b
+    text: Tell the Developers to do it straight away
+    explanation: That takes a product decision away from the Product Owner and puts the Sprint Goal at risk without
+      anyone deciding.
+  - id: c
+    text: Tell the manager that Scrum doesn't allow changes
+    explanation: That isn't quite true and harms the relationship. Route the request to the Product Owner.
+- key: sm3-kc-04
+  type: SINGLE
+  objective: Explain transparency, inspection and adaptation, and how Scrum uses them
+  lessonRef:
+    lesson: empiricism-in-practice
+    section: guided-practice
+  stem: At the Sprint Review, the team tells stakeholders everything planned is finished, although several items
+    don't meet the Definition of Done. Which pillar is missing?
+  options:
+  - id: a
+    text: Transparency
+    correct: true
+    explanation: Correct. Without transparency, stakeholders decide based on a false picture.
+  - id: b
+    text: Adaptation
+    explanation: Adaptation needs accurate information first. The missing pillar is transparency.
+  - id: c
+    text: Inspection
+    explanation: Stakeholders are inspecting – but what they see isn't true. Transparency is missing.

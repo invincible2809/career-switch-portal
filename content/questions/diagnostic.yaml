@@ -1,0 +1,194 @@
+# Onboarding diagnostic (SPEC §2): untimed and not a test you can fail.
+# Only the technology questions link to a lesson; the others measure reasoning, detail or preference.
+# Tags: tech, logic, detail are marked; preference questions have no right answer and
+# lean towards a role instead (PLAN §1.2 point 8).
+slug: diagnostic
+title: Getting to know you
+purpose: DIAGNOSTIC
+questions:
+  - key: dg-01
+    type: SINGLE
+    objective: Technology familiarity
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
+    tags: [tech]
+    stem: When you type a web address and press Enter, what happens?
+    options:
+      - id: a
+        text: Your browser asks a computer somewhere else for the page and shows what comes back
+        correct: true
+        explanation: That's right. Your browser sends a request and displays the response.
+      - id: b
+        text: The page is already stored on your computer and simply opens
+        explanation: Most pages are fetched from another computer (a server) each time. Foundations Lesson 4 explains how.
+      - id: c
+        text: I'm not sure
+        explanation: That's completely fine – Foundations Lesson 4 explains this simply.
+  - key: dg-02
+    type: SINGLE
+    objective: Technology familiarity
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
+    tags: [tech]
+    stem: What is a database used for?
+    options:
+      - id: a
+        text: Storing information so it can be found and updated later
+        correct: true
+        explanation: That's right. A shop's orders and customers are stored in a database.
+      - id: b
+        text: Making a website look attractive
+        explanation: That's the job of design. Databases store information.
+      - id: c
+        text: I'm not sure
+        explanation: No problem – Foundations Lesson 4 covers this in plain English.
+  - key: dg-03
+    type: SINGLE
+    objective: Technology familiarity
+    lessonRef: { lesson: tools-and-security, section: explanation }
+    tags: [tech]
+    stem: An email says your account will be closed unless you "verify your password" using a link. What's the safest thing to do?
+    options:
+      - id: a
+        text: Don't click the link – go to the website yourself or contact the company another way
+        correct: true
+        explanation: That's right. This is a common sign of phishing – a fake message that tries to trick you into giving away details.
+      - id: b
+        text: Click the link quickly so the account isn't closed
+        explanation: Pressure to act fast is a common phishing trick. Foundations Lesson 5 covers how to spot it.
+      - id: c
+        text: I'm not sure
+        explanation: That's fine – Foundations Lesson 5 covers basic security.
+  - key: dg-04
+    type: SINGLE
+    objective: Logical reasoning
+    tags: [logic]
+    stem: Free delivery applies to orders of £50 or more. Which order gets free delivery?
+    options:
+      - id: a
+        text: An order of exactly £50.00
+        correct: true
+        explanation: That's right – "£50 or more" includes £50 itself.
+      - id: b
+        text: An order of £49.99
+        explanation: £49.99 is just under £50, so it doesn't qualify.
+      - id: c
+        text: Neither
+        explanation: The rule says "£50 or more", which includes exactly £50.
+  - key: dg-05
+    type: SINGLE
+    objective: Logical reasoning
+    tags: [logic]
+    stem: Every order is either "paid" or "unpaid". Order 7 is not unpaid. What is order 7?
+    options:
+      - id: a
+        text: Paid
+        correct: true
+        explanation: That's right. If it's not unpaid, it must be paid.
+      - id: b
+        text: Unpaid
+        explanation: The question says it's not unpaid, so it must be paid.
+      - id: c
+        text: We can't tell
+        explanation: There are only two options, so we can tell – it's paid.
+  - key: dg-06
+    type: SINGLE
+    objective: Logical reasoning
+    tags: [logic]
+    stem: A button works on a laptop but not on a phone. What would you check first?
+    options:
+      - id: a
+        text: Whether it fails on other phones too, to narrow down the cause
+        correct: true
+        explanation: That's right. Narrowing down when a problem happens is the quickest way to the cause.
+      - id: b
+        text: Nothing – it works on the laptop, so it's fine
+        explanation: Many customers shop on phones, so it's worth investigating.
+      - id: c
+        text: Whether the button works on a different laptop
+        explanation: It already works on a laptop, so another laptop tells you little. The problem shows up on the phone, so that's where to look.
+  - key: dg-07
+    type: SINGLE
+    objective: Attention to detail
+    tags: [detail]
+    stem: "Spot the difference: order reference SE-40871 and order reference SE-40817. Are they the same?"
+    options:
+      - id: a
+        text: No – the last two digits are swapped
+        correct: true
+        explanation: That's right. 71 and 17 are swapped.
+      - id: b
+        text: Yes, they're the same
+        explanation: Look again at the last two digits – 71 and 17.
+  - key: dg-08
+    type: SINGLE
+    objective: Attention to detail
+    tags: [detail]
+    stem: "A receipt shows: 2 × £4.50 = £9.50. Is the total correct?"
+    options:
+      - id: a
+        text: No – it should be £9.00
+        correct: true
+        explanation: That's right. 2 × £4.50 is £9.00.
+      - id: b
+        text: Yes, it's correct
+        explanation: 2 × £4.50 is £9.00, so £9.50 is 50p too much.
+  - key: dg-09
+    type: SINGLE
+    objective: Attention to detail
+    tags: [detail]
+    stem: A form says "Enter your date of birth (DD/MM/YYYY)". Which entry matches?
+    options:
+      - id: a
+        text: 07/03/1985
+        correct: true
+        explanation: That's right – day, month, then a four-digit year.
+      - id: b
+        text: 1985/03/07
+        explanation: That puts the year first. The form asks for day, month, year.
+      - id: c
+        text: 7 March 85
+        explanation: That uses words and a two-digit year. The form asks for DD/MM/YYYY.
+  - key: dg-10
+    type: SCENARIO
+    objective: Working with people
+    tags: [preference]
+    scenario: Your team keeps missing deadlines and people are getting frustrated with each other.
+    stem: Which would you rather do?
+    options:
+      - id: a
+        text: Bring everyone together to talk about what's getting in the way and agree what to try
+        lean: SCRUM_MASTER
+        explanation: This suggests you may enjoy helping groups work through problems together – a big part of the Scrum Master role.
+      - id: b
+        text: Look closely at the work to find exactly where things go wrong
+        lean: QA_TESTER
+        explanation: This suggests you may like investigating details to find the cause – a big part of testing.
+  - key: dg-11
+    type: SCENARIO
+    objective: Working with people
+    tags: [preference]
+    scenario: A new booking system is being introduced where you work.
+    stem: Which part would you enjoy more?
+    options:
+      - id: a
+        text: Trying it out to find the things that don't work before customers do
+        lean: QA_TESTER
+        explanation: This suggests you may enjoy finding problems before customers do – what testers do every day.
+      - id: b
+        text: Helping colleagues adapt and making sure their concerns are heard
+        lean: SCRUM_MASTER
+        explanation: This suggests you may enjoy supporting people through change – close to the coaching side of the Scrum Master role.
+  - key: dg-12
+    type: SCENARIO
+    objective: Working with people
+    tags: [preference]
+    scenario: Two colleagues disagree about the best way to do a task.
+    stem: What's your natural response?
+    options:
+      - id: a
+        text: Help them talk it through until they find a way forward together
+        lean: SCRUM_MASTER
+        explanation: This suggests you may enjoy helping people resolve disagreement themselves – a key Scrum Master skill.
+      - id: b
+        text: Look closely at each way to spot where it could go wrong
+        lean: QA_TESTER
+        explanation: This suggests you may enjoy looking for where things could go wrong – how testers think.

@@ -1,8 +1,17 @@
 node_modules/
 .next/
+out/
+build/
 .env
 .env.local
+.env*.local
 *.log
 coverage/
 playwright-report/
 test-results/
+blob-report/
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+src/generated/
+public/sql/

@@ -1,0 +1,613 @@
+# Scrum Master Module 1 bank. Aligned with the Scrum Guide (2020). Draws spread across the objectives.
+slug: scrum-fundamentals-assessment
+title: Scrum fundamentals – module assessment
+purpose: MODULE
+module: scrum-fundamentals
+questions:
+- key: sma-01
+  type: SINGLE
+  objective: Describe the three accountabilities in a Scrum Team
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: How many Product Owners does a Scrum Team have?
+  options:
+  - id: a
+    text: One
+    correct: true
+    explanation: Correct. The Product Owner is one person, not a committee.
+  - id: b
+    text: One for each stakeholder group
+    explanation: Stakeholders can influence the Product Backlog through the Product Owner, but there is only one
+      Product Owner.
+  - id: c
+    text: None – the team shares the role
+    explanation: Every Scrum Team has one Product Owner, accountable for the product's value.
+  - id: d
+    text: As many as the organisation needs
+    explanation: 'The Scrum Guide is clear: one person, not a committee.'
+- key: sma-02
+  type: SINGLE
+  objective: Describe the three accountabilities in a Scrum Team
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: In Scrum, who are the "Developers"?
+  options:
+  - id: a
+    text: Everyone in the Scrum Team who creates the work, including testers and designers
+    correct: true
+    explanation: Correct. It's an accountability, not a job title.
+  - id: b
+    text: Only people who write code
+    explanation: In Scrum the word is wider – testers, designers and others creating the Increment are Developers
+      too.
+  - id: c
+    text: The Developers and the Scrum Master together
+    explanation: The Scrum Master is a separate accountability.
+  - id: d
+    text: Anyone in the company who works on software
+    explanation: Developers are the people in this Scrum Team creating the Increment.
+- key: sma-03
+  type: SINGLE
+  objective: Describe the three accountabilities in a Scrum Team
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: What does "cross-functional" mean for a Scrum Team?
+  options:
+  - id: a
+    text: Together the members have all the skills needed to create value each Sprint
+    correct: true
+    explanation: Correct.
+  - id: b
+    text: Every member can do every job
+    explanation: Not every person needs every skill – the team as a whole does.
+  - id: c
+    text: The team works for several departments at once
+    explanation: Cross-functional is about the skills inside the team.
+  - id: d
+    text: The team has no specialists
+    explanation: Teams can have specialists. Cross-functional means the team as a whole has the skills it needs.
+- key: sma-04
+  type: SINGLE
+  objective: Explain how a Scrum Master serves the team, the Product Owner and the organisation
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: How does the Scrum Guide describe Scrum Masters?
+  options:
+  - id: a
+    text: True leaders who serve the Scrum Team and the larger organisation
+    correct: true
+    explanation: Correct.
+  - id: b
+    text: Project managers for the Scrum Team
+    explanation: The Scrum Master isn't a project manager. They serve the team and organisation.
+  - id: c
+    text: The team's line managers
+    explanation: Scrum Teams have no hierarchy. The Scrum Master is a leader who serves.
+  - id: d
+    text: Administrators who book meetings
+    explanation: Booking meetings isn't the accountability. The Scrum Master is accountable for the team's effectiveness.
+- key: sma-05
+  type: SINGLE
+  objective: Explain how a Scrum Master serves the team, the Product Owner and the organisation
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: Which of these is a way a Scrum Master serves the organisation?
+  options:
+  - id: a
+    text: Leading, training and coaching the organisation in adopting Scrum
+    correct: true
+    explanation: Correct. The Scrum Master serves the team, the Product Owner and the organisation.
+  - id: b
+    text: Approving the team's holiday requests
+    explanation: That's a line management task, not part of the Scrum Master accountability.
+  - id: c
+    text: Writing the code for urgent features
+    explanation: Creating the Increment is the Developers' work.
+  - id: d
+    text: Deciding the company's product strategy
+    explanation: Product decisions sit with the Product Owner and the wider organisation.
+- key: sma-06
+  type: SCENARIO
+  objective: Explain how a Scrum Master serves the team, the Product Owner and the organisation
+  lessonRef:
+    lesson: the-scrum-team
+    section: worked-example
+  scenario: ShopEasy's checkout team runs two-week Sprints. Priya is the Product Owner and Tom is the Scrum Master.
+  stem: Tom notices the new Product Owner's backlog items are vague. What fits his accountability?
+  options:
+  - id: a
+    text: Help Priya find techniques for writing clear backlog items
+    correct: true
+    explanation: Correct. Serving the Product Owner includes helping with effective Product Backlog management.
+  - id: b
+    text: Rewrite the backlog himself and re-order it
+    explanation: Ordering and managing the backlog is the Product Owner's accountability.
+  - id: c
+    text: Tell the Developers to ignore vague items
+    explanation: That avoids the problem rather than helping fix it.
+  - id: d
+    text: Report Priya to her manager
+    explanation: The Scrum Master serves the Product Owner – coaching comes first.
+- key: sma-07
+  type: SINGLE
+  objective: Name the five Scrum values and recognise them in action
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: Which of these is one of the five Scrum values?
+  options:
+  - id: a
+    text: Courage
+    correct: true
+    explanation: Correct. The five values are commitment, focus, openness, respect and courage.
+  - id: b
+    text: Speed
+    explanation: Speed isn't a Scrum value.
+  - id: c
+    text: Obedience
+    explanation: Scrum values self-management, not obedience.
+  - id: d
+    text: Perfection
+    explanation: Perfection isn't a Scrum value.
+- key: sma-08
+  type: SINGLE
+  objective: Name the five Scrum values and recognise them in action
+  lessonRef:
+    lesson: the-scrum-team
+    section: workplace-example
+  stem: Tom politely tells a senior manager that a request must go through the Product Owner, even though it's uncomfortable.
+    Which value is he mainly showing?
+  options:
+  - id: a
+    text: Courage
+    correct: true
+    explanation: Correct. Doing the right thing when it's uncomfortable takes courage.
+  - id: b
+    text: Focus
+    explanation: Focus is about concentrating on the Sprint's work.
+  - id: c
+    text: Commitment
+    explanation: Commitment is dedication to goals and each other. Speaking up is courage.
+  - id: d
+    text: Openness
+    explanation: Openness is about sharing the work and its challenges. This is mainly courage.
+- key: sma-09
+  type: SINGLE
+  objective: Explain how a Scrum Master serves the team, the Product Owner and the organisation
+  lessonRef:
+    lesson: the-scrum-team
+    section: guided-practice
+  stem: The test environment keeps crashing and the team loses half a day each time. What's the Scrum Master's role?
+  options:
+  - id: a
+    text: Cause the impediment to be removed – for example by raising it with the people who can fix it
+    correct: true
+    explanation: Correct. The Scrum Master doesn't have to fix it personally, but helps get it removed.
+  - id: b
+    text: Fix the test environment personally
+    explanation: They might, but the accountability is to cause impediments to be removed, often by others.
+  - id: c
+    text: Nothing – it's an IT problem, not a Scrum problem
+    explanation: Anything slowing the team down is an impediment the Scrum Master should help remove.
+  - id: d
+    text: Tell the team to work evenings to catch up
+    explanation: That hides the problem and isn't sustainable.
+- key: sma-10
+  type: SINGLE
+  objective: Describe the purpose of each of the five Scrum events and their time limits
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: What is the maximum length of a Sprint?
+  options:
+  - id: a
+    text: One month
+    correct: true
+    explanation: Correct. Sprints are one month or less.
+  - id: b
+    text: Two weeks
+    explanation: Two weeks is common, but the limit is one month.
+  - id: c
+    text: Three months
+    explanation: That's far too long. Sprints are one month or less.
+  - id: d
+    text: There is no maximum
+    explanation: Every Scrum event has a timebox – for the Sprint it's one month.
+- key: sma-11
+  type: SINGLE
+  objective: Describe the purpose of each of the five Scrum events and their time limits
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: What three topics does Sprint Planning cover?
+  options:
+  - id: a
+    text: Why the Sprint is valuable, what can be done, and how the work will get done
+    correct: true
+    explanation: Correct.
+  - id: b
+    text: Who is to blame, what went wrong and how to fix it
+    explanation: That isn't Sprint Planning – and Scrum isn't about blame.
+  - id: c
+    text: What each person did yesterday, today and what blocks them
+    explanation: Those were once common Daily Scrum questions – they're not Sprint Planning.
+  - id: d
+    text: The budget, the deadline and the staffing
+    explanation: Sprint Planning focuses on why, what and how for the Sprint.
+- key: sma-12
+  type: SINGLE
+  objective: Describe the purpose of each of the five Scrum events and their time limits
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: Who is the Daily Scrum for?
+  options:
+  - id: a
+    text: The Developers
+    correct: true
+    explanation: Correct. It's for the Developers to inspect progress and adapt their plan.
+  - id: b
+    text: The Scrum Master
+    explanation: The Scrum Master may help the team learn to run it, but it's for the Developers.
+  - id: c
+    text: The stakeholders
+    explanation: Stakeholders join the Sprint Review, not the Daily Scrum.
+  - id: d
+    text: The line manager
+    explanation: It isn't a status report to a manager.
+- key: sma-13
+  type: SINGLE
+  objective: Describe the purpose of each of the five Scrum events and their time limits
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: Which statement about the Sprint Review is accurate?
+  options:
+  - id: a
+    text: It's a working session where the Scrum Team and stakeholders inspect the outcome and decide what to do
+      next
+    correct: true
+    explanation: Correct. The Scrum Guide says it shouldn't be limited to a presentation.
+  - id: b
+    text: It's a demonstration where stakeholders watch silently
+    explanation: The Scrum Guide says it's a working session, not just a presentation.
+  - id: c
+    text: It's where the team discusses how to improve its way of working
+    explanation: That's the Sprint Retrospective.
+  - id: d
+    text: It happens at the start of the Sprint
+    explanation: The Sprint Review happens near the end.
+- key: sma-14
+  type: SINGLE
+  objective: Describe the purpose of each of the five Scrum events and their time limits
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: workplace-example
+  stem: At the Retrospective, the team agrees to finish and test one item before starting the next. What is this
+    an example of?
+  options:
+  - id: a
+    text: Inspecting how they work and choosing an improvement
+    correct: true
+    explanation: Correct. That's the purpose of the Sprint Retrospective.
+  - id: b
+    text: Changing the Sprint Goal
+    explanation: The Sprint Goal isn't changed here – it's a change to how they work.
+  - id: c
+    text: Product Backlog refinement
+    explanation: Refinement is about backlog items. This is an improvement to the process.
+  - id: d
+    text: Cancelling the Sprint
+    explanation: Nothing is cancelled. They've agreed an improvement.
+- key: sma-15
+  type: SINGLE
+  objective: Describe the three artifacts and the commitment that goes with each
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: Which commitment goes with the Product Backlog?
+  options:
+  - id: a
+    text: The Product Goal
+    correct: true
+    explanation: Correct. The Product Goal is the long-term objective the Product Backlog works towards.
+  - id: b
+    text: The Definition of Done
+    explanation: That goes with the Increment.
+  - id: c
+    text: The Sprint Goal
+    explanation: That goes with the Sprint Backlog.
+  - id: d
+    text: The velocity target
+    explanation: Velocity isn't in the Scrum Guide – it's a Common workplace practice (optional).
+- key: sma-16
+  type: SINGLE
+  objective: Describe the three artifacts and the commitment that goes with each
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: What makes up the Sprint Backlog?
+  options:
+  - id: a
+    text: The Sprint Goal, the Product Backlog items chosen for the Sprint and the plan for delivering them
+    correct: true
+    explanation: Correct.
+  - id: b
+    text: Every item in the Product Backlog
+    explanation: The Sprint Backlog only holds what's chosen for this Sprint, plus the goal and the plan.
+  - id: c
+    text: The list of defects found last Sprint
+    explanation: Defects may be in it, but that's not what defines the Sprint Backlog.
+  - id: d
+    text: The Scrum Master's notes
+    explanation: The Sprint Backlog belongs to the Developers.
+- key: sma-17
+  type: SINGLE
+  objective: Describe the three artifacts and the commitment that goes with each
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: An item meets most of the Definition of Done but hasn't been tested on phones, which the Definition of Done
+    requires. Is it part of the Increment?
+  options:
+  - id: a
+    text: No – work that doesn't meet the Definition of Done isn't part of the Increment
+    correct: true
+    explanation: Correct. It goes back to the Product Backlog to be considered.
+  - id: b
+    text: Yes – most of it is done
+    explanation: '"Mostly done" isn''t done. The Definition of Done is a commitment.'
+  - id: c
+    text: Yes, if the Scrum Master agrees
+    explanation: No one can waive the Definition of Done for one item.
+  - id: d
+    text: Yes, if it's shown at the Sprint Review
+    explanation: Showing it doesn't make it done.
+- key: sma-18
+  type: SINGLE
+  objective: Explain what can and can't change during a Sprint
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: worked-example
+  stem: Mid-Sprint, the Developers learn that an item is bigger than expected. What does the Scrum Guide allow?
+  options:
+  - id: a
+    text: Scope can be clarified and renegotiated with the Product Owner, as long as the Sprint Goal isn't endangered
+    correct: true
+    explanation: Correct.
+  - id: b
+    text: Nothing can change once the Sprint has started
+    explanation: Scope can be clarified and renegotiated with the Product Owner as more is learned.
+  - id: c
+    text: The Sprint is automatically extended
+    explanation: Sprints have a fixed length.
+  - id: d
+    text: The team must drop the Definition of Done
+    explanation: Quality doesn't decrease during a Sprint.
+- key: sma-19
+  type: SINGLE
+  objective: Explain what can and can't change during a Sprint
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: worked-example
+  stem: Who can cancel a Sprint, and when?
+  options:
+  - id: a
+    text: Only the Product Owner, if the Sprint Goal becomes obsolete
+    correct: true
+    explanation: Correct.
+  - id: b
+    text: The Scrum Master, whenever the team is behind
+    explanation: Only the Product Owner can cancel a Sprint.
+  - id: c
+    text: Any stakeholder with a more urgent request
+    explanation: Stakeholders can't cancel a Sprint.
+  - id: d
+    text: The Developers, if the work is harder than expected
+    explanation: Hard work isn't a reason to cancel – and only the Product Owner can.
+- key: sma-20
+  type: SINGLE
+  objective: Explain what can and can't change during a Sprint
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: Is Product Backlog refinement one of the five Scrum events?
+  options:
+  - id: a
+    text: No – it's an ongoing activity
+    correct: true
+    explanation: Correct. The five events are the Sprint, Sprint Planning, the Daily Scrum, the Sprint Review and
+      the Sprint Retrospective.
+  - id: b
+    text: Yes – it's the sixth event
+    explanation: There are five events. Refinement is an ongoing activity.
+  - id: c
+    text: Yes – it replaces Sprint Planning
+    explanation: Sprint Planning is still needed.
+  - id: d
+    text: No – it isn't allowed in Scrum
+    explanation: Refinement is described in the Scrum Guide as an ongoing activity.
+- key: sma-21
+  type: SINGLE
+  objective: Explain transparency, inspection and adaptation, and how Scrum uses them
+  lessonRef:
+    lesson: empiricism-in-practice
+    section: explanation
+  stem: Why is inspection without transparency risky?
+  options:
+  - id: a
+    text: Decisions are made on a false picture
+    correct: true
+    explanation: Correct. If the work isn't visible as it really is, inspection misleads.
+  - id: b
+    text: It takes too long
+    explanation: Time isn't the issue – accuracy is.
+  - id: c
+    text: It makes the Sprint longer
+    explanation: Sprint length is fixed. The problem is a false picture.
+  - id: d
+    text: Stakeholders might ask too many questions
+    explanation: Questions are welcome. The risk is that decisions are based on a false picture.
+- key: sma-22
+  type: SINGLE
+  objective: Explain transparency, inspection and adaptation, and how Scrum uses them
+  lessonRef:
+    lesson: empiricism-in-practice
+    section: explanation
+  stem: What does empiricism mean?
+  options:
+  - id: a
+    text: Making decisions based on what is observed and known
+    correct: true
+    explanation: Correct. Scrum is founded on empiricism and lean thinking.
+  - id: b
+    text: Planning everything in detail at the start
+    explanation: That's the opposite – empiricism learns from experience as it goes.
+  - id: c
+    text: Following the most senior person's opinion
+    explanation: Empiricism relies on evidence, not seniority.
+  - id: d
+    text: Working as fast as possible
+    explanation: Empiricism is about learning from evidence, not speed.
+- key: sma-23
+  type: SINGLE
+  objective: Recognise common problems in Scrum Teams and what they suggest
+  lessonRef:
+    lesson: empiricism-in-practice
+    section: explanation
+  stem: At every Retrospective the team raises the same complaint, and nothing changes. What does this most likely
+    suggest?
+  options:
+  - id: a
+    text: Actions aren't specific, owned or followed up
+    correct: true
+    explanation: Correct. Help the team agree one specific action with an owner.
+  - id: b
+    text: The team should stop holding Retrospectives
+    explanation: The Retrospective is a Scrum event – the problem is the follow-through.
+  - id: c
+    text: The complaint isn't real
+    explanation: Repeated complaints usually point to a real problem that needs a clear action.
+  - id: d
+    text: The Scrum Master should fix everything personally
+    explanation: Some things may need the Scrum Master's help, but the team should own its improvements.
+- key: sma-24
+  type: SCENARIO
+  objective: Choose helpful Scrum Master responses that support self-management
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: guided-practice
+  scenario: At ShopEasy's Daily Scrum, each Developer reports to Tom, the Scrum Master, who writes it all down for
+    the manager.
+  stem: What should the Scrum Master do?
+  options:
+  - id: a
+    text: Coach the team to focus on the Sprint Goal and talk to each other, and step back from leading it
+    correct: true
+    explanation: Correct. The Daily Scrum is for the Developers.
+  - id: b
+    text: Keep running it – the team likes the structure
+    explanation: That keeps the team dependent and turns it into a status report.
+  - id: c
+    text: Cancel the Daily Scrum
+    explanation: It's a Scrum event. The aim is to make it useful.
+  - id: d
+    text: Ask each person to send a written update instead
+    explanation: That still treats it as a status report.
+- key: sma-25
+  type: SCENARIO
+  objective: Choose helpful Scrum Master responses that support self-management
+  lessonRef:
+    lesson: empiricism-in-practice
+    section: worked-example
+  scenario: ShopEasy's checkout team runs two-week Sprints. Priya is the Product Owner and Tom is the Scrum Master.
+    In the middle of a Sprint, the head of sales asks Tom to get a gift-card feature live by Friday for a big client.
+  stem: What should Tom do next?
+  options:
+  - id: a
+    text: Thank him, explain that Priya orders the work, and set up a quick conversation between them
+    correct: true
+    explanation: Correct. The decision goes to the Product Owner, and the trade-off is made visible.
+  - id: b
+    text: Ask the Developers to start on it straight away
+    explanation: That takes a product decision away from the Product Owner.
+  - id: c
+    text: Promise him it will be done by Friday
+    explanation: The Scrum Master can't promise that – the Product Owner decides the order and the Developers plan
+      the work.
+  - id: d
+    text: Ignore the request
+    explanation: Ignoring it damages the relationship and the request may matter.
+- key: sma-26
+  type: SINGLE
+  objective: Choose helpful Scrum Master responses that support self-management
+  lessonRef:
+    lesson: empiricism-in-practice
+    section: explanation
+  stem: Which response best supports a self-managing team that keeps missing its Sprint Goal?
+  options:
+  - id: a
+    text: Bring data on planned versus finished work to the Retrospective and ask what the team notices
+    correct: true
+    explanation: Correct. It makes the problem visible and lets the team find its own improvements.
+  - id: b
+    text: Assign tasks to each person so nothing is missed
+    explanation: That takes away self-management.
+  - id: c
+    text: Make the Sprints longer
+    explanation: Longer Sprints hide the problem rather than solve it.
+  - id: d
+    text: Report the team's performance to senior management
+    explanation: That's likely to create fear rather than help the team improve.
+- key: sma-27
+  type: ORDER
+  objective: Describe the purpose of each of the five Scrum events and their time limits
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: Put these Scrum events in the order they happen within a Sprint.
+  options:
+  - id: a
+    text: Sprint Review
+    explanation: The Sprint Review comes near the end of the Sprint, before the Retrospective.
+  - id: b
+    text: Sprint Planning
+    explanation: Sprint Planning starts the Sprint.
+  - id: c
+    text: Sprint Retrospective
+    explanation: The Retrospective is the last event in the Sprint.
+  - id: d
+    text: Daily Scrum
+    explanation: Daily Scrums happen every day of the Sprint, after Sprint Planning.
+  correctOrder:
+  - b
+  - d
+  - a
+  - c
+- key: sma-28
+  type: MULTI
+  objective: Describe the three accountabilities in a Scrum Team
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: Which TWO are part of the Product Owner's accountability?
+  options:
+  - id: a
+    text: Ordering Product Backlog items
+    correct: true
+    explanation: Correct. The Product Owner orders the Product Backlog.
+  - id: b
+    text: Developing and explaining the Product Goal
+    correct: true
+    explanation: Correct. The Product Owner develops and communicates the Product Goal.
+  - id: c
+    text: Deciding how the Developers do the work
+    explanation: The Developers decide how to do their work – they're self-managing.
+  - id: d
+    text: Running the Daily Scrum
+    explanation: The Daily Scrum is for the Developers.

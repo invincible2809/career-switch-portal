@@ -1,0 +1,69 @@
+slug: foundations-l4-check
+title: Web apps, databases and APIs – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: web-apps-databases-apis
+questions:
+  - key: fl4-kc-01
+    type: SINGLE
+    objective: Explain the difference between the front end, the back end and the database
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
+    stem: Where is a list of every ShopEasy customer's orders stored?
+    options:
+      - id: a
+        text: In the database
+        correct: true
+        explanation: Correct. The database is where information such as customers and orders is stored.
+      - id: b
+        text: In the front end
+        explanation: The front end is what people see and use. It shows orders, but doesn't store them.
+      - id: c
+        text: In the customer's browser
+        explanation: The browser shows orders, but they're stored in ShopEasy's database so they're there on any device.
+  - key: fl4-kc-02
+    type: SINGLE
+    objective: Explain what an API is and read a simple status code
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
+    stem: A response comes back with status code 404. What does that usually mean?
+    options:
+      - id: a
+        text: The thing that was asked for wasn't found
+        correct: true
+        explanation: Correct. 404 means not found.
+      - id: b
+        text: Everything worked
+        explanation: That's 200 (OK).
+      - id: c
+        text: Something went wrong on the server
+        explanation: That's a 500-type code. 404 means not found.
+  - key: fl4-kc-03
+    type: SINGLE
+    objective: Explain what an API is and read a simple status code
+    lessonRef: { lesson: web-apps-databases-apis, section: workplace-example }
+    stem: How does ShopEasy's back end take a card payment?
+    options:
+      - id: a
+        text: It sends a request to the payment company's API
+        correct: true
+        explanation: Correct. An API is an agreed way for one piece of software to ask another to do something.
+      - id: b
+        text: It stores the card details in the front end
+        explanation: The front end is what customers see; card payments are handled by the payment company's API.
+      - id: c
+        text: The customer emails their card details to ShopEasy
+        explanation: That would be very unsafe. The back end uses the payment company's API.
+  - key: fl4-kc-04
+    type: SINGLE
+    objective: Describe what happens in a request and a response
+    lessonRef: { lesson: web-apps-databases-apis, section: explanation }
+    stem: What does a GET request usually do?
+    options:
+      - id: a
+        text: Fetches something, such as a list of orders
+        correct: true
+        explanation: Correct. GET asks for something without changing it.
+      - id: b
+        text: Sends something new to be saved, such as an order
+        explanation: That's usually a POST request.
+      - id: c
+        text: Changes a customer's saved address
+        explanation: GET only fetches information. Changing or saving something uses a different method, such as POST.

@@ -1,0 +1,122 @@
+# Mock interview questions for the learning coach (rule-based feedback, no AI).
+# keyPoints: an answer "covers" a point when it uses any of the listed words.
+questions:
+  - id: sm-what-is-scrum-master
+    pathway: SCRUM_MASTER
+    question: What does a Scrum Master do?
+    lookFor: Whether you understand the Scrum Master as accountable for the team's effectiveness and for Scrum being understood – not as a project manager.
+    keyPoints:
+      - { label: "The team's effectiveness", terms: [effective, effectiveness, improve, improvement] }
+      - { label: Helping people understand and use Scrum, terms: [coach, coaching, teach, help the team, understand scrum, use scrum] }
+      - { label: Removing impediments, terms: [impediment, blocker, obstacle, remove] }
+      - { label: Not a manager or task assigner, terms: [not a manager, not assign, self-managing, self managing, " serves", " serve ", servant, leader who serves] }
+    outline: Explain that the Scrum Master is accountable for establishing Scrum as defined in the Scrum Guide and for the Scrum Team's effectiveness; helps everyone understand Scrum theory and practice; serves the Developers, the Product Owner and the organisation; coaches self-management; and causes impediments to be removed – without assigning tasks.
+  - id: sm-stakeholder-pressure
+    pathway: SCRUM_MASTER
+    question: Tell me about a time you handled pressure from a senior person to change priorities.
+    lookFor: A real example, told clearly, that shows you sending decisions to the right person and keeping relationships constructive.
+    keyPoints:
+      - { label: The situation, terms: [when, situation, at the time, once, last year, in my role] }
+      - { label: What you did, terms: [" i asked", " i explained", " i arranged", " i spoke", " i suggested", " i did"] }
+      - { label: Sending the decision to the right person (the Product Owner), terms: [product owner, "the po", decide, decision, trade-off, tradeoff] }
+      - { label: The result, terms: [result, outcome, as a result, in the end, which meant, learned] }
+    outline: Use the STAR structure – Situation, Task, Action, Result. In a Scrum context, explain how you would route the request to the Product Owner and make the trade-off visible.
+  - id: sm-retro-not-working
+    pathway: SCRUM_MASTER
+    question: The team's retrospectives keep producing the same complaints and nothing changes. What would you do?
+    lookFor: Practical ideas that keep ownership with the team.
+    keyPoints:
+      - { label: Specific, owned actions, terms: [owner, " owns", ownership, specific, one action] }
+      - { label: Following up, terms: [follow up, follow-up, review, check, next retrospective, next retro] }
+      - { label: Varying the format or getting data, terms: [" format", new format, activity, data, timeline, different] }
+      - { label: Removing barriers outside the team, terms: [outside, manager, other team, escalate, impediment] }
+    outline: Help the team choose one specific action with an owner, follow it up at the next retrospective, try a different format or bring data, and help remove barriers the team can't remove itself.
+  - id: sm-velocity
+    pathway: SCRUM_MASTER
+    question: A manager wants to compare teams using their velocity. How would you respond?
+    lookFor: Understanding that velocity is a team's own planning aid, not a performance measure – said respectfully.
+    keyPoints:
+      - { label: Velocity isn't in the Scrum Guide, terms: [not in the scrum guide, workplace practice, not part of scrum, optional] }
+      - { label: Teams estimate differently, terms: [different, each team, relative, estimate, story points] }
+      - { label: Risk of gaming or harm, terms: [game, gaming, inflate, pressure, harm, behaviour] }
+      - { label: Offer better measures, terms: [outcome, value, customer, goal, instead, better measure] }
+    outline: Explain that velocity is a common workplace practice for a team's own planning, that teams estimate differently so comparisons mislead and encourage gaming, and suggest looking at outcomes and value instead.
+  - id: sm-why-scrum-master
+    pathway: SCRUM_MASTER
+    question: Why do you want to be a Scrum Master, coming from a different career?
+    lookFor: Honest motivation and transferable skills, with realistic expectations – for example, knowing that Scrum Master roles often expect team or delivery experience.
+    keyPoints:
+      - { label: Motivation, terms: [enjoy, motivat, want to, passion, interested] }
+      - { label: Transferable skills, terms: [skill, experience, previous, background, in my role] }
+      - { label: An example, terms: [for example, once, when i, example] }
+      - { label: Realistic next steps, terms: [learn, learning, course, stepping, coordinator, practice] }
+    outline: Say what draws you to the role, link two or three skills from your previous work with a short example, be honest about what you're still learning, and mention a realistic first step, such as a project coordinator or delivery assistant role.
+  - id: sm-daily-scrum
+    pathway: SCRUM_MASTER
+    question: The Daily Scrum has turned into a status report to the Scrum Master. How would you change that?
+    lookFor: Knowing who the Daily Scrum is for and coaching rather than controlling.
+    keyPoints:
+      - { label: It's for the Developers, terms: [developers, for the team, their event] }
+      - { label: Focus on the Sprint Goal, terms: [sprint goal, goal, progress] }
+      - { label: Coach and step back, terms: [coach, step back, stand back, " ask ", asking, question] }
+      - { label: 15 minutes, terms: [" 15 ", 15-minute, 15 minutes, fifteen, timebox] }
+    outline: Remind the team the Daily Scrum is the Developers' 15-minute event to inspect progress towards the Sprint Goal and adapt the Sprint Backlog, coach them to talk to each other, and step back from leading it.
+  - id: qa-what-is-testing
+    pathway: QA_TESTER
+    question: Why is software testing important?
+    lookFor: A clear, balanced answer about risk, information and quality.
+    keyPoints:
+      - { label: Finding defects before users do, terms: [defect, bug, before customers, before users, find defects, find bugs, finding] }
+      - { label: Reducing risk, terms: [risk] }
+      - { label: Information for decisions, terms: [information, decision, confidence, release] }
+      - { label: Can't prove no defects, terms: [can't prove, cannot prove, not prove, absence, no software is perfect, defect-free, bug-free, every bug, all defects, exhaustive] }
+    outline: Explain that testing finds defects early, reduces risk, gives the team information to make decisions such as releasing, and that it can't prove software is defect-free.
+  - id: qa-severity-priority
+    pathway: QA_TESTER
+    question: What's the difference between severity and priority? Give an example.
+    lookFor: Clear definitions and an example where they differ.
+    keyPoints:
+      - { label: Severity is impact, terms: [impact, how bad, serious] }
+      - { label: Priority is urgency, terms: [urgent, urgency, how soon, fix first, business importance] }
+      - { label: An example where they differ, terms: [example, for example, such as, logo, typo, spelling] }
+    outline: Severity is how bad the impact is; priority is how soon it should be fixed. A spelling mistake in the company name on the home page is low severity but high priority. A crash in a report that one admin uses once a year can be high severity but low priority.
+  - id: qa-bug-report
+    pathway: QA_TESTER
+    question: What makes a good defect report?
+    lookFor: The parts a developer needs to reproduce and fix the problem.
+    keyPoints:
+      - { label: Clear title, terms: [title] }
+      - { label: Steps to reproduce, terms: [steps, reproduce] }
+      - { label: Expected and actual results, terms: [expected, actual] }
+      - { label: Environment and evidence, terms: [environment, browser, device, screenshot, evidence] }
+      - { label: Severity and priority, terms: [severity, priority] }
+    outline: A unique ID, a specific title, steps to reproduce, expected and actual results, the environment, evidence, and severity and priority – so a developer can reproduce it without asking.
+  - id: qa-boundary
+    pathway: QA_TESTER
+    question: A field accepts ages from 18 to 65. Which values would you test, and why?
+    lookFor: Boundary value analysis and equivalence partitioning in plain words.
+    keyPoints:
+      - { label: The boundaries, terms: ["17", "66", just below, just above, one below, one above] }
+      - { label: Why boundaries matter, terms: [boundary, edge, mistakes, off by one, "or more", "more than"] }
+      - { label: Partitions, terms: [partition, group, valid, invalid, typical, "30", "40"] }
+      - { label: Non-numbers or blanks, terms: [blank, empty, letters, text, decimal] }
+    outline: Test 17, 18, 65 and 66 for the boundaries, a typical valid value such as 40, and invalid inputs such as blank, letters or decimals – explaining that mistakes often happen at the edges.
+  - id: qa-regression
+    pathway: QA_TESTER
+    question: What's the difference between retesting and regression testing?
+    lookFor: Accurate use of the two terms.
+    keyPoints:
+      - { label: Retesting checks the fix, terms: [fix, fixed, same test, confirm, confirmation] }
+      - { label: Regression checks nothing else broke, terms: [else, broke, broken, existing, used to work, side effect] }
+      - { label: When each is done, terms: [after a fix, after a change, after each change, before release, every release] }
+    outline: Retesting (confirmation testing) checks that a specific defect has been fixed; regression testing checks that a change hasn't broken something that used to work. Both happen after a change.
+  - id: qa-why-tester
+    pathway: QA_TESTER
+    question: Why do you want to work in testing, coming from a different career?
+    lookFor: Honest motivation and transferable skills, with realistic expectations – for example, starting in a junior or UAT role.
+    keyPoints:
+      - { label: Motivation, terms: [enjoy, motivat, want to, interested, curious] }
+      - { label: Attention to detail or problem-solving, terms: [detail, problem, investigate, spot, notice] }
+      - { label: An example, terms: [for example, once, when i, example] }
+      - { label: Realistic next steps, terms: [learn, learning, course, junior, " uat", user acceptance, practice] }
+    outline: Say what draws you to testing, give an example of noticing problems or paying attention to detail in your previous work, be honest about what you're still learning, and mention a realistic first step, such as a UAT tester or junior manual tester role.

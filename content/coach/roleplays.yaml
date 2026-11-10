@@ -1,0 +1,114 @@
+# Branching role-play conversations for the learning coach. Each choice has feedback.
+roleplays:
+  - id: pushy-stakeholder
+    pathway: SCRUM_MASTER
+    title: A stakeholder wants urgent work mid-Sprint
+    intro: You're the Scrum Master for ShopEasy's Basket team, halfway through a two-week Sprint. Raj, the marketing manager, comes over looking stressed.
+    start: open
+    nodes:
+      open:
+        speaker: Raj
+        line: "I need the team to build a Black Friday banner today. It's urgent – can you just tell one of the developers to do it?"
+        choices:
+          - text: "Sure, I'll ask Sam to drop what she's doing."
+            quality: poor
+            feedback: Assigning work isn't the Scrum Master's role, and it puts the Sprint Goal at risk without the Product Owner deciding.
+            next: assigned
+          - text: "Thanks for flagging it. Lena, our Product Owner, decides what the team works on – can we talk to her together now?"
+            quality: good
+            feedback: You respect Raj's need and route the decision to the person accountable for it.
+            next: to-po
+          - text: "Sorry, Scrum doesn't allow changes during a Sprint."
+            quality: poor
+            feedback: That's not quite right. Scope can be clarified and renegotiated with the Product Owner during a Sprint, as long as the Sprint Goal isn't put at risk. A flat 'no' also damages the relationship.
+            next: refused
+      assigned:
+        speaker: Narrator
+        line: Sam starts on the banner. By the end of the Sprint the team has missed its Sprint Goal, and Lena only finds out at the Sprint Review. She's frustrated nobody asked her.
+        choices: []
+      refused:
+        speaker: Raj
+        line: "Then what's the point of having a team? I'll go to your boss."
+        choices:
+          - text: "I'm sorry – I put that badly. Let's take it to Lena now; she can weigh it against the current Sprint."
+            quality: good
+            feedback: Recovering quickly and redirecting to the Product Owner keeps the relationship and the process intact.
+            next: to-po
+          - text: "Go ahead."
+            quality: poor
+            feedback: This escalates conflict instead of helping Raj get a decision.
+            next: escalated
+      escalated:
+        speaker: Narrator
+        line: The head of department gets involved and the team feels caught in the middle. A five-minute conversation with the Product Owner could have avoided this.
+        choices: []
+      to-po:
+        speaker: Lena (Product Owner)
+        line: "Raj, how valuable is the banner compared with letting customers save their basket? If we add it now, we'll probably miss this Sprint's goal."
+        choices:
+          - text: "(Stay quiet and let Lena and Raj decide.)"
+            quality: ok
+            feedback: Letting them decide is right, but you could help by making the trade-off visible.
+            next: decided
+          - text: "Would it help to look at the Sprint Backlog together, so we can all see what would move if the banner comes in?"
+            quality: good
+            feedback: You make the trade-off transparent and help the Product Owner decide, without deciding for her.
+            next: decided
+      decided:
+        speaker: Narrator
+        line: Lena moves the banner to the top of the Product Backlog, ready for Sprint Planning in four days. Raj isn't thrilled but understands. Afterwards you coach the Developers on how to respond to direct requests themselves.
+        choices: []
+  - id: disputed-bug
+    pathway: QA_TESTER
+    title: A developer disagrees with your defect report
+    intro: You're a tester at ShopEasy. You reported that a basket of exactly £50.00 is charged £3.95 delivery. Alex, a developer, messages you.
+    start: open
+    nodes:
+      open:
+        speaker: Alex
+        line: "This isn't a bug. Free delivery is for orders over £50. Can you close it?"
+        choices:
+          - text: "OK, closing it."
+            quality: poor
+            feedback: If the specification says "£50.00 or more", closing it lets a real defect through. Check the source first.
+            next: closed
+          - text: "The specification says free delivery applies to orders of £50.00 or more. Here's the line – shall we check with the Product Owner if it's unclear?"
+            quality: good
+            feedback: You point to the evidence calmly and offer the person who decides requirements.
+            next: evidence
+          - text: "You're wrong – it's obviously a bug."
+            quality: poor
+            feedback: Even if you're right, this makes it personal. Focus on the evidence, not the person.
+            next: defensive
+      closed:
+        speaker: Narrator
+        line: Two weeks after release, customers complain that a £50.00 order was charged delivery, contrary to the published policy. The defect has to be reopened and fixed urgently.
+        choices: []
+      defensive:
+        speaker: Alex
+        line: "There's no need to be like that. I'm only going by what I was told."
+        choices:
+          - text: "Fair point – sorry. Let's look at the specification together."
+            quality: good
+            feedback: Apologising and moving to the evidence gets the conversation back on track.
+            next: evidence
+          - text: "Well, you are wrong."
+            quality: poor
+            feedback: Repeating it doesn't help. Apologise for the tone and show the specification instead.
+            next: defensive
+      evidence:
+        speaker: Alex
+        line: "Oh – I read it as 'over £50'. I'll change it to £50 or more. Can you retest when it's done?"
+        choices:
+          - text: "Yes – I'll retest exactly £50.00, then re-run our existing delivery and checkout tests as regression tests, including £49.99, £50.01 and orders with discounts."
+            quality: good
+            feedback: You plan to retest the fix (confirmation testing) and to run regression tests to check nothing nearby has broken.
+            next: done
+          - text: "Sure, I'll check £50.00 once."
+            quality: ok
+            feedback: Retesting the fix is right, but also check nearby values and discounts for regressions.
+            next: done
+      done:
+        speaker: Narrator
+        line: The fix is released and the delivery charge behaves as the specification says. Alex thanks you for the clear report.
+        choices: []
