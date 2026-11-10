@@ -3,7 +3,7 @@
 Claude: read this at the start of every session and update it at the end of each phase or work session.
 
 ## Current phase
-Phase 2a – Foundations content: **done** (10 Nov 2026). Next: Phase 2b – pathway Module 1s and practical assignments.
+Phase 2b – pathway Module 1s and practical assignments: **done** (10 Nov 2026). Next: Phase 3 – practice sandboxes (ShopEasy Test Lab, SQL and API).
 
 ## Done
 - **Phase 0:** `docs/PLAN.md` written and approved with the recommended answers, plus the decision to build without any AI provider (PLAN §8).
@@ -32,14 +32,29 @@ Phase 2a – Foundations content: **done** (10 Nov 2026). Next: Phase 2b – pat
   - content-reviewer: no Must fix items; all Should fix items and most Minor items fixed (Scrum Guide precision on the Sprint Review, commitments and Definition of Done; ISTQB test process wording; "Developers" in Scrum added to the glossary; workplace-practice labels for user stories; test data definition; jumbled parts in the generated Given/When/Then questions; stronger distractors).
   - New e2e tests (`tests/e2e/foundations-content.spec.ts`): every Foundations lesson shows all nine parts, every glossary link opens a real term, and an assessment draw covers at least four lessons.
 
+- **Phase 2b – pathway Module 1s and practical assignments**
+  - Scrum Master Module 1 (Scrum fundamentals): 3 lessons – the Scrum Team, events/artifacts/commitments, empiricism in practice – each with a knowledge check; 28-question bank with scenario, ordering and multiple-select questions.
+  - QA Tester Module 1 (Testing foundations): 3 lessons – why testing matters, the seven testing principles, test levels/types and risk – each with a knowledge check; 28-question bank.
+  - Both Module 1s are available; all other modules still show "Coming soon".
+  - Practical assignments with rubrics (5 criteria each, 0–3, competency only if every criterion ≥ 2), stored as `content/assignments/*.md` and `content/rubrics/*.yaml` and imported by the seed:
+    - Scrum Master: diagnosis, impediment log (3+) and a 60-minute retrospective plan.
+    - QA Tester: 6+ test cases against a written ShopEasy checkout specification and 3+ defect reports from a test session log (written version agreed for Phase 2b; the Test Lab is wired in during Phase 3).
+  - Structured submission forms, learner self-assessment (shown, never counted), automated checks for 5 criteria (impediment log, retro structure, test-case completeness, boundary coverage, defects identified against a server-only answer key), "Awaiting assessor review" for the rest.
+  - Rubric evaluator: assessor scores override automated ones; competency is written only when every criterion has an official score at or above the minimum. The feedback page shows who or what scored each criterion. The QA answer key is revealed only after submission.
+  - Admin: submissions queue, scoring with comments, competency override with a reason; all in the audit log.
+  - Assignments unlock when the module assessment is passed; module pages and the dashboard show assignment status and competency.
+  - Lesson tables now sit in a keyboard-focusable scroll box so they don't overflow at 375px.
+  - content-reviewer: both Must fix items (Sprint Review transparency question; QA vs quality control wording) and all Should fix items fixed, plus most Minor items (tighter answer-key matching, timebox question, extra ordering and multiple-select questions).
+  - New e2e tests (`tests/e2e/ac06-practical.spec.ts`) for acceptance criterion 6.
+
 ## In progress
 - Nothing.
 
 ## Next steps
-1. Phase 2b: Scrum Master and QA Tester Module 1, assignments, rubrics, practical submission and assessor review.
+1. Phase 3: ShopEasy Test Lab with seeded defects, test case execution and defect reports (and connect the QA assignment to it), SQL sandbox, API sandbox.
 
 ## Acceptance criteria status (SPEC §16)
-Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 2a): 26 tests, all passing.
+Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 2b): 29 tests, all passing.
 
 | # | Criterion | Test file | Status |
 |---|-----------|-----------|--------|
@@ -48,7 +63,7 @@ Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 2a): 26 tests, all pass
 | 3 | Lesson pause/resume | `tests/e2e/ac03-07-lesson-progress.spec.ts` | Passing |
 | 4 | Assessment scoring + explanations | `tests/e2e/ac04-05-assessment.spec.ts` | Passing |
 | 5 | Fail → remediation → retry with new questions | `tests/e2e/ac04-05-assessment.spec.ts` | Passing |
-| 6 | Practical submission + rubric feedback | | Not started (Phase 2b) |
+| 6 | Practical submission + rubric feedback | `tests/e2e/ac06-practical.spec.ts` | Passing |
 | 7 | Log out / back in, progress intact | `tests/e2e/ac03-07-lesson-progress.spec.ts` | Passing |
 | 8 | Portfolio add + PDF export | | Not started (Phase 4) |
 | 9 | Data download + account deletion | `tests/e2e/ac09-data.spec.ts` | Passing |
@@ -59,7 +74,7 @@ Results from `pnpm test:e2e` on 10 Nov 2026 (after Phase 2a): 26 tests, all pass
 | 14 | axe: no serious violations on key pages | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (all Phase 1 pages) |
 | 15 | 375px + keyboard-only journeys | `tests/e2e/ac14-15-accessibility.spec.ts` | Passing (see limitations) |
 
-Unit tests: 69 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
+Unit tests: 82 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm build` pass.
 
 ## Decisions
 - Stack as in CLAUDE.md, with **no AI provider**: questions, coach replies and feedback are rule-based from course content (PLAN §8.2).
@@ -71,7 +86,12 @@ Unit tests: 69 passing (`pnpm test`). `pnpm lint`, `pnpm typecheck` and `pnpm bu
 ## Known limitations / mocked features
 - **Email** runs in demo mode in all tests (reset links shown at `/dev/mailbox`). The SMTP path is written but hasn't been tested against a real mail server.
 - **Docker:** the build environment had no Docker daemon, so everything was tested against a local PostgreSQL 16. `docker-compose.yml` follows the standard Postgres image but hasn't been run here.
-- **Role pathways:** all Scrum Master and QA Tester modules still show "Coming soon" until Phase 2b.
+- **Role pathways:** only Module 1 of each pathway is built; Modules 2–8 (Scrum Master) and 2–10 (QA Tester) show "Coming soon".
+- **Existing databases don't switch on the Module 1s by themselves** (the seed never changes existing modules). Use Admin → Curriculum → the module → Availability "Available", or `pnpm db:reset`.
+- **QA assignment is a written exercise for now:** learners design test cases from a written specification and report defects from a provided session log. Running the tests in the Test Lab comes in Phase 3.
+- **Automated defect matching is keyword-based:** a report counts as "found" when it's linked to a defect's log entry and mentions key words for the expected and actual behaviour; otherwise "partly described". An assessor can override any automated score.
+- **Competency overrides:** an admin's grant persists; if an admin removes competency and later re-scores the submission so it meets the minimum, competency is recorded again (re-scoring is treated as a fresh decision).
+- **No automated guidance on judgement criteria yet** (diagnosis, Scrum stance, facilitation, report clarity, severity/priority) – these wait for an assessor. Rule-based guidance is planned for Phase 4.
 - **The Foundations assessment now needs all five lessons finished** (previously one). Learners in a database seeded earlier who had finished Lesson 1 will see the assessment locked until they finish Lessons 2–5.
 - Content written by the course team is aligned with the Scrum Guide 2020 and ISTQB terms and has been checked by the content-reviewer agent, but **not yet by a human subject expert**.
 - **Recommendation rules are simple heuristics** (PLAN §1.2 point 8) and only three diagnostic questions measure role preference.

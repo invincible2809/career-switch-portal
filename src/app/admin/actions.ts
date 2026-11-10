@@ -23,6 +23,7 @@ import {
 } from "@/server/admin/content";
 import { fieldErrors, type FormState } from "@/lib/schemas/auth";
 import { slugify } from "@/lib/content/schemas";
+import { overrideCompetency, saveAssessorScores, SubmissionError } from "@/server/assignments/service";
 
 const id = z.string().min(1).max(50);
 const raw = (f: FormData) => Object.fromEntries(f) as Record<string, string>;
@@ -210,4 +211,33 @@ export async function setRoleAction(formData: FormData) {
   await db.user.update({ where: { id: userId }, data: { role, sessionVersion: { increment: 1 } } });
   await audit(admin.id, "user.role.change", "User", userId, { role: before.role }, { role });
   back("/admin/users", `${before.email} is now ${role === "ADMIN" ? "an admin" : "a learner"}.`);
+}
+
+// ---------- Practical submissions ----------
+
+export async function assessSubmissionAction(formData: FormData) {
+  const admin = await requireAdmin("submissions:assess");
+  const submissionId = id.parse(formData.get("submissionId"));
+  const path = `/admin/submissions/${submissionId}`;
+  let met = false;
+  try {
+    met = (await saveAssessorScores(admin.id, submissionId, raw(formData))).met;
+  } catch (e) {
+    if (e instanceof SubmissionError) back(path, e.message, "error");
+    throw e;
+  }
+  revalidatePath("/", "layout");
+  back(path, met ? "Scores saved. Competency demonstrated." : "Scores saved.");
+}
+
+export async function overrideCompetencyAction(formData: FormData) {
+  const admin = await requireAdmin("submissions:assess");
+  const submissionId = id.parse(formData.get("submissionId"));
+  const grant = formData.get("grant") === "true";
+  const reason = z.string().trim().min(5, "Give a reason").max(1000).safeParse(formData.get("reason"));
+  const path = `/admin/submissions/${submissionId}`;
+  if (!reason.success) back(path, "Give a reason for the override (at least 5 characters).", "error");
+  await overrideCompetency(admin.id, submissionId, grant, reason.data);
+  revalidatePath("/", "layout");
+  back(path, grant ? "Competency marked as demonstrated." : "Competency removed.");
 }

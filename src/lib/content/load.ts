@@ -3,8 +3,12 @@ import fs from "node:fs";
 import path from "node:path";
 import YAML from "yaml";
 import { parseLesson, type ParsedLesson } from "./parse-lesson";
+import matter from "gray-matter";
 import {
+  assignmentFrontMatterSchema,
   glossaryFileSchema,
+  rubricSchema,
+  type RubricFile,
   isGeneratedEntry,
   pathwaysFileSchema,
   questionBankSchema,
@@ -19,6 +23,8 @@ export interface ContentBundle {
   glossary: z.infer<typeof glossaryFileSchema>;
   lessons: (ParsedLesson & { file: string })[];
   banks: (QuestionBankFile & { file: string })[];
+  rubrics: (RubricFile & { file: string })[];
+  assignments: { meta: z.infer<typeof assignmentFrontMatterSchema>; brief: string; file: string }[];
 }
 
 function walk(dir: string, ext: string): string[] {
@@ -57,6 +63,21 @@ export function loadContent(root = path.join(process.cwd(), "content")): Content
     .map((file) => attempt(() => ({ ...readYaml(file, questionBankSchema), file })))
     .filter((b): b is QuestionBankFile & { file: string } => b !== null);
 
+  const rubrics = walk(path.join(root, "rubrics"), ".yaml")
+    .map((file) => attempt(() => ({ ...readYaml(file, rubricSchema), file })))
+    .filter((r): r is RubricFile & { file: string } => r !== null);
+  const assignments = walk(path.join(root, "assignments"), ".md")
+    .map((file) =>
+      attempt(() => {
+        const { data, content } = matter(fs.readFileSync(file, "utf8"));
+        const meta = assignmentFrontMatterSchema.safeParse(data);
+        if (!meta.success) throw new Error(`${file}: front matter is invalid – ${meta.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ")}`);
+        if (content.trim().length < 100) throw new Error(`${file}: the brief is missing or too short`);
+        return { meta: meta.data, brief: content.trim(), file };
+      }),
+    )
+    .filter((a): a is NonNullable<typeof a> => a !== null);
+
   // Cross-file checks
   if (pathways) {
     const moduleSlugs = new Set(pathways.pathways.flatMap((p) => p.modules.map((m) => m.slug)));
@@ -71,6 +92,11 @@ export function loadContent(root = path.join(process.cwd(), "content")): Content
       for (const m of p.modules)
         if (m.assessment && !bankSlugs.has(m.assessment.bank))
           errors.push(`pathways.yaml: module "${m.slug}" assessment bank "${m.assessment.bank}" not found`);
+    const rubricSlugs = new Set(rubrics.map((r) => r.slug));
+    for (const a of assignments) {
+      if (!moduleSlugs.has(a.meta.module)) errors.push(`${a.file}: module "${a.meta.module}" is not in pathways.yaml`);
+      if (!rubricSlugs.has(a.meta.rubric)) errors.push(`${a.file}: rubric "${a.meta.rubric}" not found in content/rubrics`);
+    }
     for (const b of banks) {
       for (const q of b.questions) {
         if (!q.lessonRef) continue;
@@ -89,5 +115,5 @@ export function loadContent(root = path.join(process.cwd(), "content")): Content
   if (errors.length || !pathways) {
     throw new Error(`Content has ${errors.length} problem(s):\n- ${errors.join("\n- ")}`);
   }
-  return { pathways, glossary, lessons, banks };
+  return { pathways, glossary, lessons, banks, rubrics, assignments };
 }

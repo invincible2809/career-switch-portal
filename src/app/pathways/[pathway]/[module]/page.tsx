@@ -21,7 +21,7 @@ export default async function ModulePage({
   const { completed } = await searchParams;
   const mod = await db.module.findUnique({
     where: { slug: moduleSlug },
-    include: { pathway: true, assessments: { where: { status: "PUBLISHED" } } },
+    include: { pathway: true, assessments: { where: { status: "PUBLISHED" } }, assignments: { where: { status: "PUBLISHED" } } },
   });
   if (!mod || mod.pathway.slug !== pathwaySlug || mod.status !== "PUBLISHED" || mod.availability !== "AVAILABLE") notFound();
 
@@ -33,6 +33,14 @@ export default async function ModulePage({
       a,
       unlock: await unlockState("ASSESSMENT", a.id, user.id),
       status: await db.assessmentStatus.findUnique({ where: { userId_assessmentId: { userId: user.id, assessmentId: a.id } } }),
+    })),
+  );
+  const assignments = await Promise.all(
+    mod.assignments.map(async (a) => ({
+      a,
+      unlock: await unlockState("ASSIGNMENT", a.id, user.id),
+      competency: await db.competency.findFirst({ where: { userId: user.id, assignmentId: a.id } }),
+      submitted: await db.submission.count({ where: { userId: user.id, assignmentId: a.id } }),
     })),
   );
   const justCompleted = completed ? lessons.find((l) => l.slug === completed) : null;
@@ -111,6 +119,33 @@ export default async function ModulePage({
                   <li key={m.requiredId + m.requirement}>{m.label}</li>
                 ))}
               </ul>
+            </div>
+          )}
+        </Card>
+      ))}
+
+      {assignments.map(({ a, unlock, competency, submitted }) => (
+        <Card key={a.id} className="space-y-2">
+          <h2 className="text-xl font-bold">Practical assignment: {a.title}</h2>
+          <p className="text-sm text-muted">Simulated learning project – not paid work experience.</p>
+          {competency ? <Badge tone="success">Competency demonstrated</Badge> : submitted ? <Badge tone="primary">Submitted</Badge> : null}
+          {unlock.unlocked ? (
+            <p>
+              <Link href={`/assignments/${a.slug}`} className={buttonVariants({ variant: "secondary" })}>
+                {submitted ? "Go to the assignment" : "Start the assignment"}
+              </Link>
+            </p>
+          ) : (
+            <div>
+              <p className="font-semibold">Unlocks when you:</p>
+              <ul className="list-disc pl-5">
+                {unlock.missing.map((m) => (
+                  <li key={m.requiredId + m.requirement}>{m.label}</li>
+                ))}
+              </ul>
+              <p className="mt-1">
+                <Link href={`/assignments/${a.slug}`}>Read the brief now</Link>
+              </p>
             </div>
           )}
         </Card>

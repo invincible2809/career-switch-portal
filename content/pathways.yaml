@@ -30,7 +30,12 @@ pathways:
       - slug: scrum-fundamentals
         title: Scrum fundamentals
         summary: Accountabilities, events, artifacts and commitments, empiricism and the Scrum values.
-        availability: COMING_SOON
+        assessment:
+          slug: scrum-fundamentals-assessment
+          title: Scrum fundamentals – module assessment
+          bank: scrum-fundamentals-assessment
+          drawCount: 10
+          passMark: 80
       - slug: facilitation-and-communication
         title: Facilitation and communication
         summary: Running sessions where everyone can contribute.
@@ -70,7 +75,12 @@ pathways:
       - slug: testing-foundations
         title: Testing foundations
         summary: Why testing matters, quality assurance vs testing, the seven testing principles, test levels and types, and risk.
-        availability: COMING_SOON
+        assessment:
+          slug: testing-foundations-assessment
+          title: Testing foundations – module assessment
+          bank: testing-foundations-assessment
+          drawCount: 10
+          passMark: 80
       - slug: requirements-and-acceptance-criteria
         title: Analysing requirements and acceptance criteria
         summary: Reading requirements with a tester's eye.

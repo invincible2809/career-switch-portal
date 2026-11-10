@@ -92,4 +92,5 @@ html[data-reduced-motion="true"] *, html[data-reduced-motion="true"] *::before, 
 .prose-lesson details.hint summary { cursor: pointer; font-weight: 700; color: var(--primary); }
 .prose-lesson a.glossary-link { text-decoration-style: dotted; text-decoration-line: underline; }
 .prose-lesson table { border-collapse: collapse; }
+.prose-lesson .table-scroll { max-width: 100%; overflow-x: auto; }
 .prose-lesson th, .prose-lesson td { border: 1px solid var(--border); padding: 0.3em 0.6em; text-align: left; }

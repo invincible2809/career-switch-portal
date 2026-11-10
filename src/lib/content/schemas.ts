@@ -128,6 +128,35 @@ export const pathwaysFileSchema = z.object({
     .min(1),
 });
 
+export const AUTO_CHECK_NAMES = ["impedimentLogComplete", "retroPlanStructure", "testCasesComplete", "boundaryCoverage", "defectsIdentified"] as const;
+
+export const rubricSchema = z.object({
+  slug,
+  title: z.string().min(1),
+  minimumRule: z.object({ minEach: z.number().int().min(0).max(3) }),
+  criteria: z
+    .array(
+      z.object({
+        key: slug,
+        title: z.string().min(1),
+        autoCheck: z.enum(AUTO_CHECK_NAMES).optional(),
+        descriptors: z.object({ 0: z.string().min(1), 1: z.string().min(1), 2: z.string().min(1), 3: z.string().min(1) }),
+      }),
+    )
+    .min(4, "Rubrics need 4–6 criteria")
+    .max(6, "Rubrics need 4–6 criteria"),
+});
+
+export const assignmentFrontMatterSchema = z.object({
+  slug,
+  module: slug,
+  title: z.string().min(3),
+  form: z.enum(["SCRUM_RETRO_PLAN", "QA_CHECKOUT_TESTING"]),
+  rubric: slug,
+});
+
+export type RubricFile = z.infer<typeof rubricSchema>;
+
 export const glossaryFileSchema = z.object({ terms: z.array(glossaryEntrySchema) });
 
 export type LessonFrontMatter = z.infer<typeof lessonFrontMatterSchema>;

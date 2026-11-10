@@ -1,0 +1,605 @@
+# QA Tester Module 1 bank. Terms aligned with ISTQB Foundation Level; no exam questions copied or paraphrased.
+slug: testing-foundations-assessment
+title: Testing foundations – module assessment
+purpose: MODULE
+module: testing-foundations
+questions:
+- key: qaa-01
+  type: SINGLE
+  objective: Explain why software is tested and what testing can and can't do
+  lessonRef:
+    lesson: why-testing-matters
+    section: explanation
+  stem: Which of these is a reason to test software?
+  options:
+  - id: a
+    text: To give the team information for decisions, such as whether it's ready to release
+    correct: true
+    explanation: Correct. Testing provides information as well as finding defects.
+  - id: b
+    text: To prove the software is perfect
+    explanation: Testing can't prove there are no defects.
+  - id: c
+    text: To find out which developer made a mistake
+    explanation: Testing is about the product's quality, not blame.
+  - id: d
+    text: To make development finish sooner
+    explanation: Testing can save time overall, but its purpose is to reduce risk and inform decisions.
+- key: qaa-02
+  type: SINGLE
+  objective: Explain why software is tested and what testing can and can't do
+  lessonRef:
+    lesson: why-testing-matters
+    section: explanation
+  stem: A tester reviews a user story before anything is built and spots a missing rule. What is this an example
+    of?
+  options:
+  - id: a
+    text: Testing helping to prevent defects
+    correct: true
+    explanation: Correct. Reviewing requirements is a testing activity that helps prevent defects.
+  - id: b
+    text: Debugging
+    explanation: Debugging is finding and fixing the cause of a failure in code.
+  - id: c
+    text: Regression testing
+    explanation: Regression testing checks nothing broke after a change.
+  - id: d
+    text: Acceptance testing
+    explanation: Acceptance testing checks finished software against users' needs.
+- key: qaa-03
+  type: SINGLE
+  objective: Explain why software is tested and what testing can and can't do
+  lessonRef:
+    lesson: why-testing-matters
+    section: workplace-example
+  stem: In the ShopEasy discount story, what were the costs of the defect reaching customers?
+  options:
+  - id: a
+    text: Lost money, support complaints, developers interrupted and days of finance checks
+    correct: true
+    explanation: Correct. Defects found late cost much more than the fix itself.
+  - id: b
+    text: Only the 1p per order
+    explanation: The direct loss was small, but the knock-on costs were much bigger.
+  - id: c
+    text: Nothing, because it was fixed
+    explanation: Fixing it took time from many people, and customers were affected.
+  - id: d
+    text: Only the developer's time
+    explanation: Support, finance and customers were all affected.
+- key: qaa-04
+  type: SINGLE
+  objective: Explain the difference between quality assurance and testing
+  lessonRef:
+    lesson: why-testing-matters
+    section: explanation
+  stem: Which statement about quality assurance (QA) and testing is accurate?
+  options:
+  - id: a
+    text: QA focuses on the process and preventing problems; testing checks the product
+    correct: true
+    explanation: Correct. Testing is a major form of quality control.
+  - id: b
+    text: They mean exactly the same thing
+    explanation: People often use them interchangeably, but they focus on different things.
+  - id: c
+    text: Only testers are responsible for quality assurance
+    explanation: The whole team is responsible for quality assurance.
+  - id: d
+    text: Testing is about the process; QA is about the product
+    explanation: It's the other way round.
+- key: qaa-05
+  type: SINGLE
+  objective: Explain the difference between quality assurance and testing
+  lessonRef:
+    lesson: why-testing-matters
+    section: workplace-example
+  stem: After the discount defect, ShopEasy changed its process so that every discount rule is reviewed before coding
+    starts. Is changing the process quality assurance or quality control?
+  options:
+  - id: a
+    text: Quality assurance – it improves the process to prevent problems
+    correct: true
+    explanation: Correct.
+  - id: b
+    text: Quality control – it checks the product
+    explanation: Quality control checks a product. Here the team is changing how it works, to prevent problems.
+  - id: c
+    text: Neither – it's project management
+    explanation: It's a quality assurance practice.
+  - id: d
+    text: Debugging
+    explanation: Debugging fixes a failure in code. This prevents defects.
+- key: qaa-06
+  type: SINGLE
+  objective: Tell apart an error, a defect and a failure
+  lessonRef:
+    lesson: why-testing-matters
+    section: explanation
+  stem: What is a defect?
+  options:
+  - id: a
+    text: A flaw in the software or a document that can cause it to behave wrongly
+    correct: true
+    explanation: Correct. Also called a bug or a fault.
+  - id: b
+    text: A human mistake
+    explanation: That's an error. The defect is what the error leaves behind.
+  - id: c
+    text: What a user sees when the software goes wrong
+    explanation: That's a failure.
+  - id: d
+    text: A feature request
+    explanation: A feature request is a new need, not a flaw.
+- key: qaa-07
+  type: SINGLE
+  objective: Tell apart an error, a defect and a failure
+  lessonRef:
+    lesson: why-testing-matters
+    section: explanation
+  stem: Does every defect cause a failure?
+  options:
+  - id: a
+    text: No – some only cause a failure in particular situations, and some never do
+    correct: true
+    explanation: Correct. The £50 defect only shows up at exactly £50.00.
+  - id: b
+    text: Yes, every time the software runs
+    explanation: Many defects only show up in particular conditions.
+  - id: c
+    text: Only defects in the database
+    explanation: Any defect may or may not cause a failure, wherever it is.
+  - id: d
+    text: Only if a tester finds it
+    explanation: Failures happen in use whether or not a tester has found the defect.
+- key: qaa-08
+  type: SINGLE
+  objective: Tell apart an error, a defect and a failure
+  lessonRef:
+    lesson: why-testing-matters
+    section: explanation
+  stem: Who usually does debugging?
+  options:
+  - id: a
+    text: Developers, after testing has shown a failure
+    correct: true
+    explanation: Correct. Testing finds failures; debugging finds and fixes the cause.
+  - id: b
+    text: Testers, instead of writing defect reports
+    explanation: Testers report failures; developers usually debug.
+  - id: c
+    text: Customers
+    explanation: Customers may report failures, but debugging is done by the team.
+  - id: d
+    text: The Product Owner
+    explanation: Debugging is technical work, usually done by developers.
+- key: qaa-09
+  type: SINGLE
+  objective: Tell apart an error, a defect and a failure
+  lessonRef:
+    lesson: why-testing-matters
+    section: worked-example
+  stem: What was the root cause of the £0.00 mug defect, according to the team?
+  options:
+  - id: a
+    text: Limits were easy to miss in the requirement
+    correct: true
+    explanation: Correct. Fixing the root cause prevents similar defects.
+  - id: b
+    text: The customer typed 0
+    explanation: That triggered the failure, but it isn't the root cause.
+  - id: c
+    text: The tester didn't test it
+    explanation: The defect was introduced earlier; the root cause was in how the requirement was written.
+  - id: d
+    text: The developer was careless
+    explanation: Blaming a person isn't a root cause. The team found the requirement made the limit easy to miss.
+- key: qaa-10
+  type: SINGLE
+  objective: Explain each of the seven testing principles in plain words
+  lessonRef:
+    lesson: seven-testing-principles
+    section: explanation
+  stem: '"Testing shows the presence, not the absence, of defects." What does this mean in practice?'
+  options:
+  - id: a
+    text: Report what you tested and the remaining risks, not "it's bug-free"
+    correct: true
+    explanation: Correct.
+  - id: b
+    text: Stop testing once you find one defect
+    explanation: Finding one defect doesn't mean there aren't others.
+  - id: c
+    text: Never release software
+    explanation: It means being honest about remaining risk, not never releasing.
+  - id: d
+    text: Only test areas that have defects
+    explanation: That isn't what the principle says.
+- key: qaa-11
+  type: SINGLE
+  objective: Explain each of the seven testing principles in plain words
+  lessonRef:
+    lesson: seven-testing-principles
+    section: explanation
+  stem: Why is exhaustive testing impossible for a checkout?
+  options:
+  - id: a
+    text: There are far too many combinations of products, quantities, codes, addresses and devices
+    correct: true
+    explanation: Correct. Testers choose tests using techniques and risk.
+  - id: b
+    text: Checkouts are too simple to test
+    explanation: Checkouts are complex – that's why exhaustive testing isn't possible.
+  - id: c
+    text: The checkout changes too rarely to need it
+    explanation: How often it changes doesn't matter – there are simply too many combinations.
+  - id: d
+    text: Automated tests make it unnecessary
+    explanation: Even automated tests can't cover every combination.
+- key: qaa-12
+  type: SINGLE
+  objective: Explain each of the seven testing principles in plain words
+  lessonRef:
+    lesson: seven-testing-principles
+    section: explanation
+  stem: What is defect clustering?
+  options:
+  - id: a
+    text: Most defects tend to be in a small number of areas
+    correct: true
+    explanation: Correct. Where you find one, look for more nearby.
+  - id: b
+    text: Grouping defect reports by severity
+    explanation: That's sorting reports, not the principle.
+  - id: c
+    text: When several testers find the same defect
+    explanation: That's a duplicate, not clustering.
+  - id: d
+    text: Defects that only appear on phones
+    explanation: Clustering is about defects concentrating in certain areas.
+- key: qaa-13
+  type: SINGLE
+  objective: Explain each of the seven testing principles in plain words
+  lessonRef:
+    lesson: seven-testing-principles
+    section: explanation
+  stem: '"Testing is context dependent." Which example shows this?'
+  options:
+  - id: a
+    text: A hospital's medicine app needs more rigorous testing than a small shop's website
+    correct: true
+    explanation: Correct. There's no single right way to test.
+  - id: b
+    text: Every project should use exactly the same tests
+    explanation: That's the opposite of context dependent.
+  - id: c
+    text: Testing only matters for big companies
+    explanation: All software benefits from testing – the approach depends on the context.
+  - id: d
+    text: Testers decide context by themselves
+    explanation: Context comes from the product, users and risks.
+- key: qaa-14
+  type: SINGLE
+  objective: Explain each of the seven testing principles in plain words
+  lessonRef:
+    lesson: seven-testing-principles
+    section: workplace-example
+  stem: ShopEasy's returns page passed every test, but customers still couldn't find it. Which principle is this?
+  options:
+  - id: a
+    text: Absence-of-defects fallacy
+    correct: true
+    explanation: Correct. It worked, but didn't meet users' needs.
+  - id: b
+    text: Tests wear out
+    explanation: That's about repeated tests no longer finding defects.
+  - id: c
+    text: Early testing saves time and money
+    explanation: That's about when testing starts.
+  - id: d
+    text: Defects cluster together
+    explanation: That's about where defects concentrate.
+- key: qaa-15
+  type: SINGLE
+  objective: Apply the principles to decide how to approach testing a change
+  lessonRef:
+    lesson: seven-testing-principles
+    section: workplace-example
+  stem: ShopEasy's 20 checkout tests haven't found a defect in months. What should Asha do?
+  options:
+  - id: a
+    text: Review them and add new tests for recent changes
+    correct: true
+    explanation: Correct. Tests wear out – keep them fresh.
+  - id: b
+    text: Stop testing the checkout
+    explanation: Checkout is high risk. The tests need updating, not removing.
+  - id: c
+    text: Run the same tests twice as often
+    explanation: Repeating them more won't find new kinds of defect.
+  - id: d
+    text: Assume the checkout has no defects
+    explanation: Passing tests don't prove there are no defects.
+- key: qaa-16
+  type: SINGLE
+  objective: Apply the principles to decide how to approach testing a change
+  lessonRef:
+    lesson: seven-testing-principles
+    section: worked-example
+  stem: Asha has half a day to test "Choose a delivery day". Which approach best fits the principles?
+  options:
+  - id: a
+    text: Pick representative dates, focus extra time on the checkout total, and ask users to try it
+    correct: true
+    explanation: Correct. It uses risk, clustering and the absence-of-defects fallacy.
+  - id: b
+    text: Try every date for the next ten years
+    explanation: Exhaustive testing is impossible.
+  - id: c
+    text: Test only that the page loads
+    explanation: That misses the riskiest parts.
+  - id: d
+    text: Wait until customers report problems
+    explanation: Testing early is much cheaper.
+- key: qaa-17
+  type: SINGLE
+  objective: Apply the principles to decide how to approach testing a change
+  lessonRef:
+    lesson: seven-testing-principles
+    section: guided-practice
+  stem: A manager says testers should only start when developers have finished. Which principle would you point
+    to?
+  options:
+  - id: a
+    text: Early testing saves time and money
+    correct: true
+    explanation: Correct. Problems found early are cheaper to fix.
+  - id: b
+    text: Tests wear out
+    explanation: That's about repeating tests.
+  - id: c
+    text: Defects cluster together
+    explanation: That's about where defects are found.
+  - id: d
+    text: Testing is context dependent
+    explanation: That's about adapting the approach, not when to start.
+- key: qaa-18
+  type: SINGLE
+  objective: Describe the main test levels and what each one focuses on
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: What does integration testing focus on?
+  options:
+  - id: a
+    text: How parts of the software, or separate systems, work together
+    correct: true
+    explanation: Correct – for example ShopEasy talking to the payment company.
+  - id: b
+    text: One small part on its own
+    explanation: That's component (unit) testing.
+  - id: c
+    text: Whether users' needs are met
+    explanation: That's acceptance testing.
+  - id: d
+    text: How fast the website loads
+    explanation: That's a non-functional test type, which can happen at any level.
+- key: qaa-19
+  type: SINGLE
+  objective: Describe the main test levels and what each one focuses on
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: workplace-example
+  stem: Two people from customer support try the new delivery charges with typical orders and confirm they match
+    the published policy. Which level is this?
+  options:
+  - id: a
+    text: Acceptance testing
+    correct: true
+    explanation: Correct. Business users confirm it meets their needs.
+  - id: b
+    text: Component testing
+    explanation: Component testing checks one small part on its own.
+  - id: c
+    text: Integration testing
+    explanation: Integration testing checks parts working together.
+  - id: d
+    text: Regression testing
+    explanation: Regression testing is a type of testing after a change, not this level.
+- key: qaa-20
+  type: SINGLE
+  objective: Describe the main test levels and what each one focuses on
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: Asha places complete orders on the test site, from browsing to confirmation email. Which level is this?
+  options:
+  - id: a
+    text: System testing
+    correct: true
+    explanation: Correct. It tests the whole system end to end.
+  - id: b
+    text: Component testing
+    explanation: That's one small part on its own.
+  - id: c
+    text: Acceptance testing
+    explanation: Acceptance testing is about users' and business needs, often done by them.
+  - id: d
+    text: Debugging
+    explanation: Debugging is finding and fixing causes of failures.
+- key: qaa-21
+  type: SINGLE
+  objective: Describe the main test levels and what each one focuses on
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: What is user acceptance testing (UAT)?
+  options:
+  - id: a
+    text: Acceptance testing by real users or their representatives
+    correct: true
+    explanation: Correct. It's a common first role for people moving into testing.
+  - id: b
+    text: Testing by developers before they share code
+    explanation: That's usually component testing.
+  - id: c
+    text: Automated testing of the user interface
+    explanation: UAT is about users confirming it meets their needs.
+  - id: d
+    text: Testing user passwords
+    explanation: That would be part of security testing.
+- key: qaa-22
+  type: SINGLE
+  objective: Tell apart functional and non-functional testing, and confirmation and regression testing
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: Which of these is functional testing?
+  options:
+  - id: a
+    text: Checking SAVE10 takes 10% off an order of £30
+    correct: true
+    explanation: Correct. It tests what the software does.
+  - id: b
+    text: Checking the site copes with 5,000 shoppers at once
+    explanation: That's non-functional – how well it performs.
+  - id: c
+    text: Checking the checkout works with only a keyboard
+    explanation: That's accessibility – non-functional.
+  - id: d
+    text: Checking customer data is encrypted
+    explanation: That's security – non-functional.
+- key: qaa-23
+  type: SINGLE
+  objective: Tell apart functional and non-functional testing, and confirmation and regression testing
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: What is regression testing for?
+  options:
+  - id: a
+    text: Checking that a change hasn't broken something that used to work
+    correct: true
+    explanation: Correct.
+  - id: b
+    text: Checking that a specific defect has been fixed
+    explanation: That's confirmation testing (retesting).
+  - id: c
+    text: Testing a brand-new feature for the first time
+    explanation: New features need testing, but regression testing looks at existing features after a change.
+  - id: d
+    text: Testing old versions of the software
+    explanation: It tests the current version for things that used to work.
+- key: qaa-24
+  type: SINGLE
+  objective: Tell apart functional and non-functional testing, and confirmation and regression testing
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: guided-practice
+  stem: The postcode defect has been fixed. Which testing should follow?
+  options:
+  - id: a
+    text: Retest the postcode case, then run regression tests on the checkout
+    correct: true
+    explanation: Correct. Both are needed after a change.
+  - id: b
+    text: Only retest the postcode case
+    explanation: That misses anything the fix may have broken.
+  - id: c
+    text: Only run regression tests
+    explanation: That might not check the specific case that failed.
+  - id: d
+    text: No testing – the developer says it's fixed
+    explanation: Fixes need confirming and the area needs regression testing.
+- key: qaa-25
+  type: SINGLE
+  objective: Use likelihood and impact to decide what to test first
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: In risk-based testing, what two things decide the level of a risk?
+  options:
+  - id: a
+    text: Likelihood and impact
+    correct: true
+    explanation: Correct. High likelihood and high impact gets tested first.
+  - id: b
+    text: How long the feature took to build and how many people used it
+    explanation: Those may inform likelihood or impact, but risk level is likelihood and impact.
+  - id: c
+    text: Who wrote the code and when
+    explanation: Those might affect likelihood, but risk is likelihood and impact.
+  - id: d
+    text: The number of testers and the deadline
+    explanation: Those affect how much can be tested, not the risk itself.
+- key: qaa-26
+  type: SCENARIO
+  objective: Use likelihood and impact to decide what to test first
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: worked-example
+  scenario: Asha has one hour before a release containing four small changes.
+  stem: Which should Asha test first?
+  options:
+  - id: a
+    text: A new discount rule that changes prices
+    correct: true
+    explanation: Correct. Price rules are complex and have gone wrong before (likely), and wrong prices hurt customers
+      and the business (high impact).
+  - id: b
+    text: A typo fix on the "About us" page
+    explanation: Low likelihood and low impact.
+  - id: c
+    text: Moving the footer links
+    explanation: Low likelihood and low impact.
+  - id: d
+    text: Changing the font of the blog
+    explanation: Low impact.
+- key: qaa-27
+  type: MULTI
+  objective: Tell apart functional and non-functional testing, and confirmation and regression testing
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: Which TWO are non-functional testing?
+  options:
+  - id: a
+    text: Checking the site still responds quickly with 5,000 shoppers
+    correct: true
+    explanation: Correct. Performance is about how well it works.
+  - id: b
+    text: Checking the checkout can be completed with only a keyboard
+    correct: true
+    explanation: Correct. Accessibility is non-functional.
+  - id: c
+    text: Checking SAVE10 takes 10% off
+    explanation: That's what the software does – functional.
+  - id: d
+    text: Checking a confirmation email is sent
+    explanation: That's what the software does – functional.
+- key: qaa-28
+  type: ORDER
+  objective: Describe the main test levels and what each one focuses on
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: Put these test levels in order, from smallest scope to largest.
+  options:
+  - id: a
+    text: System testing
+    explanation: System testing covers the whole system, after integration.
+  - id: b
+    text: Component testing
+    explanation: Component testing is the smallest – one part on its own.
+  - id: c
+    text: Acceptance testing
+    explanation: Acceptance testing is last – does it meet users' and the business's needs?
+  - id: d
+    text: Integration testing
+    explanation: Integration testing checks parts working together, after component testing.
+  correctOrder:
+  - b
+  - d
+  - a
+  - c

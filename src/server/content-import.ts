@@ -176,5 +176,46 @@ export async function importContent(db: PrismaClient, content: ContentBundle): P
       }
     }
   }
+  // Rubrics (version 1) and assignments; each assignment unlocks when its module assessment is passed.
+  const rubricIds = new Map<string, { id: string; version: number }>();
+  for (const r of content.rubrics) {
+    let rubric = await db.rubric.findFirst({ where: { slug: r.slug }, orderBy: { version: "desc" } });
+    if (!rubric) {
+      rubric = await db.rubric.create({
+        data: {
+          slug: r.slug,
+          version: 1,
+          title: r.title,
+          minimumRule: r.minimumRule,
+          criteria: {
+            create: r.criteria.map((c, i) => ({ key: c.key, title: c.title, autoCheck: c.autoCheck ?? null, descriptors: c.descriptors, order: i + 1 })),
+          },
+        },
+      });
+      report.created.push(`rubric ${r.slug}`);
+    }
+    rubricIds.set(r.slug, { id: rubric.id, version: rubric.version });
+  }
+  for (const a of content.assignments) {
+    if (await db.assignment.findUnique({ where: { slug: a.meta.slug } })) continue;
+    const moduleId = moduleIds.get(a.meta.module)!;
+    const assignment = await db.assignment.create({
+      data: {
+        slug: a.meta.slug,
+        moduleId,
+        title: a.meta.title,
+        briefMarkdown: a.brief,
+        formKind: a.meta.form,
+        rubricId: rubricIds.get(a.meta.rubric)!.id,
+      },
+    });
+    report.created.push(`assignment ${a.meta.slug}`);
+    const moduleAssessment = await db.assessment.findFirst({ where: { moduleId, kind: "MODULE" } });
+    if (moduleAssessment) {
+      await db.prerequisite.create({
+        data: { targetType: "ASSIGNMENT", targetId: assignment.id, requirement: "ASSESSMENT_PASSED", requiredId: moduleAssessment.id },
+      });
+    }
+  }
   return report;
 }

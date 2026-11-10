@@ -1,0 +1,81 @@
+slug: scrum-l1-check
+title: The Scrum Team – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: the-scrum-team
+questions:
+- key: sm1-kc-01
+  type: SINGLE
+  objective: Describe the three accountabilities in a Scrum Team
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: Who is accountable for ordering the Product Backlog?
+  options:
+  - id: a
+    text: The Product Owner
+    correct: true
+    explanation: Correct. Managing and ordering the Product Backlog is part of the Product Owner's accountability.
+  - id: b
+    text: The Scrum Master
+    explanation: The Scrum Master can help the Product Owner with techniques, but the Product Owner is accountable
+      for the order.
+  - id: c
+    text: The Developers, as a group
+    explanation: The Developers give input and may help, but the Product Owner is accountable for ordering the Product
+      Backlog.
+- key: sm1-kc-02
+  type: SINGLE
+  objective: Explain how a Scrum Master serves the team, the Product Owner and the organisation
+  lessonRef:
+    lesson: the-scrum-team
+    section: worked-example
+  stem: Which of these is part of the Scrum Master's accountability?
+  options:
+  - id: a
+    text: Making sure the Scrum events take place and are useful
+    correct: true
+    explanation: Correct. The Scrum Master helps the events happen and be positive, productive and within their
+      timebox.
+  - id: b
+    text: Deciding which developer works on which task
+    explanation: The Developers are self-managing – they decide who does what.
+  - id: c
+    text: Taking the minutes at every meeting
+    explanation: Note-taking isn't part of the role. The team agrees how it records decisions.
+- key: sm1-kc-03
+  type: SINGLE
+  objective: Name the five Scrum values and recognise them in action
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: A developer tells the team she's stuck and needs help, even though she's worried it looks bad. Which Scrum
+    value is she showing?
+  options:
+  - id: a
+    text: Openness
+    correct: true
+    explanation: Correct. Being open about the work and its challenges helps the team inspect and adapt.
+  - id: b
+    text: Focus
+    explanation: Focus is about concentrating on the Sprint's work. Saying she's stuck is openness (and some courage).
+  - id: c
+    text: Commitment
+    explanation: Commitment is about dedication to the team's goals. Admitting a problem is openness.
+- key: sm1-kc-04
+  type: SINGLE
+  objective: Describe the three accountabilities in a Scrum Team
+  lessonRef:
+    lesson: the-scrum-team
+    section: explanation
+  stem: What does "self-managing" mean for a Scrum Team?
+  options:
+  - id: a
+    text: The team decides who does what, when and how
+    correct: true
+    explanation: Correct. The Scrum Guide describes Scrum Teams as self-managing.
+  - id: b
+    text: The team has no Product Owner
+    explanation: Every Scrum Team has one Product Owner. Self-managing is about how the team organises its own work.
+  - id: c
+    text: The team doesn't need to follow any events
+    explanation: Self-managing teams still use the Scrum events. They decide how to do their work.

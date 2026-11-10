@@ -1,10 +1,12 @@
 import { expect, test, type Page } from "@playwright/test";
-import { createLearner, db, markModuleComplete } from "./helpers/db";
+import { createLearner, db, markModuleComplete, passAssessment } from "./helpers/db";
 import { expectNoHorizontalScroll, expectNoSeriousA11yViolations, login, loginAsAdmin, logout } from "./helpers/ui";
 
 async function learnerPages(page: Page) {
   const learner = await createLearner("a11y");
   await markModuleComplete(learner.id);
+  await passAssessment(learner.id, "scrum-fundamentals-assessment");
+  await passAssessment(learner.id, "testing-foundations-assessment");
   await login(page, learner.email, learner.password);
   // Create an attempt so the attempt and result pages exist.
   await page.goto("/assessments/foundations-assessment");
@@ -29,6 +31,10 @@ async function learnerPages(page: Page) {
     "/assessments/foundations-assessment",
     attemptUrl.replace(/\/result$/, ""),
     resultUrl,
+    "/learn/the-scrum-team?section=explanation",
+    "/learn/levels-types-and-risk?section=worked-example",
+    "/assignments/scrum-team-diagnosis",
+    "/assignments/checkout-testing",
     "/review",
     "/notes",
     "/bookmarks",
@@ -83,6 +89,7 @@ test("AC14: no serious accessibility violations on key pages (axe)", async ({ pa
     `/admin/assessments/${assessment.id}`,
     "/admin/users",
     "/admin/audit-log",
+    "/admin/submissions",
   ]) {
     await page.goto(url);
     await expectNoSeriousA11yViolations(page);

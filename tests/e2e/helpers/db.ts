@@ -51,3 +51,13 @@ export async function attemptSnapshots(attemptId: string) {
 export async function setPassMark(slug: string, passMark: number) {
   await db.assessment.update({ where: { slug }, data: { passMark } });
 }
+
+/** Marks a module assessment as passed (unlocks that module's assignment). */
+export async function passAssessment(userId: string, slug: string) {
+  const a = await db.assessment.findUniqueOrThrow({ where: { slug } });
+  await db.assessmentStatus.upsert({
+    where: { userId_assessmentId: { userId, assessmentId: a.id } },
+    create: { userId, assessmentId: a.id, bestScore: 90, attemptsCount: 1, passedAt: new Date() },
+    update: { passedAt: new Date() },
+  });
+}

@@ -45,6 +45,23 @@ function rehypeGlossaryClass() {
   };
 }
 
+/** Wraps tables in a scrollable, keyboard-focusable region so wide tables don't break small screens. */
+function rehypeScrollableTables() {
+  return (tree: HastRoot) => {
+    visit(tree, "element", (el: Element, index, parent) => {
+      if (el.tagName !== "table" || !parent || index === undefined) return;
+      const wrapper: Element = {
+        type: "element",
+        tagName: "div",
+        properties: { className: ["table-scroll"], tabIndex: 0, role: "region", ariaLabel: "Table (scrolls sideways on small screens)" },
+        children: [el],
+      };
+      (parent.children as Element[])[index] = wrapper;
+      return index + 1;
+    });
+  };
+}
+
 const schema = {
   ...defaultSchema,
   clobberPrefix: "",
@@ -64,6 +81,7 @@ const processor = unified()
   .use(remarkRehype)
   .use(rehypeSanitize, schema)
   .use(rehypeGlossaryClass)
+  .use(rehypeScrollableTables)
   .use(rehypeStringify);
 
 export function renderMarkdown(markdown: string): string {

@@ -1,0 +1,42 @@
+slug: checkout-testing
+title: Checkout test cases and defect reports
+minimumRule: { minEach: 2 }
+criteria:
+  - key: test-case-completeness
+    title: Complete test cases
+    autoCheck: testCasesComplete
+    descriptors:
+      0: Fewer than four complete test cases.
+      1: Four or five complete test cases.
+      2: At least six complete test cases, but some others are incomplete.
+      3: At least six test cases, all with title, what it tests, technique, test data, steps and expected result.
+  - key: boundary-coverage
+    title: Boundary value coverage
+    autoCheck: boundaryCoverage
+    descriptors:
+      0: None of the three numeric rules has its boundaries tested.
+      1: The boundaries of one numeric rule are covered.
+      2: The boundaries of two numeric rules are covered.
+      3: All three numeric rules have both sides of each boundary tested.
+  - key: defects-identified
+    title: Defects identified
+    autoCheck: defectsIdentified
+    descriptors:
+      0: Fewer than two real defects reported.
+      1: Two real defects reported.
+      2: Three or more real defects reported, but some are only partly described.
+      3: Three or more real defects, each clearly described.
+  - key: report-quality
+    title: Clarity of defect reports
+    descriptors:
+      0: Reports can't be reproduced or understood.
+      1: Some reports are clear, but steps or expected and actual results are vague.
+      2: Reports have reproducible steps and clear expected and actual results.
+      3: As 2, and titles are specific, environments are stated and reports are concise.
+  - key: severity-priority
+    title: Severity and priority judgement
+    descriptors:
+      0: Severity and priority missing or clearly unreasonable.
+      1: Some ratings are sensible, but severity and priority are confused.
+      2: Sensible severity and priority for each report.
+      3: As 2, and the ratings reflect the impact on customers and the business, with differences between severity and priority where appropriate.

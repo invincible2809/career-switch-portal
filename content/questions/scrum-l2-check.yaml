@@ -1,0 +1,102 @@
+slug: scrum-l2-check
+title: Events, artifacts and commitments – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: events-artifacts-commitments
+questions:
+- key: sm2-kc-01
+  type: SINGLE
+  objective: Describe the purpose of each of the five Scrum events and their time limits
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: What is the Daily Scrum for?
+  options:
+  - id: a
+    text: For the Developers to inspect progress towards the Sprint Goal and adapt their plan
+    correct: true
+    explanation: Correct. It's a 15-minute event for the Developers.
+  - id: b
+    text: For the Developers to report their status to the Scrum Master
+    explanation: It isn't a status report. It's for the Developers to plan together.
+  - id: c
+    text: For stakeholders to give feedback on the product
+    explanation: That happens at the Sprint Review.
+- key: sm2-kc-02
+  type: SINGLE
+  objective: Describe the three artifacts and the commitment that goes with each
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: Which commitment goes with the Increment?
+  options:
+  - id: a
+    text: The Definition of Done
+    correct: true
+    explanation: Correct. Every Increment must meet the Definition of Done.
+  - id: b
+    text: The Sprint Goal
+    explanation: The Sprint Goal is the commitment for the Sprint Backlog.
+  - id: c
+    text: The Product Goal
+    explanation: The Product Goal is the commitment for the Product Backlog.
+- key: sm2-kc-03
+  type: SINGLE
+  objective: Explain what can and can't change during a Sprint
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: worked-example
+  stem: Halfway through a Sprint, someone suggests skipping accessibility checks that are in the Definition of Done,
+    to finish faster. What does the Scrum Guide say?
+  options:
+  - id: a
+    text: Quality does not decrease during the Sprint
+    correct: true
+    explanation: Correct. Skipping parts of the Definition of Done would lower quality.
+  - id: b
+    text: It's fine if the Scrum Master agrees
+    explanation: No one can lower quality during a Sprint – the Scrum Master included.
+  - id: c
+    text: It's fine as long as the Sprint Goal is met
+    explanation: Meeting the Sprint Goal doesn't allow quality to drop.
+- key: sm2-kc-04
+  type: ORDER
+  objective: Describe the purpose of each of the five Scrum events and their time limits
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: Put these Scrum events in the order they happen in a Sprint.
+  options:
+  - id: a
+    text: Sprint Retrospective
+    explanation: The Retrospective is the last event in the Sprint.
+  - id: b
+    text: Sprint Planning
+    explanation: Sprint Planning starts the Sprint.
+  - id: c
+    text: Sprint Review
+    explanation: The Sprint Review comes near the end, before the Retrospective.
+  correctOrder:
+  - b
+  - c
+  - a
+- key: sm2-kc-05
+  type: SINGLE
+  objective: Describe the purpose of each of the five Scrum events and their time limits
+  lessonRef:
+    lesson: events-artifacts-commitments
+    section: explanation
+  stem: How long is the Daily Scrum?
+  options:
+  - id: a
+    text: 15 minutes
+    correct: true
+    explanation: Correct. The Daily Scrum is always 15 minutes, whatever the Sprint length.
+  - id: b
+    text: Up to an hour
+    explanation: The Daily Scrum's timebox is 15 minutes.
+  - id: c
+    text: As long as the team needs
+    explanation: Every Scrum event has a timebox. For the Daily Scrum it's 15 minutes.
+  - id: d
+    text: 30 minutes for a two-week Sprint
+    explanation: The Daily Scrum doesn't change with Sprint length – it's 15 minutes.

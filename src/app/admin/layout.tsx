@@ -6,6 +6,7 @@ const links = [
   { href: "/admin/curriculum", label: "Curriculum" },
   { href: "/admin/question-banks", label: "Question banks" },
   { href: "/admin/assessments", label: "Assessments" },
+  { href: "/admin/submissions", label: "Submissions" },
   { href: "/admin/users", label: "Users" },
   { href: "/admin/audit-log", label: "Audit log" },
 ];

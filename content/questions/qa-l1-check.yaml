@@ -1,0 +1,80 @@
+slug: qa-l1-check
+title: Why testing matters – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: why-testing-matters
+questions:
+- key: qa1-kc-01
+  type: SINGLE
+  objective: Explain why software is tested and what testing can and can't do
+  lessonRef:
+    lesson: why-testing-matters
+    section: explanation
+  stem: Can testing prove that software has no defects?
+  options:
+  - id: a
+    text: No – it reduces risk but can't prove there are none left
+    correct: true
+    explanation: Correct. Testing shows defects are present; it can't show they're absent.
+  - id: b
+    text: Yes, if every test passes
+    explanation: Passing tests lower the risk, but other defects may remain untested.
+  - id: c
+    text: Yes, if testers work long enough
+    explanation: Testing every possibility isn't possible, so it can't prove there are no defects.
+- key: qa1-kc-02
+  type: SINGLE
+  objective: Explain the difference between quality assurance and testing
+  lessonRef:
+    lesson: why-testing-matters
+    section: explanation
+  stem: Which of these is quality assurance rather than testing?
+  options:
+  - id: a
+    text: Agreeing a Definition of Done that includes accessibility checks
+    correct: true
+    explanation: Correct. It improves the process to prevent problems.
+  - id: b
+    text: Trying the checkout on three phone sizes
+    explanation: That checks the product – it's testing, a form of quality control.
+  - id: c
+    text: Entering £50.00 to check delivery is free
+    explanation: That checks the product – it's testing.
+- key: qa1-kc-03
+  type: SINGLE
+  objective: Tell apart an error, a defect and a failure
+  lessonRef:
+    lesson: why-testing-matters
+    section: explanation
+  stem: A developer misreads "£50 or more" and writes code for "more than £50". What is the misreading?
+  options:
+  - id: a
+    text: An error
+    correct: true
+    explanation: Correct. The error is the human mistake.
+  - id: b
+    text: A defect
+    explanation: The defect is what's left in the code because of the error.
+  - id: c
+    text: A failure
+    explanation: The failure is what happens when the code runs – a customer charged wrongly.
+- key: qa1-kc-04
+  type: ORDER
+  objective: Tell apart an error, a defect and a failure
+  lessonRef:
+    lesson: why-testing-matters
+    section: worked-example
+  stem: Put these in the order they happen.
+  options:
+  - id: a
+    text: Failure – a customer checks out with a £0.00 mug
+    explanation: The failure is last – it's what users see when the defect is triggered.
+  - id: b
+    text: Error – the developer forgets the lower limit
+    explanation: The error comes first – a human mistake.
+  - id: c
+    text: Defect – the code has no lower limit on quantity
+    explanation: The defect is the flaw the error leaves in the code.
+  correctOrder:
+  - b
+  - c
+  - a

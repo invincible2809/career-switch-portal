@@ -1,0 +1,41 @@
+slug: scrum-team-diagnosis
+title: Diagnosis, impediment log and retrospective plan
+minimumRule: { minEach: 2 }
+criteria:
+  - key: diagnosis
+    title: Diagnosis of the team's problems
+    descriptors:
+      0: No diagnosis, or it only repeats the scenario.
+      1: Names symptoms but not likely causes, or blames individuals.
+      2: Names at least two likely causes, linked to evidence in the scenario.
+      3: As 2, and explains how the causes affect each other and the Sprint Goal, using Scrum Guide ideas accurately.
+  - key: impediment-log
+    title: Impediment log
+    autoCheck: impedimentLogComplete
+    descriptors:
+      0: Fewer than two complete impediments.
+      1: Two complete impediments.
+      2: At least three complete impediments, but some other entries are missing details.
+      3: At least three impediments, each with impact, owner, next step and status.
+  - key: scrum-stance
+    title: Scrum accuracy and the Scrum Master's stance
+    descriptors:
+      0: Treats the Scrum Master as a manager who assigns work or decides priorities.
+      1: Mostly accurate, but some actions take decisions away from the Product Owner or Developers.
+      2: Routes product decisions to the Product Owner and leaves how the work is done to the Developers.
+      3: As 2, and protects the Sprint Goal while keeping stakeholder relationships constructive.
+  - key: retro-structure
+    title: Retrospective structure
+    autoCheck: retroPlanStructure
+    descriptors:
+      0: No usable plan, or timings far from 60 minutes.
+      1: A partial plan covering at least three stages, roughly the right length (45–75 minutes).
+      2: A goal and close to 60 minutes, covering most stages.
+      3: A clear goal, exactly 60 minutes and all five stages of the retrospective outline in the form covered.
+  - key: facilitation
+    title: Facilitation and team ownership
+    descriptors:
+      0: The Scrum Master decides the improvements for the team.
+      1: Some activities involve the team, but quieter voices or ownership are overlooked.
+      2: Activities let everyone contribute, and the team chooses its own actions.
+      3: As 2, and the plan ends with specific, owned actions and a way to follow them up.

@@ -1,0 +1,77 @@
+slug: qa-l3-check
+title: Test levels, test types and risk – knowledge check
+purpose: KNOWLEDGE_CHECK
+lesson: levels-types-and-risk
+questions:
+- key: qa3-kc-01
+  type: SINGLE
+  objective: Describe the main test levels and what each one focuses on
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: A developer checks that the function rounding prices to two decimal places works. Which test level is this?
+  options:
+  - id: a
+    text: Component (unit) testing
+    correct: true
+    explanation: Correct. It tests one small part on its own.
+  - id: b
+    text: Acceptance testing
+    explanation: Acceptance testing checks whether the software meets users' needs.
+  - id: c
+    text: System testing
+    explanation: System testing covers the whole system end to end.
+- key: qa3-kc-02
+  type: SINGLE
+  objective: Tell apart functional and non-functional testing, and confirmation and regression testing
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: Which of these is non-functional testing?
+  options:
+  - id: a
+    text: Checking the checkout loads quickly on a slow phone
+    correct: true
+    explanation: Correct. It tests how well the software works, not what it does.
+  - id: b
+    text: Checking SAVE10 takes 10% off
+    explanation: That checks what the software does – functional testing.
+  - id: c
+    text: Checking a confirmation email is sent
+    explanation: That checks what the software does – functional testing.
+- key: qa3-kc-03
+  type: SINGLE
+  objective: Tell apart functional and non-functional testing, and confirmation and regression testing
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: explanation
+  stem: A defect has just been fixed. Testing the exact case that failed is called…
+  options:
+  - id: a
+    text: Confirmation testing (retesting)
+    correct: true
+    explanation: Correct. It confirms the defect has gone.
+  - id: b
+    text: Regression testing
+    explanation: Regression testing checks that nothing else broke. Retesting checks the fix itself.
+  - id: c
+    text: Acceptance testing
+    explanation: Acceptance testing checks whether the software meets users' needs.
+- key: qa3-kc-04
+  type: SINGLE
+  objective: Use likelihood and impact to decide what to test first
+  lessonRef:
+    lesson: levels-types-and-risk
+    section: worked-example
+  stem: Which change should be tested first?
+  options:
+  - id: a
+    text: A brand-new payment provider
+    correct: true
+    explanation: Correct. It's new (high likelihood of problems) and customers couldn't pay if it failed (high impact).
+  - id: b
+    text: New footer links
+    explanation: Simple and low impact – test it, but later.
+  - id: c
+    text: A new colour for the logo
+    explanation: Low likelihood and low impact.

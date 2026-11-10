@@ -9,11 +9,12 @@ export type Action =
   | "assessment:configure"
   | "users:manage"
   | "audit:read"
-  | "reports:read";
+  | "reports:read"
+  | "submissions:assess";
 
 const PERMISSIONS: Record<Role, readonly Action[]> = {
   LEARNER: [],
-  ADMIN: ["admin:access", "content:edit", "content:publish", "assessment:configure", "users:manage", "audit:read", "reports:read"],
+  ADMIN: ["admin:access", "content:edit", "content:publish", "assessment:configure", "users:manage", "audit:read", "reports:read", "submissions:assess"],
 };
 
 export function can(role: Role, action: Action): boolean {
